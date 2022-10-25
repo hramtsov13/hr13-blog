@@ -4,13 +4,17 @@
 		"build": "nuxt build",
 		"dev": "nuxt dev",
 		"generate": "nuxt generate",
-		"preview": "nuxt preview"
+		"preview": "nuxt preview",
+		"lint": "eslint --ext .ts,.js,.vue,.json",
+		"lint:fix": "eslint --ext .ts,.js,.vue,.json --fix"
 	},
 	"devDependencies": {
+		"@babel/eslint-parser": "^7.19.1",
+		"@nuxtjs/eslint-config-typescript": "^11.0.0",
 		"@vueuse/nuxt": "^9.4.0",
 		"autoprefixer": "^10.4.12",
+		"eslint": "^8.26.0",
 		"husky": "^8.0.1",
-		"lint-staged": "^13.0.3",
 		"nuxt": "^3.0.0-rc.12",
 		"nuxt-windicss": "^2.5.2",
 		"postcss": "^8.4.18"
@@ -23,13 +27,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "lint-staged"
+			"pre-commit": "yarn lint:fix"
 		}
-	},
-	"lint-staged": {
-		"*.{ts,vue,json}": [
-			"prettier --single-quote --write",
-			"git add"
-		]
 	}
 }
