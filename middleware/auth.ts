@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware((to, from) => {
   if (to.path === '/auth') {
-    return abortNavigation();
+    return abortNavigation()
   }
-  return navigateTo(to.path);
-});
+  return navigateTo(to.path)
+})

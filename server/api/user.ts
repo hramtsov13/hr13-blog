@@ -3,5 +3,5 @@ export default defineEventHandler(() => {
     nickname: 'hramtsov13',
     age: 24,
     job: 'Frontend dev.',
-  };
-});
+  }
+})

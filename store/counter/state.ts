@@ -5,5 +5,5 @@ export interface IState {
 }
 
 export default (): IState => ({
-  counter: 0
+  counter: 0,
 })

@@ -1,4 +1,4 @@
-import { defineNuxtConfig } from 'nuxt';
+import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
   buildModules: [
@@ -11,4 +11,4 @@ export default defineNuxtConfig({
     ],
     ['@pinia/nuxt'],
   ],
-});
+})

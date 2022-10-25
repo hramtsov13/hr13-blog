@@ -1,18 +1,6 @@
 <template>
   <nav
-    class="
-      absolute
-      top-0
-      left-0
-      right-0
-      h-[60px]
-      px-[2rem]
-      flex
-      items-center
-      justify-between
-      text-white
-      bg-gray-700
-    "
+    class="absolute top-0 left-0 right-0 h-[60px] px-[2rem] flex items-center justify-between text-white bg-gray-700"
   >
     <h2 class="text-[1.5rem]">
       <NuxtLink to="/">Nuxt App</NuxtLink>

@@ -1,6 +1,6 @@
-import plugin from 'windicss/plugin';
-import { defineConfig } from 'windicss/helpers';
-import colors from 'windicss/colors';
+import plugin from 'windicss/plugin'
+import { defineConfig } from 'windicss/helpers'
+import colors from 'windicss/colors'
 
 export default defineConfig({
   darkMode: 'class',
@@ -33,7 +33,7 @@ export default defineConfig({
           '-webkit-text-fill-color': 'transparent',
           backgroundClip: 'text',
         },
-      });
+      })
     }),
   ],
-});
+})

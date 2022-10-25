@@ -7,5 +7,5 @@ export default {
   },
   clearCounter() {
     this.counter = 0
-  }
+  },
 }

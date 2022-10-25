@@ -26,9 +26,9 @@
 </template>
 
 <script lang="ts" setup>
-import useCounterStore from "~/store/counter";
+import useCounterStore from '~/store/counter'
 
-const counterStore = useCounterStore();
+const counterStore = useCounterStore()
 
-const counterValue = computed(() => counterStore.getCounterValue);
+const counterValue = computed(() => counterStore.getCounterValue)
 </script>
