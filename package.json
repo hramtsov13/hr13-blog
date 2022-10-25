@@ -5,7 +5,7 @@
 		"dev": "nuxt dev",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
-		"lint": "eslint --ext .ts,.js,.vue,.json",
+		"lint": "eslint --ext \".ts,.js,.vue\" --ignore-path .gitignore .",
 		"lint:fix": "eslint --fix --ext \".ts,.js,.vue\" --ignore-path .gitignore .",
 		"prepare": "husky install"
 	},
@@ -37,7 +37,7 @@
 		"pinia": "^2.0.23"
 	},
 	"lint-staged": {
-    "**/*.{js,ts,vue}": [
+    "**/*.{.js,.ts,.vue}": [
       "yarn lint:fix"
     ]
 	}
