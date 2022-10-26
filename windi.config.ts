@@ -1,6 +1,6 @@
-import plugin from 'windicss/plugin'
-import { defineConfig } from 'windicss/helpers'
 import colors from 'windicss/colors'
+import { defineConfig } from 'windicss/helpers'
+import plugin from 'windicss/plugin'
 
 export default defineConfig({
   darkMode: 'class',
@@ -20,6 +20,11 @@ export default defineConfig({
       white: '#ffffff',
       blue: '#075985',
       yellow: '#ffd859',
+    },
+    extend: {
+      fontFamily: {
+        mono: ['Source Code Pro'],
+      },
     },
   },
   plugins: [

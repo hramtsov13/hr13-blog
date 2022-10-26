@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="font-mono">
     <TheNavigation />
 
     <div class="mt-16 max-w-[1200px] mx-auto p-[1rem]">
