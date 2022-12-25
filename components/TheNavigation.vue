@@ -1,21 +1,28 @@
-<template>
-  <nav
-    class="absolute top-0 left-0 right-0 h-[60px] px-[2rem] flex items-center justify-between text-white bg-gray-700"
+<!-- <template>
+  <div
+    class="flex space-x-5 items-center justify-center bg-black text-white py-3 sm:py-5"
   >
-    <h2 class="text-[1.5rem]">
-      <NuxtLink to="/">Nuxt App</NuxtLink>
-    </h2>
-
-    <ul class="nav-list list-none m-0 p-0 flex">
-      <li class="mr-3">
-        <NuxtLink class="hover:underline" to="/home">Home</NuxtLink>
-      </li>
-      <li class="mr-3">
-        <NuxtLink class="hover:underline" to="/store">Store</NuxtLink>
-      </li>
-      <li>
-        <NuxtLink class="hover:underline" to="/404">404</NuxtLink>
-      </li>
-    </ul>
-  </nav>
+    <NuxtLink to="/articles">Articles</NuxtLink>
+    <div v-if="$strapi.user === null">
+      <NuxtLink class="border-r px-3" to="/login">Login</NuxtLink>
+      <NuxtLink class="border-r px-3" to="/signup">Signup</NuxtLink>
+    </div>
+    <div v-if="$strapi.user !== null">
+      <span class="border-r px-3">{{ $strapi.user.username }}</span>
+      <NuxtLink class="border-r px-3" to="/new">Create Post</NuxtLink>
+      <button class="pl-3" @click="logout">Logout</button>
+    </div>
+  </div>
 </template>
+<script>
+export default {
+  name: 'Navigation',
+  methods: {
+    async logout() {
+      await this.$strapi.logout()
+      this.$nuxt.$router.push('/')
+    },
+  },
+}
+</script>
+<style></style> -->

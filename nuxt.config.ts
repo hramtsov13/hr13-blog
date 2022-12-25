@@ -1,7 +1,7 @@
-import { defineNuxtConfig } from 'nuxt'
+// import { defineNuxtConfig } from 'nuxt'
 
-export default defineNuxtConfig({
-  buildModules: [
+export default {
+  modules: [
     ['nuxt-windicss'],
     [
       '@intlify/nuxt3',
@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       },
     ],
     ['@pinia/nuxt'],
+    ['@nuxtjs/strapi'],
     [
       '@nuxtjs/google-fonts',
       {
@@ -28,4 +29,13 @@ export default defineNuxtConfig({
       },
     ],
   ],
-})
+
+  strapi: {
+    url: process.env.STRAPI_URL || 'http://localhost:1337',
+    prefix: '/api',
+    version: 'v4',
+    cookie: {},
+    cookieName: 'strapi_jwt',
+    entities: ['articles'],
+  },
+}
