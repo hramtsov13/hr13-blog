@@ -16,7 +16,7 @@ export default defineConfig({
     },
     colors: {
       ...colors,
-      green: '#42d392',
+      green1: '#42d392',
       white: '#ffffff',
       blue: '#075985',
       yellow: '#ffd859',

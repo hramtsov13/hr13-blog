@@ -1,4 +1,7 @@
 {
-  "INDEX_PAGE_TITLE": "Vue&SSR project setup",
-  "INDEX_PAGE_START_BUTTON": "Start"
+  "service": {
+    "login": "Login",
+    "register": "Register",
+    "noValue": "Please, set the value"
+  }
 }

@@ -1,5 +1,6 @@
 <template>
-  <div class="mt-16 max-w-[1200px] mx-auto p-[1rem]">
+  <div class="h-screen">
+    <UiTheNavigation />
     <slot />
   </div>
 </template>

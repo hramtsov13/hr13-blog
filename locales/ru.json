@@ -1,4 +1,7 @@
 {
-  "INDEX_PAGE_TITLE": "Vue&SSR project setup",
-  "INDEX_PAGE_START_BUTTON": "Начать"
+  "service": {
+    "login": "Логин",
+    "register": "Регистрация",
+    "noValue": "Пожалуйста, заполните поле"
+  }
 }

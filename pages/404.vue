@@ -7,7 +7,7 @@
       </template>
     </the-page-header>
     <the-button class="mr-4">
-      <NuxtLink to="/home"> Go Back Button </NuxtLink>
+      <NuxtLink to="/"> Go Back Button </NuxtLink>
     </the-button>
   </div>
 </template>
