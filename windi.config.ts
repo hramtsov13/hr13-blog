@@ -20,10 +20,14 @@ export default defineConfig({
       white: '#ffffff',
       blue: '#075985',
       yellow: '#ffd859',
+      gray: '#ccc',
     },
     extend: {
       fontFamily: {
         mono: ['Source Code Pro'],
+      },
+      boxShadow: {
+        primary: '25px 26px 72px -27px rgba(204,204,204,0.64)',
       },
     },
   },

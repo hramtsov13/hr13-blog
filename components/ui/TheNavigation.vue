@@ -1,12 +1,12 @@
 <template>
   <div class="container mx-auto py-4">
     <div class="flex justify-end">
-      <UiTheLink class="mr-2.5" @click="$router.push('/login')">
+      <UiTheButton class="mr-2.5" @click="onLoginClick">
         {{ $t('service.login') }}
-      </UiTheLink>
-      <UiTheLink @click="$router.push('/register')">
+      </UiTheButton>
+      <UiTheButton @click="onRegisterClick">
         {{ $t('service.register') }}
-      </UiTheLink>
+      </UiTheButton>
       <UiTheSelect :options="options" />
     </div>
   </div>
@@ -14,4 +14,9 @@
 
 <script setup>
 const options = ref(['en', 'ru', 'de'])
+
+const emit = defineEmits(['onLoginClick', 'onRegisterClick'])
+
+const onLoginClick = () => emit('onLoginClick')
+const onRegisterClick = () => emit('onRegisterClick')
 </script>

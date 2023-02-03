@@ -1,6 +1,6 @@
-import { resolve, dirname } from 'node:path'
-import { fileURLToPath } from 'url'
-import VueI18nVitePlugin from '@intlify/unplugin-vue-i18n/vite'
+// import { resolve, dirname } from 'node:path'
+// import { fileURLToPath } from 'url'
+// import VueI18nVitePlugin from '@intlify/unplugin-vue-i18n/vite'
 
 export default {
   modules: [
@@ -33,13 +33,14 @@ export default {
   ],
 
   vite: {
-    plugins: [
-      VueI18nVitePlugin({
-        include: [
-          resolve(dirname(fileURLToPath(import.meta.url)), './locales/*.json'),
-        ],
-      }),
-    ],
+    // TODO: check why loading locales as functions doesn't work
+    // plugins: [
+    //   VueI18nVitePlugin({
+    //     include: [
+    //       resolve(dirname(fileURLToPath(import.meta.url)), './locales/*.json'),
+    //     ],
+    //   }),
+    // ],
   },
 
   strapi: {

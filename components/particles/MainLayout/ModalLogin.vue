@@ -1,9 +1,8 @@
 <template>
-  <div class="w-4/5 mx-auto md:w-1/2 text-center my-12">
-    <div v-show="error !== ''" class="p-3 border">
-      <p>{{ error }}</p>
-    </div>
-    <h1 class="font-bold text-2xl md:text-4xl mt-5">Login</h1>
+  <UiTheModal
+    :model-value="modelValue"
+    @update:model-value="$emit('update:modelValue', $event)"
+  >
     <form @submit.prevent="onSubmit">
       <div>
         <input
@@ -35,11 +34,20 @@
         </button>
       </div>
     </form>
-  </div>
+  </UiTheModal>
 </template>
 
-<script setup lang="ts">
-import { computed, ref } from 'vue'
+<script lang="ts" setup>
+interface IModalLogin {
+  modelValue: boolean
+}
+
+defineEmits(['update:modelValue'])
+
+withDefaults(defineProps<IModalLogin>(), {
+  modelValue: true,
+})
+
 const { login } = useStrapiAuth()
 const router = useRouter()
 

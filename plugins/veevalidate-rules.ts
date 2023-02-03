@@ -11,7 +11,7 @@ export default defineNuxtPlugin(() => {
       // @ts-ignore
       defineRule(rule, rules[rule])
     })
-  ;(async function init() {
+  ;(async function () {
     configure({
       generateMessage: localize({
         [DEFAULT_LOCALE]: await import(

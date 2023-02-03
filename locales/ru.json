@@ -2,6 +2,7 @@
   "service": {
     "login": "Логин",
     "register": "Регистрация",
-    "noValue": "Пожалуйста, заполните поле"
+    "noValue": "Пожалуйста, заполните поле",
+    "title": "The Developer"
   }
 }

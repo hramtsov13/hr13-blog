@@ -1,29 +1,42 @@
 <template>
-  <div class="font-mono h-full items-center flex overflow-hidden">
-    <h1 class="text-center text-8xl whitespace-nowrap img-ticker">
-      Welcome To The BlogApp
-    </h1>
+  <div class="font-mono">
+    <main>
+      <h2 class="text-center text-4xl whitespace-nowrap mb-10">
+        Here will be the most important article
+      </h2>
+      <article>
+        <h3 class="text-3xl mb-6">Article title</h3>
+        <section class="mb-4 text-lg">
+          <h4 class="text-2xl mb-1">Section title 1</h4>
+          <p class="mb-2">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
+            mollitia doloremque non atque placeat aut unde eius esse? Illo
+            molestiae sit, similique sunt magnam voluptatibus eveniet delectus
+            et quis quidem.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
+            mollitia doloremque non atque placeat aut unde eius esse? Illo
+            molestiae sit, similique sunt magnam voluptatibus eveniet delectus
+            et quis quidem.
+          </p>
+        </section>
+        <section>
+          <h4 class="text-2xl mb-1">Section title 2</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
+            mollitia doloremque non atque placeat aut unde eius esse? Illo
+            molestiae sit, similique sunt magnam voluptatibus eveniet delectus
+            et quis quidem.
+          </p>
+        </section>
+      </article>
+    </main>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 definePageMeta({
   layout: 'empty',
 })
 </script>
-
-<style>
-@keyframes ticker-kf {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-
-  100% {
-    transform: translate3d(-108rem, 0, 0);
-  }
-}
-
-.img-ticker {
-  animation: ticker-kf 18s linear infinite;
-}
-</style>

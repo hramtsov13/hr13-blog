@@ -2,6 +2,14 @@
   "service": {
     "login": "Login",
     "register": "Register",
-    "noValue": "Please, set the value"
+    "noValue": "Please, set the value",
+    "title": "The Developer"
+  },
+  "form": {
+    "username": "Username",
+    "email": "E-mail",
+    "password": "Password",
+    "name": "Name",
+    "lastName": "Last name"
   }
 }
