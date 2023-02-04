@@ -1,10 +1,9 @@
 import colors from 'windicss/colors'
-import { defineConfig } from 'windicss/helpers'
+import { defineConfig, transform } from 'windicss/helpers'
 import plugin from 'windicss/plugin'
 
 export default defineConfig({
   darkMode: 'class',
-  attributify: true,
   theme: {
     screens: {
       xs: '440px',
@@ -32,6 +31,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    transform('daisyui'),
     plugin(function ({ addComponents }) {
       addComponents({
         '.gradient': {
@@ -45,4 +45,7 @@ export default defineConfig({
       })
     }),
   ],
+  daisyui: {
+    themes: ['valentine', 'dracula'],
+  },
 })

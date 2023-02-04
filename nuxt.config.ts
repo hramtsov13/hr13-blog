@@ -32,6 +32,8 @@ export default {
     ],
   ],
 
+  plugins: ['@/plugins/vee-validate.ts', '@/plugins/i18n.ts'],
+
   vite: {
     // TODO: check why loading locales as functions doesn't work
     // plugins: [

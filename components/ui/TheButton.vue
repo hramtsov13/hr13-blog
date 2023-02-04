@@ -2,13 +2,14 @@
   <button
     :disabled="disabled || loading"
     :class="[
-      'the-button hover-underline-animation',
-      { [`the-button--icon`]: icon || false },
-      { [`the-button--loading`]: loading || false },
+      'the-button inline-block',
+      { 'the-button--icon': icon || false },
+      { 'the-button--outlined': outlined || false },
+      { 'the-button--loading': loading || false },
     ]"
     @click="$emit('click', $event)"
   >
-    <slot />
+    <span class="hover-underline-animation"> <slot /></span>
   </button>
 </template>
 
@@ -17,6 +18,7 @@ interface ITheButtonProps {
   disabled?: boolean
   loading?: boolean
   icon?: boolean
+  outlined?: boolean
 }
 
 defineEmits(['click'])
@@ -25,6 +27,7 @@ withDefaults(defineProps<ITheButtonProps>(), {
   disabled: false,
   loading: false,
   icon: false,
+  outlined: false,
 })
 </script>
 
@@ -46,7 +49,19 @@ withDefaults(defineProps<ITheButtonProps>(), {
   @apply text-xl font-mono text-black;
 
   &:disabled {
-    @apply pointer-events-none cursor-not-allowed bg-dark-50;
+    @apply cursor-not-allowed bg-dark-50 border-dark-100;
+
+    &:hover {
+      @apply bg-inherit;
+    }
+  }
+
+  &--outlined {
+    @apply border-2 px-4 py-2 rounded-lg transition duration-150 border-sky-600 bg-sky-400 text-white;
+
+    &:hover {
+      @apply bg-sky-300;
+    }
   }
 
   &--icon {

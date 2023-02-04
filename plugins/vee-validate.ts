@@ -11,11 +11,11 @@ export default defineNuxtPlugin(() => {
       // @ts-ignore
       defineRule(rule, rules[rule])
     })
-  ;(async function () {
+  ;(async function init() {
     configure({
       generateMessage: localize({
         [DEFAULT_LOCALE]: await import(
-          `@vee-validate/i18n/dist/locale/${DEFAULT_LOCALE}.json`
+          `@vee-validate/i18n/dist/locale/en.json`
         ),
       }),
     })

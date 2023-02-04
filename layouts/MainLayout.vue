@@ -1,15 +1,27 @@
 <template>
   <div class="h-screen container-fluid">
+    <Head>
+      <Title> Blog | Main Page </Title>
+    </Head>
+
     <UiTheNavigation
       @on-login-click="onLoginClick"
       @on-register-click="onRegisterClick"
     />
+
     <template v-if="isLoginModalVisible">
-      <ParticlesMainLayoutModalLogin v-model="isLoginModalVisible" />
+      <ParticlesMainLayoutModalLogin
+        v-model="isLoginModalVisible"
+        :title="$t('service.login')"
+      />
     </template>
     <template v-if="isRegisterModalVisible">
-      <ParticlesMainLayoutModalRegister v-model="isRegisterModalVisible" />
+      <ParticlesMainLayoutModalRegister
+        v-model="isRegisterModalVisible"
+        :title="$t('service.register')"
+      />
     </template>
+
     <h1 class="text-center font-mono text-4xl">{{ $t('service.title') }}</h1>
     <div class="grid grid-cols-12 min-h-screen">
       <aside class="border-r border-gray-300 col-span-3 container mx-auto p-4">
@@ -29,11 +41,11 @@
 </template>
 
 <script lang="ts" setup>
-const ParticlesMainLayoutModalRegister = defineAsyncComponent(
-  () => import('@/components/particles/MainLayout/ModalRegister.vue')
-)
 const ParticlesMainLayoutModalLogin = defineAsyncComponent(
   () => import('@/components/particles/MainLayout/ModalLogin.vue')
+)
+const ParticlesMainLayoutModalRegister = defineAsyncComponent(
+  () => import('@/components/particles/MainLayout/ModalRegister.vue')
 )
 
 const isLoginModalVisible = ref(false)

@@ -1,7 +1,7 @@
 {
   "service": {
     "login": "Login",
-    "register": "Register",
+    "register": "Sign Up",
     "noValue": "Please, set the value",
     "title": "The Developer"
   },

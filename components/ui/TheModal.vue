@@ -1,15 +1,15 @@
 <template>
-  <div v-if="modelValue" :class="`the-modal`">
+  <div class="the-modal">
     <div
-      class="the-modal__overlay"
-      @click="$emit('update:modelValue', false), $emit('close', $event)"
+      class="the-modal__overlay bg-base-300"
+      @click="$emit('update:modelValue', false), $emit('close', false)"
     />
-    <div class="the-modal__wrapper shadow-primary" :style="{ width: width }">
+    <div class="the-modal__wrapper modal-box">
       <UiTheButton
         v-if="showClose"
         icon
         class="the-modal__close-button"
-        @click="$emit('update:modelValue', false), $emit('close', $event)"
+        @click="$emit('update:modelValue', false), $emit('close', false)"
       >
         <i>&#10006;</i>
       </UiTheButton>
@@ -17,7 +17,6 @@
         {{ title }}
       </div>
       <slot />
-      {{ modelValue }}
     </div>
   </div>
 </template>
@@ -40,7 +39,7 @@ withDefaults(defineProps<ITheModalProps>(), {
   overlay: true,
   header: 'Header',
   width: '400px',
-  title: 'DEFAULT TITLE',
+  title: 'Popup',
 })
 </script>
 
@@ -51,15 +50,15 @@ withDefaults(defineProps<ITheModalProps>(), {
   @apply fixed inset-0 h-full w-full flex justify-center items-center z-50;
 
   &__overlay {
-    @apply fixed inset-0 opacity-50 bg-black;
+    @apply fixed inset-0 opacity-80;
   }
 
   &__wrapper {
-    @apply fixed p-6 break-all shadow-lg box-border rounded-lg text-black bg-white;
+    @apply fixed p-6 break-all box-border;
   }
 
   &__title {
-    @apply mb-4 text-black text-2xl;
+    @apply mb-4 text-2xl;
   }
 
   &__close-button {
