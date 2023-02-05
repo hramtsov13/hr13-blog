@@ -4,7 +4,7 @@
       <Title> Blog | Main Page </Title>
     </Head>
 
-    <UiTheNavigation
+    <ParticlesMainLayoutTheNavigation
       @on-login-click="onLoginClick"
       @on-register-click="onRegisterClick"
     />

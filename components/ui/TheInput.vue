@@ -1,5 +1,5 @@
 <template>
-  <div class="form-control w-full">
+  <div class="form-control w-full font-mono">
     <label class="label" :for="name">
       <span v-if="label.length" class="label-text">
         {{ label }}
@@ -8,20 +8,24 @@
     <input
       :id="name"
       class="input input-bordered w-full"
+      :class="{ 'input-error': errorMessage }"
       :type="type"
       :name="name"
-      :value="modelValue"
+      :value="modelValue1"
       :placeholder="placeholder"
       :autocomplete="autocomplete"
       @input="onInput"
+      @change="onChange"
     />
-    <span v-if="errorMessage">
+    <span class="text-red-500 text-sm transition duration-200 min-h-5">
       {{ errorMessage }}
     </span>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { resolveUnref } from '@vueuse/core'
+
 interface ITheInput {
   modelValue: string
   name: string
@@ -32,7 +36,7 @@ interface ITheInput {
   autocomplete?: string
 }
 
-withDefaults(defineProps<ITheInput>(), {
+const props = withDefaults(defineProps<ITheInput>(), {
   label: '',
   modelValue: '',
   placeholder: '',
@@ -41,6 +45,11 @@ withDefaults(defineProps<ITheInput>(), {
   type: 'text',
   autocomplete: 'off',
 })
+
+const { modelValue, errorMessage, label } = toRefs(props)
+
+const modelValue1 = resolveUnref(modelValue)
+console.log('modelValue1: ', modelValue1)
 
 const emits = defineEmits(['update:modelValue', 'input', 'change'])
 

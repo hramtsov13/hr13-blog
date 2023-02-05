@@ -4,6 +4,8 @@ import { localize, setLocale } from '@vee-validate/i18n'
 import { DEFAULT_LOCALE } from '@/constants'
 
 export default defineNuxtPlugin(() => {
+  console.log('rules: ', rules)
+
   Object.keys(rules)
     .filter((k) => k !== 'default')
     .forEach((rule) => {
@@ -20,5 +22,6 @@ export default defineNuxtPlugin(() => {
       }),
     })
     setLocale(DEFAULT_LOCALE)
+    console.log('DEFAULT_LOCALE: ', DEFAULT_LOCALE)
   })()
 })

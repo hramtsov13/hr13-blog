@@ -36,10 +36,10 @@
         placeholder="8 symbols"
         autocomplete="new-password"
       />
-      <div class="mt-4">
-        <button type="submit">submit</button>
-        <button class="mx-4" type="submit" @click="onReset">reset</button>
-        <UiTheButton outlined type="submit"> Sign up </UiTheButton>
+      <div class="mt-8 flex justify-end">
+        <UiTheButton outlined type="submit" :loading="isSubmitting">
+          {{ $t('service.register') }}
+        </UiTheButton>
       </div>
     </form>
   </UiTheModal>
@@ -48,6 +48,7 @@
 <script lang="ts" setup>
 import { useField, useForm, useIsFormValid } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import UiTheInput from '@/components/ui/TheInput.vue'
 
 interface IModalRegister {
   modelValue: boolean
@@ -61,10 +62,7 @@ defineEmits(['update:model-value'])
 const { t } = useI18n()
 const { register } = useStrapiAuth()
 
-const error = ref('')
-const isFormValid = computed(() => useIsFormValid())
-
-const { handleSubmit, meta, resetForm } = useForm({
+const { handleSubmit, isSubmitting } = useForm({
   validationSchema: {
     name: 'required',
     surname: 'required',
@@ -82,19 +80,25 @@ const registerForm = reactive({
     label: t('form.lastName'),
     initialValue: '',
   }),
-  password: useField('password', '', {
-    label: t('form.password'),
-    initialValue: '',
-  }),
   email: useField('email', '', {
     label: t('form.email'),
     initialValue: '',
   }),
+  password: useField('password', '', {
+    label: t('form.password'),
+    initialValue: '',
+  }),
 })
 
-const onReset = () => resetForm()
+const sleep = (): Promise<void> =>
+  new Promise((resolve) =>
+    setTimeout(async () => {
+      resolve()
+    }, 2000)
+  )
 
-const onSubmit = handleSubmit((values, { resetForm }) => {
+const onSubmit = handleSubmit(async (values, { resetForm }) => {
+  await sleep()
   console.log(values)
   resetForm()
 })

@@ -3,7 +3,9 @@
     "login": "Login",
     "register": "Sign Up",
     "noValue": "Please, set the value",
-    "title": "The Developer"
+    "title": "The Developer",
+    "language": "Language",
+    "darkMode": "Dark mode"
   },
   "form": {
     "username": "Username",

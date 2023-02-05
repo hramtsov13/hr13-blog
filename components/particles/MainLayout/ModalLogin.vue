@@ -49,22 +49,12 @@ const isFormValid = computed(() => useIsFormValid())
 
 const { handleSubmit } = useForm({
   validationSchema: {
-    name: 'required',
-    surname: 'required',
     email: 'required|email',
     password: 'required',
   },
 })
 
 const loginForm = reactive({
-  name: useField('name', '', {
-    label: t('form.name'),
-    initialValue: '',
-  }),
-  surname: useField('surname', '', {
-    label: t('form.lastName'),
-    initialValue: '',
-  }),
   password: useField('password', '', {
     label: t('form.password'),
     initialValue: '',

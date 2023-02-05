@@ -3,6 +3,15 @@
     "login": "Логин",
     "register": "Регистрация",
     "noValue": "Пожалуйста, заполните поле",
-    "title": "The Developer"
+    "title": "The Developer",
+    "language": "Язык",
+    "darkMode": "Темная тема"
+  },
+  "form": {
+    "username": "Никнейм",
+    "email": "E-mail",
+    "password": "Пароль",
+    "name": "Имя",
+    "lastName": "Фамилия"
   }
 }

@@ -1,17 +1,17 @@
 <template>
-  <div class="the-modal">
+  <div class="the-modal font-mono">
     <div
-      class="the-modal__overlay bg-base-300"
+      class="the-modal__overlay bg-base-100"
       @click="$emit('update:modelValue', false), $emit('close', false)"
     />
-    <div class="the-modal__wrapper modal-box">
+    <div class="the-modal__wrapper modal-box bg-base-300">
       <UiTheButton
         v-if="showClose"
         icon
         class="the-modal__close-button"
         @click="$emit('update:modelValue', false), $emit('close', false)"
       >
-        <i>&#10006;</i>
+        <span class="text-2xl">&#10006;</span>
       </UiTheButton>
       <div v-if="title || showClose" :class="`the-modal__title`">
         {{ title }}
