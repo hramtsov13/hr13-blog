@@ -9,10 +9,16 @@ yarn install
 
 ## Development Server
 
-Start the development server on http://localhost:3000
+Start the frontend development server on http://localhost:3000
 
 ```bash
 yarn dev
+```
+
+Start the backend development server on http://localhost:1337
+
+```bash
+yarn develop
 ```
 
 ## Production
