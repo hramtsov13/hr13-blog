@@ -1,7 +1,7 @@
 <template>
   <UiTheModal
     :model-value="modelValue"
-    @update:model-value="$emit('update:modelValue', $event)"
+    @update:model-value="$emit('update:model-value', $event)"
   >
     <form @submit.prevent="onSubmit">
       <UiTheInput
@@ -20,8 +20,13 @@
         :error-message="loginForm.password.errorMessage"
       />
 
-      <div class="mt-4">
-        <UiTheButton outlined type="submit">
+      <div class="mt-6 flex justify-end">
+        <UiTheButton
+          outlined
+          type="submit"
+          :disabled="!isFormValid"
+          :loading="isSubmitting"
+        >
           {{ t('service.login') }}
         </UiTheButton>
       </div>
@@ -40,17 +45,15 @@ interface IModalLogin {
 withDefaults(defineProps<IModalLogin>(), {
   modelValue: true,
 })
-defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:model-value'])
 
 const { t } = useI18n()
 const { login } = useStrapiAuth()
 
-const isFormValid = computed(() => useIsFormValid())
-
-const { handleSubmit } = useForm({
+const { handleSubmit, isSubmitting } = useForm({
   validationSchema: {
     email: 'required|email',
-    password: 'required',
+    password: 'required|min:8',
   },
 })
 
@@ -65,24 +68,24 @@ const loginForm = reactive({
   }),
 })
 
-const onSubmit = handleSubmit((values, { resetForm }) => {
-  console.log(values)
-  resetForm()
+const isFormValid = ref(useIsFormValid())
+const error = ref('')
+
+const closeModal = () => emits('update:model-value', false)
+const onSubmit = handleSubmit(async ({ email, password }, { resetForm }) => {
+  try {
+    const loggedIndUser = await login({
+      identifier: email,
+      password,
+    })
+
+    if (loggedIndUser !== null) {
+      error.value = ''
+      resetForm()
+      closeModal()
+    }
+  } catch (e: any) {
+    error.value = e.error.message
+  }
 })
-
-// const onSubmit = async () => {
-//   try {
-//     const loggeIndUser = await login({
-//       identifier: email.value,
-//       password: password.value,
-//     })
-
-//     if (loggeIndUser !== null) {
-//       error.value = ''
-//       router.push('/')
-//     }
-//   } catch (e: any) {
-//     error.value = e.error.message
-//   }
-// }
 </script>

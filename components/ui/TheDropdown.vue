@@ -6,7 +6,7 @@
     </label>
     <ul
       tabindex="0"
-      class="dropdown-content menu shadow bg-base-300 rounded-box p-4"
+      class="dropdown-content menu bg-base-300 rounded-box p-4 shadow"
     >
       <slot name="content" />
     </ul>

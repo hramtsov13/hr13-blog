@@ -7,14 +7,21 @@
     <div class="the-modal__wrapper modal-box bg-base-300">
       <UiTheButton
         v-if="showClose"
-        icon
         class="the-modal__close-button"
+        icon
+        plain
         @click="$emit('update:modelValue', false), $emit('close', false)"
       >
-        <span class="text-2xl">&#10006;</span>
+        <Icon name="ion:ios-close-circle-outline" size="2rem" />
       </UiTheButton>
-      <div v-if="title || showClose" :class="`the-modal__title`">
-        {{ title }}
+      <div v-if="title || showClose" class="the-modal__title">
+        <h3>{{ title }}</h3>
+        <p
+          class="mt-4 h-0 text-center text-sm text-red-500 opacity-0 transition duration-300"
+          :class="{ 'min-h-5 opacity-100': error.length }"
+        >
+          {{ error }}
+        </p>
       </div>
       <slot />
     </div>
@@ -29,6 +36,7 @@ interface ITheModalProps {
   width?: string
   title?: string
   overlay?: boolean
+  error?: string
 }
 
 defineEmits(['update:modelValue', 'close'])
@@ -40,6 +48,7 @@ withDefaults(defineProps<ITheModalProps>(), {
   header: 'Header',
   width: '400px',
   title: 'Popup',
+  error: '',
 })
 </script>
 

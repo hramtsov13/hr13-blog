@@ -1,5 +1,9 @@
 <template>
-  <UiTheModal :model-value="modelValue" @update:model-value="closeModal">
+  <UiTheModal
+    :model-value="modelValue"
+    :error="error"
+    @update:model-value="closeModal"
+  >
     <form @submit.prevent="onSubmit">
       <UiTheInput
         v-model="registerForm.username.value"
@@ -48,7 +52,7 @@
         autocomplete="new-password"
         required
       />
-      <div class="mt-8 flex justify-end">
+      <div class="mt-6 flex justify-end">
         <UiTheButton
           outlined
           type="submit"
@@ -115,53 +119,33 @@ const registerForm = reactive({
 const isFormValid = ref(useIsFormValid())
 const error = ref('')
 
-const sleep = (): Promise<void> =>
-  new Promise((resolve) =>
-    setTimeout(async () => {
-      resolve()
-    }, 500)
-  )
-
 const closeModal = () => emits('update:model-value', false)
 
 const onSubmit = handleSubmit(
   async ({ email, password, username, name, surname }, { resetForm }) => {
     try {
       const newUser = await register({
-        email: email.value,
-        password: password.value,
-        username: username.value,
-        name: name.value,
-        surname: surname.value,
+        email,
+        password,
+        username,
+        name,
+        surname,
       })
 
       if (newUser !== null) {
+        console.log('newUser: ', newUser)
+
         error.value = ''
+        // localStorage.setItem('userData', JSON.stringify(newUser))
         resetForm()
         closeModal()
       }
     } catch (e: any) {
       error.value = e.error.message
+      registerForm.password.value = ''
+      console.log('e.error.message: ', e.error.message)
+      console.log('error.value: ', error.value)
     }
   }
 )
-
-// const onSubmit1 = async () => {
-//   try {
-//     const newUser = await register({
-//       email: email.value,
-//       password: password.value,
-//       username: username.value,
-//       name: name.value,
-//       surname: surname.value,
-//     })
-
-//     if (newUser !== null) {
-//       error.value = ''
-//       router.push('/')
-//     }
-//   } catch (e: any) {
-//     error.value = e.error.message
-//   }
-// }
 </script>

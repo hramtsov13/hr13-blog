@@ -15,6 +15,7 @@
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "plugin:nuxt/recommended",
+    "plugin:tailwindcss/recommended",
     "plugin:vue/vue3-recommended",
     "plugin:prettier/recommended"
   ],
@@ -23,6 +24,7 @@
 
   "rules": {
     "vue/script-setup-no-uses-vars": "off",
-    "vue/multi-word-component-names": "off"
+    "vue/multi-word-component-names": "off",
+    "tailwindcss/no-custom-classname": "off"
   }
 }

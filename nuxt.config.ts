@@ -30,6 +30,7 @@ export default {
         base64: false,
       },
     ],
+    ['nuxt-icon'],
   ],
 
   plugins: [

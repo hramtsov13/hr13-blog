@@ -1,5 +1,5 @@
 <template>
-  <button class="text-xl font-mono text-black hover-underline-animation">
+  <button class="hover-underline-animation font-mono text-xl text-black">
     <slot />
   </button>
 </template>

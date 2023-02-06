@@ -1,6 +1,6 @@
 <template>
   <div class="font-mono">
-    <div class="mt-16 max-w-[1200px] mx-auto p-[1rem]">
+    <div class="mx-auto mt-16 max-w-[1200px] p-[1rem]">
       <slot />
     </div>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen container-fluid">
+  <div class="container-fluid h-screen">
     <Head>
       <Title> Blog | Main Page </Title>
     </Head>
@@ -7,6 +7,7 @@
     <ParticlesMainLayoutTheNavigation
       @on-login-click="onLoginClick"
       @on-register-click="onRegisterClick"
+      @on-logout-click="onLogoutClick"
     />
 
     <template v-if="isLoginModalVisible">
@@ -23,8 +24,8 @@
     </template>
 
     <h1 class="text-center font-mono text-4xl">{{ $t('service.title') }}</h1>
-    <div class="grid grid-cols-12 min-h-screen">
-      <aside class="border-r border-gray-300 col-span-3 container mx-auto p-4">
+    <div class="grid min-h-screen grid-cols-12">
+      <aside class="container col-span-3 mx-auto border-r border-gray-300 p-4">
         <ul>
           <li>1</li>
           <li>2</li>
@@ -33,7 +34,7 @@
           <li>5</li>
         </ul>
       </aside>
-      <div class="container mx-auto p-4 col-span-9">
+      <div class="container col-span-9 mx-auto p-4">
         <slot />
       </div>
     </div>
@@ -53,4 +54,5 @@ const isRegisterModalVisible = ref(false)
 
 const onLoginClick = () => (isLoginModalVisible.value = true)
 const onRegisterClick = () => (isRegisterModalVisible.value = true)
+const onLogoutClick = () => console.log('LOGOUT CLICKED')
 </script>

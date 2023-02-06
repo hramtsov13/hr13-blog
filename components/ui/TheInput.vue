@@ -17,9 +17,10 @@
       :placeholder="placeholder"
       :autocomplete="autocomplete"
       @input="onInput"
+      @change="onChange"
     />
     <span
-      class="text-red-500 text-sm transition duration-200 min-h-5 inline-block opacity-0"
+      class="min-h-5 inline-block text-sm text-red-500 opacity-0 transition duration-200"
       :class="{ 'opacity-100': errorMessage }"
     >
       {{ errorMessage }}
