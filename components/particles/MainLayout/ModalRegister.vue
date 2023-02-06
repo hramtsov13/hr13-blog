@@ -1,22 +1,32 @@
 <template>
-  <UiTheModal
-    :model-value="modelValue"
-    @update:model-value="$emit('update:model-value', $event)"
-  >
+  <UiTheModal :model-value="modelValue" @update:model-value="closeModal">
     <form @submit.prevent="onSubmit">
+      <UiTheInput
+        v-model="registerForm.username.value"
+        :label="registerForm.username.label"
+        name="sign-up-username"
+        autocomplete="given-name"
+        :placeholder="$t('form.name')"
+        required
+        :error-message="registerForm.username.errorMessage"
+      />
       <UiTheInput
         v-model="registerForm.name.value"
         :label="registerForm.name.label"
+        :placeholder="$t('form.name')"
+        :error-message="registerForm.name.errorMessage"
         name="sign-up-name"
         autocomplete="given-name"
-        :error-message="registerForm.name.errorMessage"
+        required
       />
       <UiTheInput
         v-model="registerForm.surname.value"
         :label="registerForm.surname.label"
+        :placeholder="$t('form.lastName')"
+        :error-message="registerForm.surname.errorMessage"
         name="sign-up-last-name"
         autocomplete="family-name"
-        :error-message="registerForm.surname.errorMessage"
+        required
       />
       <UiTheInput
         v-model="registerForm.email.value"
@@ -26,6 +36,7 @@
         type="email"
         placeholder="e@mail.com"
         autocomplete="email"
+        required
       />
       <UiTheInput
         v-model="registerForm.password.value"
@@ -35,9 +46,15 @@
         type="password"
         placeholder="8 symbols"
         autocomplete="new-password"
+        required
       />
       <div class="mt-8 flex justify-end">
-        <UiTheButton outlined type="submit" :loading="isSubmitting">
+        <UiTheButton
+          outlined
+          type="submit"
+          :disabled="!isFormValid"
+          :loading="isSubmitting"
+        >
           {{ $t('service.register') }}
         </UiTheButton>
       </div>
@@ -57,21 +74,26 @@ interface IModalRegister {
 withDefaults(defineProps<IModalRegister>(), {
   modelValue: true,
 })
-defineEmits(['update:model-value'])
+const emits = defineEmits(['update:model-value'])
 
 const { t } = useI18n()
 const { register } = useStrapiAuth()
 
 const { handleSubmit, isSubmitting } = useForm({
   validationSchema: {
-    name: 'required',
-    surname: 'required',
+    username: 'required',
+    name: 'required|alpha',
+    surname: 'required|alpha',
     email: 'required|email',
-    password: 'required',
+    password: 'required|min:8',
   },
 })
 
 const registerForm = reactive({
+  username: useField('username', '', {
+    label: t('form.username'),
+    initialValue: '',
+  }),
   name: useField('name', '', {
     label: t('form.name'),
     initialValue: '',
@@ -90,18 +112,39 @@ const registerForm = reactive({
   }),
 })
 
+const isFormValid = ref(useIsFormValid())
+const error = ref('')
+
 const sleep = (): Promise<void> =>
   new Promise((resolve) =>
     setTimeout(async () => {
       resolve()
-    }, 2000)
+    }, 500)
   )
 
-const onSubmit = handleSubmit(async (values, { resetForm }) => {
-  await sleep()
-  console.log(values)
-  resetForm()
-})
+const closeModal = () => emits('update:model-value', false)
+
+const onSubmit = handleSubmit(
+  async ({ email, password, username, name, surname }, { resetForm }) => {
+    try {
+      const newUser = await register({
+        email: email.value,
+        password: password.value,
+        username: username.value,
+        name: name.value,
+        surname: surname.value,
+      })
+
+      if (newUser !== null) {
+        error.value = ''
+        resetForm()
+        closeModal()
+      }
+    } catch (e: any) {
+      error.value = e.error.message
+    }
+  }
+)
 
 // const onSubmit1 = async () => {
 //   try {

@@ -3,9 +3,12 @@ import * as rules from '@vee-validate/rules'
 import { localize, setLocale } from '@vee-validate/i18n'
 import { DEFAULT_LOCALE } from '@/constants'
 
-export default defineNuxtPlugin(() => {
-  console.log('rules: ', rules)
+// TODO: async locale imports based on existing locales
+import en from '@vee-validate/i18n/dist/locale/en.json'
+import ru from '@vee-validate/i18n/dist/locale/en.json'
+import de from '@vee-validate/i18n/dist/locale/en.json'
 
+export default defineNuxtPlugin(() => {
   Object.keys(rules)
     .filter((k) => k !== 'default')
     .forEach((rule) => {
@@ -16,12 +19,11 @@ export default defineNuxtPlugin(() => {
   ;(async function init() {
     configure({
       generateMessage: localize({
-        [DEFAULT_LOCALE]: await import(
-          `@vee-validate/i18n/dist/locale/en.json`
-        ),
+        en,
+        ru,
+        de,
       }),
     })
     setLocale(DEFAULT_LOCALE)
-    console.log('DEFAULT_LOCALE: ', DEFAULT_LOCALE)
   })()
 })

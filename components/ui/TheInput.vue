@@ -3,6 +3,7 @@
     <label class="label" :for="name">
       <span v-if="label.length" class="label-text">
         {{ label }}
+        <sup v-if="required" class="text-red-500">*</sup>
       </span>
     </label>
     <input
@@ -11,32 +12,34 @@
       :class="{ 'input-error': errorMessage }"
       :type="type"
       :name="name"
-      :value="modelValue1"
+      :required="required"
+      :value="modelValue"
       :placeholder="placeholder"
       :autocomplete="autocomplete"
       @input="onInput"
-      @change="onChange"
     />
-    <span class="text-red-500 text-sm transition duration-200 min-h-5">
+    <span
+      class="text-red-500 text-sm transition duration-200 min-h-5 inline-block opacity-0"
+      :class="{ 'opacity-100': errorMessage }"
+    >
       {{ errorMessage }}
     </span>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { resolveUnref } from '@vueuse/core'
-
 interface ITheInput {
   modelValue: string
   name: string
-  type: string
+  type?: string
   label?: string
   placeholder?: string
   errorMessage?: string
   autocomplete?: string
+  required?: boolean
 }
 
-const props = withDefaults(defineProps<ITheInput>(), {
+withDefaults(defineProps<ITheInput>(), {
   label: '',
   modelValue: '',
   placeholder: '',
@@ -44,12 +47,8 @@ const props = withDefaults(defineProps<ITheInput>(), {
   name: '',
   type: 'text',
   autocomplete: 'off',
+  required: false,
 })
-
-const { modelValue, errorMessage, label } = toRefs(props)
-
-const modelValue1 = resolveUnref(modelValue)
-console.log('modelValue1: ', modelValue1)
 
 const emits = defineEmits(['update:modelValue', 'input', 'change'])
 

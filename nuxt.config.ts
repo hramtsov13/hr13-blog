@@ -33,7 +33,7 @@ export default {
   ],
 
   plugins: [
-    { src: '@/plugins/vee-validate.ts', ssr: false },
+    { src: '@/plugins/vee-validate.ts', ssr: false, mode: 'client' },
 
     '@/plugins/i18n.ts',
   ],
