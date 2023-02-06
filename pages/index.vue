@@ -1,50 +1,42 @@
 <template>
-  <div class="container">
-    <div>
-      <h1 class="title">Welcome To The BlogApp</h1>
-      <div class="links">
-        <NuxtLink to="/login" class="button--green"> Login </NuxtLink>
-        <NuxtLink to="/articles" class="button--grey"> Continue Free </NuxtLink>
-      </div>
-    </div>
+  <div class="font-mono">
+    <main>
+      <h2 class="mb-10 whitespace-nowrap text-center text-4xl">
+        Here will be the most important article
+      </h2>
+      <article>
+        <h3 class="mb-6 text-3xl">Article title</h3>
+        <section class="mb-4 text-lg">
+          <h4 class="mb-1 text-2xl">Section title 1</h4>
+          <p class="mb-2">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
+            mollitia doloremque non atque placeat aut unde eius esse? Illo
+            molestiae sit, similique sunt magnam voluptatibus eveniet delectus
+            et quis quidem.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
+            mollitia doloremque non atque placeat aut unde eius esse? Illo
+            molestiae sit, similique sunt magnam voluptatibus eveniet delectus
+            et quis quidem.
+          </p>
+        </section>
+        <section>
+          <h4 class="mb-1 text-2xl">Section title 2</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
+            mollitia doloremque non atque placeat aut unde eius esse? Illo
+            molestiae sit, similique sunt magnam voluptatibus eveniet delectus
+            et quis quidem.
+          </p>
+        </section>
+      </article>
+    </main>
   </div>
 </template>
-<script>
-export default {
-  middleware: 'authenticated',
-}
+
+<script setup lang="ts">
+definePageMeta({
+  layout: 'main-layout',
+})
 </script>
-<style>
-/* Sample `apply` at-rules with Tailwind CSS
-    .container {
-    @apply min-h-screen flex justify-center items-center text-center mx-auto;
-    }
-    */
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 80px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-.links {
-  padding-top: 15px;
-}
-</style>

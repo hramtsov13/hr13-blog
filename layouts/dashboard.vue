@@ -1,9 +1,11 @@
 <template>
-  <div class="h-screen gradient">
+  <div class="gradient h-screen">
     <div
-      class="max-w-[1200px] mx-auto h-full p-[1rem] flex justify-center items-center"
+      class="mx-auto flex h-full max-w-[1200px] items-center justify-center p-[1rem]"
     >
       <slot />
     </div>
   </div>
 </template>
+
+<script setup></script>

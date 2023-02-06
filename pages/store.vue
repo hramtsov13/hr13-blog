@@ -9,8 +9,8 @@
       </template>
     </the-page-header>
 
-    <h2 class="font-bold text-[1.6rem] mb-5">Counter</h2>
-    <div class="py-5 px-10 border border-gray-300 rounded-xl mb-10 bg-gray-100">
+    <h2 class="mb-5 text-[1.6rem] font-bold">Counter</h2>
+    <div class="mb-10 rounded-xl border border-gray-300 bg-gray-100 py-5 px-10">
       <div class="mb-4">{{ counterValue }}</div>
       <the-button class="mr-4" @click="counterStore.increaseCounter(2)">
         Increment

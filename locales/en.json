@@ -1,4 +1,17 @@
 {
-  "INDEX_PAGE_TITLE": "Vue&SSR project setup",
-  "INDEX_PAGE_START_BUTTON": "Start"
+  "service": {
+    "login": "Login",
+    "register": "Sign Up",
+    "noValue": "Please, set the value",
+    "title": "The Developer",
+    "language": "Language",
+    "darkMode": "Dark mode"
+  },
+  "form": {
+    "username": "Username",
+    "email": "E-mail",
+    "password": "Password",
+    "name": "Name",
+    "lastName": "Last name"
+  }
 }

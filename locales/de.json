@@ -1,0 +1,17 @@
+{
+  "service": {
+    "login": "Login",
+    "register": "Registrieren",
+    "title": "Der Entwickler",
+    "noValue": "Please, set the value",
+    "language": "Sprache",
+    "darkMode": "Nachtmodus"
+  },
+  "form": {
+    "username": "Benutzername",
+    "email": "E-mail",
+    "password": "Passwort",
+    "name": "Name",
+    "lastName": "Nachname"
+  }
+}

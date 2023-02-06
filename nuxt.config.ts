@@ -1,4 +1,6 @@
-// import { defineNuxtConfig } from 'nuxt'
+// import { resolve, dirname } from 'node:path'
+// import { fileURLToPath } from 'url'
+// import VueI18nVitePlugin from '@intlify/unplugin-vue-i18n/vite'
 
 export default {
   modules: [
@@ -28,7 +30,25 @@ export default {
         base64: false,
       },
     ],
+    ['nuxt-icon'],
   ],
+
+  plugins: [
+    { src: '@/plugins/vee-validate.ts', ssr: false, mode: 'client' },
+
+    '@/plugins/i18n.ts',
+  ],
+
+  vite: {
+    // TODO: check why loading locales as functions doesn't work
+    // plugins: [
+    //   VueI18nVitePlugin({
+    //     include: [
+    //       resolve(dirname(fileURLToPath(import.meta.url)), './locales/*.json'),
+    //     ],
+    //   }),
+    // ],
+  },
 
   strapi: {
     url: process.env.STRAPI_URL || 'http://localhost:1337',
@@ -38,4 +58,6 @@ export default {
     cookieName: 'strapi_jwt',
     entities: ['articles'],
   },
+
+  build: { transpile: ['@vee-validate/rules'] },
 }

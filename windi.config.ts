@@ -1,10 +1,9 @@
 import colors from 'windicss/colors'
-import { defineConfig } from 'windicss/helpers'
+import { defineConfig, transform } from 'windicss/helpers'
 import plugin from 'windicss/plugin'
 
 export default defineConfig({
   darkMode: 'class',
-  attributify: true,
   theme: {
     screens: {
       xs: '440px',
@@ -16,18 +15,23 @@ export default defineConfig({
     },
     colors: {
       ...colors,
-      green: '#42d392',
+      green1: '#42d392',
       white: '#ffffff',
       blue: '#075985',
       yellow: '#ffd859',
+      gray: '#ccc',
     },
     extend: {
       fontFamily: {
         mono: ['Source Code Pro'],
       },
+      boxShadow: {
+        primary: '25px 26px 72px -27px rgba(204,204,204,0.64)',
+      },
     },
   },
   plugins: [
+    transform('daisyui'),
     plugin(function ({ addComponents }) {
       addComponents({
         '.gradient': {
@@ -41,4 +45,7 @@ export default defineConfig({
       })
     }),
   ],
+  daisyui: {
+    themes: ['valentine', 'dracula'],
+  },
 })

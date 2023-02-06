@@ -1,4 +1,17 @@
 {
-  "INDEX_PAGE_TITLE": "Vue&SSR project setup",
-  "INDEX_PAGE_START_BUTTON": "Начать"
+  "service": {
+    "login": "Логин",
+    "register": "Регистрация",
+    "noValue": "Пожалуйста, заполните поле",
+    "title": "The Developer",
+    "language": "Язык",
+    "darkMode": "Темная тема"
+  },
+  "form": {
+    "username": "Никнейм",
+    "email": "E-mail",
+    "password": "Пароль",
+    "name": "Имя",
+    "lastName": "Фамилия"
+  }
 }
