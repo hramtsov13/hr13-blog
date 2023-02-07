@@ -1,6 +1,7 @@
 <template>
   <UiTheModal
     :model-value="modelValue"
+    :error="error"
     @update:model-value="$emit('update:model-value', $event)"
   >
     <form @submit.prevent="onSubmit">
@@ -86,6 +87,7 @@ const onSubmit = handleSubmit(async ({ email, password }, { resetForm }) => {
     }
   } catch (e: any) {
     error.value = e.error.message
+    loginForm.password.value = ''
   }
 })
 </script>

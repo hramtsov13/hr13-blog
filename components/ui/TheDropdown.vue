@@ -18,8 +18,6 @@ interface ITheDropdownProps {
   label?: string
 }
 
-defineEmits(['click'])
-
 withDefaults(defineProps<ITheDropdownProps>(), {
   label: '',
 })

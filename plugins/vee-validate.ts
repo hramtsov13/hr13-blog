@@ -1,7 +1,7 @@
 import { defineRule, configure } from 'vee-validate'
 import * as rules from '@vee-validate/rules'
 import { localize, setLocale } from '@vee-validate/i18n'
-import { DEFAULT_LOCALE } from '@/constants'
+import { DEFAULT_LOCALE } from '@/utils/constants'
 
 // TODO: async locale imports based on existing locales
 import en from '@vee-validate/i18n/dist/locale/en.json'

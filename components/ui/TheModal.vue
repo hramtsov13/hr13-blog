@@ -1,5 +1,5 @@
 <template>
-  <div class="the-modal font-mono">
+  <div class="the-modal !z-300 font-mono">
     <div
       class="the-modal__overlay bg-base-100"
       @click="$emit('update:modelValue', false), $emit('close', false)"
