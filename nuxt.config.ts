@@ -9,10 +9,25 @@ export default {
       '@intlify/nuxt3',
       {
         localeDir: 'locales',
+        locales: [
+          {
+            code: 'en',
+            iso: 'en-US',
+          },
+          {
+            code: 'ru',
+            iso: 'ru-RU',
+          },
+          {
+            code: 'de',
+            iso: 'de-DE',
+          },
+        ],
       },
     ],
     ['@pinia/nuxt'],
     ['@nuxtjs/strapi'],
+    // ['@nuxtjs/markdownit'],
     [
       '@nuxtjs/google-fonts',
       {
@@ -58,6 +73,14 @@ export default {
     cookieName: 'strapi_jwt',
     entities: ['articles'],
   },
+
+  // markdownit: {
+  //   preset: 'default',
+  //   linkify: true,
+  //   breaks: true,
+  //   injected: true,
+  //   // use: ['markdown-it-div', 'markdown-it-attrs'],
+  // },
 
   build: { transpile: ['@vee-validate/rules'] },
 }

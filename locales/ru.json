@@ -13,5 +13,15 @@
     "password": "Пароль",
     "name": "Имя",
     "lastName": "Фамилия"
+  },
+  "sidebar": {
+    "visitAccount": "Показать аккаунт",
+    "all": "Все статьи",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Мобильная разработка"
+  },
+  "allArticles": {
+    "title": "Дайджест лучших новостей"
   }
 }

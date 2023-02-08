@@ -1,32 +1,40 @@
 <template>
   <aside
-    class="max-w-75 bg-base-300 z-50 h-screen w-full shadow-xl transition-all duration-200"
+    class="max-w-75 bg-base-300 relative w-full pb-10 shadow-xl transition-all duration-200"
     :class="{ '!max-w-20': isSidebarExpanded }"
   >
-    <NuxtLink
-      to="/account"
-      class="bg-base-200 flex cursor-pointer items-center justify-center gap-2 p-2 transition duration-200 hover:bg-slate-600"
-    >
-      <Icon name="ion:ios-contact-outline" size="2.5rem" />
-      <p>
-        <span
-          v-if="user"
-          class="block font-mono font-medium capitalize leading-4"
+    <div class="bg-base-200 hover:bg-neutral p-2 px-4 transition duration-200">
+      <NuxtLink
+        v-if="user"
+        to="/account"
+        class="flex cursor-pointer items-center gap-3"
+        :class="{ 'justify-center': isSidebarExpanded }"
+      >
+        <Icon name="mdi:account-edit" size="2.5rem" />
+        <p
+          class="transition duration-500"
+          :class="{
+            'invisible h-0 w-0 opacity-0 absolute': isSidebarExpanded,
+          }"
         >
-          {{ user.name }} {{ user.surname }}
-        </span>
-        <span class="text-secondary block text-[0.7rem] underline"
-          >Visit my account</span
-        >
-      </p>
-    </NuxtLink>
-    <nav class="h-full px-4">
-      <ul class="pt-10">
-        <li v-for="option in options" :key="option.title">
+          <span class="block font-mono font-medium capitalize leading-4">
+            {{ user.name }} {{ user.surname }}
+          </span>
+          <span class="text-accent block font-mono text-[0.7rem] underline">
+            {{ $t('sidebar.visitAccount') }}
+          </span>
+        </p>
+      </NuxtLink>
+    </div>
+
+    <nav class="h-full overflow-y-scroll px-4 py-8">
+      <ul>
+        <li v-for="(option, index) in options" :key="option.title">
           <NuxtLink
             :to="option.path"
             class="btn mb-2 flex flex-nowrap items-center justify-start"
-            :class="{ 'p-1 justify-center': isSidebarExpanded }"
+            :class="{ 'px-2 justify-center': isSidebarExpanded }"
+            :tabindex="index"
           >
             <Icon
               :name="option.icon ?? 'material-symbols:article-outline'"
@@ -46,6 +54,14 @@
         </li>
       </ul>
     </nav>
+
+    <div
+      class="bg-base-200 absolute bottom-0 left-0 flex w-full justify-end py-2 shadow-lg"
+    >
+      <UiTheButton class="text-accent mx-2 p-1" @click="logout">
+        <Icon name="ion:log-out-outline" size="1.5rem" />
+      </UiTheButton>
+    </div>
   </aside>
 </template>
 
@@ -71,4 +87,6 @@ withDefaults(defineProps<ISidebarProps>(), {
   options: () => [],
   isSidebarExpanded: false,
 })
+
+const { logout } = useStrapiAuth()
 </script>

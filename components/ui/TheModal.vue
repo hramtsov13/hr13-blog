@@ -7,7 +7,7 @@
     <div class="the-modal__wrapper modal-box bg-base-300">
       <UiTheButton
         v-if="showClose"
-        class="the-modal__close-button"
+        class="the-modal__close-button text-accent"
         icon
         plain
         @click="$emit('update:modelValue', false), $emit('close', false)"

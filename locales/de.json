@@ -13,5 +13,15 @@
     "password": "Passwort",
     "name": "Name",
     "lastName": "Nachname"
+  },
+  "sidebar": {
+    "visitAccount": "Konto anzeigen",
+    "all": "Alle Artikel",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Mobile"
+  },
+  "allArticles": {
+    "title": "Zusammenfassung der besten Artikel"
   }
 }

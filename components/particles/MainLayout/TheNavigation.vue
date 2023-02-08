@@ -3,26 +3,34 @@
     <div class="container mx-auto px-4 py-2">
       <div class="flex items-center justify-between">
         <UiTheButton @click="onBurgerClick">
-          <Icon name="pajamas:overview" size="1.5rem" />
+          <Icon class="text-accent" name="pajamas:overview" size="1.5rem" />
         </UiTheButton>
 
         <div class="flex items-center justify-end">
           <template v-if="!user">
-            <UiTheButton class="mr-2.5" plain @click="onLoginClick">
+            <UiTheButton class="text-accent mr-2.5" plain @click="onLoginClick">
               {{ $t('service.login') }}
             </UiTheButton>
 
-            <UiTheButton class="mx-2" outlined @click="onRegisterClick">
+            <UiTheButton
+              class="text-accent mx-2"
+              outlined
+              @click="onRegisterClick"
+            >
               {{ $t('service.register') }}
             </UiTheButton>
           </template>
-          <UiTheButton v-else class="mx-2" icon @click="logout">
+          <UiTheButton v-else class="text-accent mx-2" icon @click="logout">
             <Icon name="ion:log-out-outline" size="1.5rem" />
           </UiTheButton>
 
           <UiTheDropdown>
             <template #label>
-              <Icon name="ion:settings-outline" size="1.5rem" />
+              <Icon
+                class="text-accent"
+                name="ion:settings-outline"
+                size="1.5rem"
+              />
             </template>
 
             <template #content>
@@ -44,7 +52,7 @@
   </header>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useDark, useToggle } from '@vueuse/core'
 const emit = defineEmits([
   'onLoginClick',

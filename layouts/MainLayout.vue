@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid min-h-screen">
+  <div class="container-fluid h-full overflow-hidden">
     <Head>
       <Title> Blog | Main Page </Title>
     </Head>
@@ -23,26 +23,23 @@
       />
     </template>
 
-    <div class="pt-18 flex h-full">
+    <div class="pt-18 flex h-screen">
       <ParticlesCommonSideBar
         v-model:is-sidebar-expanded="isSidebarExpanded"
         :user="user"
-        :options="sidebarOptions"
+        :options="SIDEBAR_OPTIONS"
       />
-      <div class="">
-        <h1 class="text-center font-mono text-4xl">
-          {{ $t('service.title') }}
-        </h1>
-        <div class="container mx-auto p-4">
-          <slot />
-        </div>
+
+      <div class="container mx-auto overflow-y-auto p-4">
+        <slot />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { TUser } from '~~/utils/types'
+import { TUser } from '@/utils/types'
+import { SIDEBAR_OPTIONS } from '@/utils/constants'
 
 const ParticlesMainLayoutModalLogin = defineAsyncComponent(
   () => import('@/components/particles/MainLayout/ModalLogin.vue')
@@ -56,29 +53,6 @@ const user = useStrapiUser<TUser>()
 const isLoginModalVisible = ref(false)
 const isRegisterModalVisible = ref(false)
 const isSidebarExpanded = ref(false)
-
-const sidebarOptions = [
-  {
-    title: 'All',
-    path: 'articles',
-    icon: 'majesticons:article-search-line',
-  },
-  {
-    title: 'Frontend',
-    path: 'articles/frontend',
-    icon: 'icon-park-solid:bring-to-front',
-  },
-  {
-    title: 'Backend',
-    path: 'articles/backend',
-    icon: 'pixelarticons:flip-to-back',
-  },
-  {
-    title: 'Mobile',
-    path: 'articles/mobile',
-    icon: 'cil:screen-smartphone',
-  },
-]
 
 const onLoginClick = () => (isLoginModalVisible.value = true)
 const onRegisterClick = () => (isRegisterModalVisible.value = true)
