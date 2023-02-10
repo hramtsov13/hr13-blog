@@ -1,13 +1,13 @@
 <template>
-  <div class="container-fluid h-screen">
+  <div class="container-fluid h-full overflow-hidden">
     <Head>
       <Title> Blog | Main Page </Title>
     </Head>
 
-    <ParticlesMainLayoutTheNavigation
+    <ParticlesMainLayoutHeader
       @on-login-click="onLoginClick"
       @on-register-click="onRegisterClick"
-      @on-logout-click="onLogoutClick"
+      @on-burger-click="onBurgerClick"
     />
 
     <template v-if="isLoginModalVisible">
@@ -23,18 +23,14 @@
       />
     </template>
 
-    <h1 class="text-center font-mono text-4xl">{{ $t('service.title') }}</h1>
-    <div class="grid min-h-screen grid-cols-12">
-      <aside class="container col-span-3 mx-auto border-r border-gray-300 p-4">
-        <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
-        </ul>
-      </aside>
-      <div class="container col-span-9 mx-auto p-4">
+    <div class="pt-18 flex h-screen">
+      <ParticlesMainLayoutSideBar
+        v-model:is-sidebar-expanded="isSidebarOpened"
+        :user="user"
+        :options="SIDEBAR_OPTIONS"
+      />
+
+      <div class="container mx-auto overflow-y-auto p-4">
         <slot />
       </div>
     </div>
@@ -42,6 +38,9 @@
 </template>
 
 <script lang="ts" setup>
+import { TUser } from '@/utils/types'
+import { SIDEBAR_OPTIONS } from '@/utils/constants'
+
 const ParticlesMainLayoutModalLogin = defineAsyncComponent(
   () => import('@/components/particles/MainLayout/ModalLogin.vue')
 )
@@ -49,10 +48,13 @@ const ParticlesMainLayoutModalRegister = defineAsyncComponent(
   () => import('@/components/particles/MainLayout/ModalRegister.vue')
 )
 
+const user = useStrapiUser<TUser>()
+
 const isLoginModalVisible = ref(false)
 const isRegisterModalVisible = ref(false)
+const isSidebarOpened = ref(false)
 
 const onLoginClick = () => (isLoginModalVisible.value = true)
 const onRegisterClick = () => (isRegisterModalVisible.value = true)
-const onLogoutClick = () => console.log('LOGOUT CLICKED')
+const onBurgerClick = () => (isSidebarOpened.value = !isSidebarOpened.value)
 </script>

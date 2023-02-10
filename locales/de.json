@@ -5,7 +5,11 @@
     "title": "Der Entwickler",
     "noValue": "Please, set the value",
     "language": "Sprache",
-    "darkMode": "Nachtmodus"
+    "darkMode": "Dunkles Theme",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Mobile",
+    "other": "Other"
   },
   "form": {
     "username": "Benutzername",
@@ -13,5 +17,12 @@
     "password": "Passwort",
     "name": "Name",
     "lastName": "Nachname"
+  },
+  "sidebar": {
+    "visitAccount": "Konto anzeigen",
+    "all": "Alle Artikel"
+  },
+  "allArticles": {
+    "title": "Zusammenfassung der besten Artikel"
   }
 }

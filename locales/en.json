@@ -5,7 +5,11 @@
     "noValue": "Please, set the value",
     "title": "The Developer",
     "language": "Language",
-    "darkMode": "Dark mode"
+    "darkMode": "Dark mode",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Mobile",
+    "other": "Other"
   },
   "form": {
     "username": "Username",
@@ -13,5 +17,12 @@
     "password": "Password",
     "name": "Name",
     "lastName": "Last name"
+  },
+  "sidebar": {
+    "visitAccount": "Visit my account",
+    "all": "All articles"
+  },
+  "allArticles": {
+    "title": "Digest of the best articles"
   }
 }

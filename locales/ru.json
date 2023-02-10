@@ -5,7 +5,11 @@
     "noValue": "Пожалуйста, заполните поле",
     "title": "The Developer",
     "language": "Язык",
-    "darkMode": "Темная тема"
+    "darkMode": "Темная тема",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Мобильная разработка",
+    "other": "Другое"
   },
   "form": {
     "username": "Никнейм",
@@ -13,5 +17,12 @@
     "password": "Пароль",
     "name": "Имя",
     "lastName": "Фамилия"
+  },
+  "sidebar": {
+    "visitAccount": "Показать аккаунт",
+    "all": "Все статьи"
+  },
+  "allArticles": {
+    "title": "Дайджест лучших новостей"
   }
 }

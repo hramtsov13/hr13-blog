@@ -3,7 +3,7 @@
     :disabled="disabled || loading"
     :class="[
       'btn font-mono',
-      { 'btn-link': plain || false },
+      { 'btn-link text-accent': plain || false },
       { 'btn-circle': icon || false },
       { 'btn-outlined': outlined || false },
       { loading: loading || false },

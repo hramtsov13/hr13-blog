@@ -1,5 +1,5 @@
 <template>
-  <div class="the-modal font-mono">
+  <div class="the-modal !z-300 font-mono">
     <div
       class="the-modal__overlay bg-base-100"
       @click="$emit('update:modelValue', false), $emit('close', false)"
@@ -7,7 +7,7 @@
     <div class="the-modal__wrapper modal-box bg-base-300">
       <UiTheButton
         v-if="showClose"
-        class="the-modal__close-button"
+        class="the-modal__close-button text-accent"
         icon
         plain
         @click="$emit('update:modelValue', false), $emit('close', false)"

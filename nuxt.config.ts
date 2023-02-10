@@ -9,10 +9,36 @@ export default {
       '@intlify/nuxt3',
       {
         localeDir: 'locales',
+        locales: [
+          {
+            code: 'en',
+            iso: 'en-US',
+          },
+          {
+            code: 'ru',
+            iso: 'ru-RU',
+          },
+          {
+            code: 'de',
+            iso: 'de-DE',
+          },
+        ],
       },
     ],
+    [
+      'nuxt-swiper',
+      {
+        // Swiper options
+        //----------------------
+        // prefix: 'Swiper',
+        // styleLang: 'css',
+        // modules: ['navigation', 'pagination'], // all modules are imported by default
+      },
+    ],
+
     ['@pinia/nuxt'],
     ['@nuxtjs/strapi'],
+    // ['@nuxtjs/markdownit'],
     [
       '@nuxtjs/google-fonts',
       {
@@ -34,7 +60,7 @@ export default {
   ],
 
   plugins: [
-    { src: '@/plugins/vee-validate.ts', ssr: false, mode: 'client' },
+    { src: '@/plugins/vee-validate.ts', mode: 'client' },
 
     '@/plugins/i18n.ts',
   ],
@@ -59,5 +85,13 @@ export default {
     entities: ['articles'],
   },
 
-  build: { transpile: ['@vee-validate/rules'] },
+  // markdownit: {
+  //   preset: 'default',
+  //   linkify: true,
+  //   breaks: true,
+  //   injected: true,
+  //   // use: ['markdown-it-div', 'markdown-it-attrs'],
+  // },
+
+  build: { transpile: ['@vee-validate/rules', 'vue-i18n'] },
 }
