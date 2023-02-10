@@ -5,6 +5,7 @@
     "title": "Der Entwickler",
     "noValue": "Please, set the value",
     "language": "Sprache",
+    "darkMode": "Dunkles Theme",
     "frontend": "Frontend",
     "backend": "Backend",
     "mobile": "Mobile",

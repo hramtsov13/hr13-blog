@@ -4,12 +4,12 @@
       <template #controls="{ swiper, slidesLength }">
         <div class="mb-6 flex items-center justify-between">
           <h2 class="font-mono text-2xl uppercase">
-            {{ title }} {{ slidesLength }}
+            {{ title }}
           </h2>
 
           <div>
             <UiTheButton
-              :disabled="slidesLength < 4"
+              :disabled="slidesLength < 4 || swiper?.isBeginning"
               class="text-accent mr-4"
               @click="swiper?.slidePrev()"
             >
@@ -17,7 +17,7 @@
             </UiTheButton>
             <UiTheButton
               class="text-accent"
-              :disabled="slidesLength < 4"
+              :disabled="slidesLength < 4 || swiper?.isEnd"
               @click="swiper?.slideNext()"
             >
               <Icon
@@ -33,7 +33,7 @@
           :title="slide.attributes.title"
           :description="slide.attributes.description"
           :img="`${config.strapi.url}${slide.attributes.cover?.data.attributes.url}`"
-          class="col-span-full mb-4 sm:col-span-6 md:col-span-4"
+          class="h-full"
         />
       </template>
     </UiTheSlider>

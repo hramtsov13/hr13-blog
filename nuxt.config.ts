@@ -93,5 +93,5 @@ export default {
   //   // use: ['markdown-it-div', 'markdown-it-attrs'],
   // },
 
-  build: { transpile: ['@vee-validate/rules'] },
+  build: { transpile: ['@vee-validate/rules', 'vue-i18n'] },
 }

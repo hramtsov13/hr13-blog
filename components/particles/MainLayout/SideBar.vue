@@ -50,7 +50,7 @@
                 'invisible h-0 w-0 opacity-0 absolute': !isSidebarExpanded,
               }"
             >
-              {{ option.title }}
+              {{ $t(option.title) }}
             </span>
           </NuxtLink>
         </li>

@@ -4,11 +4,20 @@
       {{ $t('allArticles.title') }}.
     </h1>
 
-    <ParticlesArticlesSlider :options="frontendArticles" title="Frontend" />
+    <ParticlesArticlesSlider
+      :options="frontendArticles"
+      :title="$t('service.frontend')"
+    />
 
-    <ParticlesArticlesSlider :options="backendArticles" title="Backend" />
+    <ParticlesArticlesSlider
+      :options="backendArticles"
+      :title="$t('service.backend')"
+    />
 
-    <ParticlesArticlesSlider :options="otherArticles" title="Other" />
+    <ParticlesArticlesSlider
+      :options="otherArticles"
+      :title="$t('service.other')"
+    />
   </div>
 </template>
 
