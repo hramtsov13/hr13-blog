@@ -14,17 +14,17 @@ export const SIDEBAR_OPTIONS = [
     icon: 'majesticons:article-search-line',
   },
   {
-    title: `t('sidebar.frontend')`,
+    title: `t('service.frontend')`,
     path: 'articles/frontend',
     icon: 'icon-park-solid:bring-to-front',
   },
   {
-    title: `t('sidebar.backend')`,
+    title: `t('service.backend')`,
     path: 'articles/backend',
     icon: 'pixelarticons:flip-to-back',
   },
   {
-    title: `t('sidebar.mobile')`,
+    title: `t('service.mobile')`,
     path: 'articles/mobile',
     icon: 'cil:screen-smartphone',
   },

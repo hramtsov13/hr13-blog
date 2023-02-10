@@ -46,6 +46,7 @@
 		"@vee-validate/rules": "^4.7.3",
 		"@vueuse/core": "^9.4.0",
 		"daisyui": "^2.50.0",
+		"nuxt-swiper": "^1.0.0",
 		"pinia": "^2.0.23",
 		"vee-validate": "4.4.9"
 	},

@@ -4,7 +4,7 @@
       <Title> Blog | Main Page </Title>
     </Head>
 
-    <ParticlesMainLayoutTheNavigation
+    <ParticlesMainLayoutHeader
       @on-login-click="onLoginClick"
       @on-register-click="onRegisterClick"
       @on-burger-click="onBurgerClick"
@@ -24,8 +24,8 @@
     </template>
 
     <div class="pt-18 flex h-screen">
-      <ParticlesCommonSideBar
-        v-model:is-sidebar-expanded="isSidebarExpanded"
+      <ParticlesMainLayoutSideBar
+        v-model:is-sidebar-expanded="isSidebarOpened"
         :user="user"
         :options="SIDEBAR_OPTIONS"
       />
@@ -52,9 +52,9 @@ const user = useStrapiUser<TUser>()
 
 const isLoginModalVisible = ref(false)
 const isRegisterModalVisible = ref(false)
-const isSidebarExpanded = ref(false)
+const isSidebarOpened = ref(false)
 
 const onLoginClick = () => (isLoginModalVisible.value = true)
 const onRegisterClick = () => (isRegisterModalVisible.value = true)
-const onBurgerClick = () => (isSidebarExpanded.value = !isSidebarExpanded.value)
+const onBurgerClick = () => (isSidebarOpened.value = !isSidebarOpened.value)
 </script>

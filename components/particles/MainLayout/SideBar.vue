@@ -1,20 +1,22 @@
 <template>
   <aside
     class="max-w-75 bg-base-300 relative w-full pb-10 shadow-xl transition-all duration-200"
-    :class="{ '!max-w-20': isSidebarExpanded }"
+    :class="{ '!max-w-20': !isSidebarExpanded }"
   >
-    <div class="bg-base-200 hover:bg-neutral p-2 px-4 transition duration-200">
+    <div
+      v-if="user"
+      class="bg-base-200 hover:bg-neutral p-2 px-4 transition duration-200"
+    >
       <NuxtLink
-        v-if="user"
         to="/account"
         class="flex cursor-pointer items-center gap-3"
-        :class="{ 'justify-center': isSidebarExpanded }"
+        :class="{ 'justify-center': !isSidebarExpanded }"
       >
         <Icon name="mdi:account-edit" size="2.5rem" />
         <p
           class="transition duration-500"
           :class="{
-            'invisible h-0 w-0 opacity-0 absolute': isSidebarExpanded,
+            'invisible h-0 w-0 opacity-0 absolute': !isSidebarExpanded,
           }"
         >
           <span class="block font-mono font-medium capitalize leading-4">
@@ -33,19 +35,19 @@
           <NuxtLink
             :to="option.path"
             class="btn mb-2 flex flex-nowrap items-center justify-start"
-            :class="{ 'px-2 justify-center': isSidebarExpanded }"
+            :class="{ 'px-2 justify-center': !isSidebarExpanded }"
             :tabindex="index"
           >
             <Icon
               :name="option.icon ?? 'material-symbols:article-outline'"
               size="2rem"
               class="mr-2"
-              :class="{ 'mr-0': isSidebarExpanded }"
+              :class="{ 'mr-0': !isSidebarExpanded }"
             />
             <span
               class="inline-block transition duration-500"
               :class="{
-                'invisible h-0 w-0 opacity-0 absolute': isSidebarExpanded,
+                'invisible h-0 w-0 opacity-0 absolute': !isSidebarExpanded,
               }"
             >
               {{ option.title }}

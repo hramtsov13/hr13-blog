@@ -5,7 +5,10 @@
     "title": "Der Entwickler",
     "noValue": "Please, set the value",
     "language": "Sprache",
-    "darkMode": "Nachtmodus"
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Mobile",
+    "other": "Other"
   },
   "form": {
     "username": "Benutzername",
@@ -16,10 +19,7 @@
   },
   "sidebar": {
     "visitAccount": "Konto anzeigen",
-    "all": "Alle Artikel",
-    "frontend": "Frontend",
-    "backend": "Backend",
-    "mobile": "Mobile"
+    "all": "Alle Artikel"
   },
   "allArticles": {
     "title": "Zusammenfassung der besten Artikel"

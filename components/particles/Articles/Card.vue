@@ -2,15 +2,17 @@
   <div
     class="card card-bordered bg-base-200 hover:scale-101 transform-gpu cursor-pointer overflow-hidden shadow-md transition duration-100"
   >
-    <div class="min-h-50 w-full">
+    <div class="h-50 w-full">
       <img class="h-full w-full object-cover" :src="img" :alt="title" />
     </div>
     <div class="card-body p-4">
-      <h2 class="card-title mb-4 text-sm leading-6 md:text-lg">
-        {{ title }}
-      </h2>
+      <div class="min-h-16 mb-4">
+        <h2 class="card-title text-sm leading-6 md:text-lg">
+          {{ title }}
+        </h2>
+      </div>
 
-      <p class="">
+      <p class="mb-2 text-sm">
         {{ description }}
       </p>
       <div class="card-actions justify-end">

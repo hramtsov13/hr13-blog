@@ -25,6 +25,17 @@ export default {
         ],
       },
     ],
+    [
+      'nuxt-swiper',
+      {
+        // Swiper options
+        //----------------------
+        // prefix: 'Swiper',
+        // styleLang: 'css',
+        // modules: ['navigation', 'pagination'], // all modules are imported by default
+      },
+    ],
+
     ['@pinia/nuxt'],
     ['@nuxtjs/strapi'],
     // ['@nuxtjs/markdownit'],
@@ -49,7 +60,7 @@ export default {
   ],
 
   plugins: [
-    { src: '@/plugins/vee-validate.ts', ssr: false, mode: 'client' },
+    { src: '@/plugins/vee-validate.ts', mode: 'client' },
 
     '@/plugins/i18n.ts',
   ],

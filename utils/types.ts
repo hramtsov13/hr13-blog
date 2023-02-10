@@ -19,6 +19,8 @@ export interface IRequestMeta {
   }
 }
 
+export type ArticleType = 'frontend' | 'backend' | 'mobile' | 'other'
+
 export interface IContentInstanceAttributes {
   title: string
   description: string
@@ -27,6 +29,7 @@ export interface IContentInstanceAttributes {
   updatedAt: Date
   publishedAt: Date
   cover?: Record<string, any>
+  category: ArticleType
 }
 
 export interface IContentInstance {

@@ -1,20 +1,14 @@
 <template>
   <div class="pt-4 font-mono md:pt-6">
-    <h1
-      class="text-md mb-4 text-center font-mono sm:text-xl md:mb-10 md:text-2xl"
-    >
-      {{ $t('allArticles.title') }}
+    <h1 class="text-md mb-4 font-mono sm:text-xl md:mb-10 md:text-4xl">
+      {{ $t('allArticles.title') }}.
     </h1>
-    <div class="grid grid-cols-12 gap-4">
-      <ParticlesArticlesArticleCard
-        v-for="article in articles?.data"
-        :key="article.id"
-        :title="article.attributes.title"
-        :description="article.attributes.description"
-        :img="`http://localhost:1337${article.attributes.cover?.data.attributes.url}`"
-        class="col-span-full mb-4 sm:col-span-6 md:col-span-4"
-      />
-    </div>
+
+    <ParticlesArticlesSlider :options="frontendArticles" title="Frontend" />
+
+    <ParticlesArticlesSlider :options="backendArticles" title="Backend" />
+
+    <ParticlesArticlesSlider :options="otherArticles" title="Other" />
   </div>
 </template>
 
@@ -22,9 +16,28 @@
 import { IContentResponse } from '@/utils/types'
 
 const { find } = useStrapi4()
-const articles = ref<IContentResponse | null>(null)
 
-articles.value = await find<IContentResponse>('articles', { populate: 'cover' })
+const { data: articles } = await useAsyncData('articles', () =>
+  find<IContentResponse>('articles', { populate: 'cover' })
+)
+
+const frontendArticles = computed(() =>
+  articles.value?.data.filter(
+    (article) => article.attributes.category === 'frontend'
+  )
+)
+
+const otherArticles = computed(() =>
+  articles.value?.data.filter(
+    (article) => article.attributes.category === 'other'
+  )
+)
+
+const backendArticles = computed(() =>
+  articles.value?.data.filter(
+    (article) => article.attributes.category === 'backend'
+  )
+)
 
 definePageMeta({
   layout: 'main-layout',
