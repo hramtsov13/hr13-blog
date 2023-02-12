@@ -3,7 +3,11 @@
     class="card card-bordered bg-base-200 hover:scale-101 transform-gpu cursor-pointer overflow-hidden shadow-md transition duration-100"
   >
     <div class="h-50 w-full">
-      <img class="h-full w-full object-cover" :src="img" :alt="title" />
+      <img
+        class="h-full w-full object-cover"
+        :src="`${config.strapi.url}${img}`"
+        :alt="title"
+      />
     </div>
     <div class="card-body p-4">
       <div class="min-h-16 mb-4">
@@ -28,7 +32,6 @@
 interface IArticleCardProps {
   title: string
   description?: string
-  content?: string
   img?: string
 }
 
@@ -40,6 +43,8 @@ withDefaults(defineProps<IArticleCardProps>(), {
 })
 
 const emits = defineEmits(['on-read-more-click'])
+
+const config = useRuntimeConfig()
 
 const onReadMoreClick = () => emits('on-read-more-click')
 </script>

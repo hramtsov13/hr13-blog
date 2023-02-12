@@ -1,9 +1,9 @@
 <template>
   <aside
-    class="max-w-75 bg-base-300 relative w-full pb-10 shadow-xl transition-all duration-200"
+    class="max-w-75 sm:max-w-75 bg-base-300 relative w-full pb-10 shadow-xl transition-all duration-200"
     :class="{ '!max-w-20': !isSidebarExpanded }"
   >
-    <nav class="h-full overflow-y-scroll px-4 py-8">
+    <nav class="h-full overflow-y-scroll px-2 py-4 sm:px-4 sm:py-8">
       <div
         class="flex justify-end"
         :class="{ '!justify-center': !isSidebarExpanded }"
@@ -83,12 +83,12 @@
 
 <script setup lang="ts">
 import { TUser } from '@/utils/types'
+import { NuxtLinkProps } from '#app'
 
 interface ISidebarProps {
   label?: string
   user: TUser
   options: Array<ISidebarOption>
-  // isSidebarExpanded: boolean
 }
 
 interface ISidebarOption {
@@ -101,7 +101,6 @@ withDefaults(defineProps<ISidebarProps>(), {
   label: '',
   user: null,
   options: () => [],
-  // isSidebarExpanded: false,
 })
 
 const isSidebarExpanded = ref(false)

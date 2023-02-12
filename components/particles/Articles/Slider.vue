@@ -33,7 +33,7 @@
         <ParticlesArticlesCard
           :title="slide.attributes.title"
           :description="slide.attributes.description"
-          :img="`${config.strapi.url}${slide.attributes.cover?.data.attributes.url}`"
+          :img="slide.attributes.cover?.data.attributes.url"
           class="h-full"
           @on-read-more-click="onReadMoreClick(slide)"
         />
@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { IContentInstance } from '~~/utils/types'
+import { IContentInstance } from '@/utils/types'
 
 interface ArticleSliderProps {
   options: Array<any>
@@ -54,8 +54,6 @@ withDefaults(defineProps<ArticleSliderProps>(), {
   options: () => [],
   title: '',
 })
-
-const config = useRuntimeConfig()
 
 const onReadMoreClick = (slide: IContentInstance) => {
   console.log('slide: ', slide)
