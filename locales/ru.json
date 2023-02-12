@@ -24,5 +24,8 @@
   },
   "allArticles": {
     "title": "Дайджест лучших новостей"
+  },
+  "articlesCard": {
+    "readMore": "Читать далее..."
   }
 }

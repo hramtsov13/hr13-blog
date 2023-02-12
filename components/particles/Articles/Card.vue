@@ -16,7 +16,9 @@
         {{ description }}
       </p>
       <div class="card-actions justify-end">
-        <UiTheButton plain>Read more...</UiTheButton>
+        <UiTheButton plain @click="onReadMoreClick">
+          {{ $t('articlesCard.readMore') }}
+        </UiTheButton>
       </div>
     </div>
   </div>
@@ -36,4 +38,8 @@ withDefaults(defineProps<IArticleCardProps>(), {
   content: '',
   img: 'http://localhost:1337/uploads/preview_0a34ae646c.png',
 })
+
+const emits = defineEmits(['on-read-more-click'])
+
+const onReadMoreClick = () => emits('on-read-more-click')
 </script>

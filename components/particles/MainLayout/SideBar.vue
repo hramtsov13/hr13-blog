@@ -3,34 +3,30 @@
     class="max-w-75 bg-base-300 relative w-full pb-10 shadow-xl transition-all duration-200"
     :class="{ '!max-w-20': !isSidebarExpanded }"
   >
-    <div
-      v-if="user"
-      class="bg-base-200 hover:bg-neutral p-2 px-4 transition duration-200"
-    >
-      <NuxtLink
-        to="/account"
-        class="flex cursor-pointer items-center gap-3"
-        :class="{ 'justify-center': !isSidebarExpanded }"
-      >
-        <Icon name="mdi:account-edit" size="2.5rem" />
-        <p
-          class="transition duration-500"
-          :class="{
-            'invisible h-0 w-0 opacity-0 absolute': !isSidebarExpanded,
-          }"
-        >
-          <span class="block font-mono font-medium capitalize leading-4">
-            {{ user.name }} {{ user.surname }}
-          </span>
-          <span class="text-accent block font-mono text-[0.7rem] underline">
-            {{ $t('sidebar.visitAccount') }}
-          </span>
-        </p>
-      </NuxtLink>
-    </div>
-
     <nav class="h-full overflow-y-scroll px-4 py-8">
-      <ul>
+      <div
+        class="flex justify-end"
+        :class="{ '!justify-center': !isSidebarExpanded }"
+      >
+        <UiTheButton
+          v-if="!isSidebarExpanded"
+          @click="isSidebarExpanded = !isSidebarExpanded"
+        >
+          <Icon
+            class="text-accent"
+            name="quill:hamburger-sidebar"
+            size="1.5rem"
+          />
+        </UiTheButton>
+        <UiTheButton v-else @click="isSidebarExpanded = !isSidebarExpanded">
+          <Icon
+            class="text-accent swap-on"
+            name="mdi:window-close"
+            size="1.5rem"
+          />
+        </UiTheButton>
+      </div>
+      <ul class="mt-6">
         <li v-for="(option, index) in options" :key="option.title">
           <NuxtLink
             :to="option.path"
@@ -58,11 +54,29 @@
     </nav>
 
     <div
-      class="bg-base-200 absolute bottom-0 left-0 flex w-full justify-end py-2 shadow-lg"
+      v-if="user"
+      class="bg-base-200 hover:bg-neutral absolute bottom-0 left-0 w-full p-2 px-4 transition duration-200"
     >
-      <UiTheButton class="text-accent mx-2 p-1" @click="logout">
-        <Icon name="ion:log-out-outline" size="1.5rem" />
-      </UiTheButton>
+      <NuxtLink
+        to="/account"
+        class="flex cursor-pointer items-center gap-3"
+        :class="{ 'justify-center': !isSidebarExpanded }"
+      >
+        <Icon name="mdi:account-edit" size="2.5rem" />
+        <p
+          class="transition duration-500"
+          :class="{
+            'invisible h-0 w-0 opacity-0 absolute': !isSidebarExpanded,
+          }"
+        >
+          <span class="block font-mono font-medium capitalize leading-4">
+            {{ user.name }} {{ user.surname }}
+          </span>
+          <span class="text-accent block font-mono text-[0.7rem] underline">
+            {{ $t('sidebar.visitAccount') }}
+          </span>
+        </p>
+      </NuxtLink>
     </div>
   </aside>
 </template>
@@ -74,7 +88,7 @@ interface ISidebarProps {
   label?: string
   user: TUser
   options: Array<ISidebarOption>
-  isSidebarExpanded: boolean
+  // isSidebarExpanded: boolean
 }
 
 interface ISidebarOption {
@@ -87,8 +101,8 @@ withDefaults(defineProps<ISidebarProps>(), {
   label: '',
   user: null,
   options: () => [],
-  isSidebarExpanded: false,
+  // isSidebarExpanded: false,
 })
 
-const { logout } = useStrapiAuth()
+const isSidebarExpanded = ref(false)
 </script>

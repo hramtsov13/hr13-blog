@@ -42,6 +42,7 @@ export default defineConfig({
           '-webkit-text-fill-color': 'transparent',
           backgroundClip: 'text',
         },
+        '.transform': {},
       })
     }),
   ],

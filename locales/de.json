@@ -24,5 +24,8 @@
   },
   "allArticles": {
     "title": "Zusammenfassung der besten Artikel"
+  },
+  "articlesCard": {
+    "readMore": "Weiter lesen..."
   }
 }

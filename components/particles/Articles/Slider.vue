@@ -1,3 +1,4 @@
+<!-- eslint-disable tailwindcss/migration-from-tailwind-2 -->
 <template>
   <div class="border-grey-200 bg-base-300 mb-10 w-full rounded-xl p-4">
     <UiTheSlider :options="options">
@@ -21,7 +22,7 @@
               @click="swiper?.slideNext()"
             >
               <Icon
-                class="rotate-180"
+                class="rotate-180 transform"
                 name="material-symbols:arrow-back-ios-new-rounded"
               />
             </UiTheButton>
@@ -34,6 +35,7 @@
           :description="slide.attributes.description"
           :img="`${config.strapi.url}${slide.attributes.cover?.data.attributes.url}`"
           class="h-full"
+          @on-read-more-click="onReadMoreClick(slide)"
         />
       </template>
     </UiTheSlider>
@@ -41,6 +43,8 @@
 </template>
 
 <script setup lang="ts">
+import { IContentInstance } from '~~/utils/types'
+
 interface ArticleSliderProps {
   options: Array<any>
   title: string
@@ -52,4 +56,8 @@ withDefaults(defineProps<ArticleSliderProps>(), {
 })
 
 const config = useRuntimeConfig()
+
+const onReadMoreClick = (slide: IContentInstance) => {
+  console.log('slide: ', slide)
+}
 </script>
