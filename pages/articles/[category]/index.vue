@@ -24,9 +24,7 @@
     <ParticlesArticlesCard
       v-for="article in specificCategoryArticles"
       :key="article.id"
-      :description="article.attributes.description"
-      :title="article.attributes.title"
-      :img="article.attributes.cover?.data.attributes.url"
+      :article="article"
       class="col-span-full sm:col-span-6 lg:col-span-4 xl:col-span-3"
     />
   </div>

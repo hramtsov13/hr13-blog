@@ -26,7 +26,7 @@ import { IContentResponse } from '@/utils/types'
 
 const { find } = useStrapi4()
 
-const { data: articles } = await useAsyncData('articles', () =>
+const { data: articles } = await useAsyncData(() =>
   find<IContentResponse>('articles', { populate: 'cover' })
 )
 

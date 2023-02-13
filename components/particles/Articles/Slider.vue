@@ -30,21 +30,13 @@
         </div>
       </template>
       <template #content="{ slide }">
-        <ParticlesArticlesCard
-          :title="slide.attributes.title"
-          :description="slide.attributes.description"
-          :img="slide.attributes.cover?.data.attributes.url"
-          class="h-full"
-          @on-read-more-click="onReadMoreClick(slide)"
-        />
+        <ParticlesArticlesCard :article="slide" class="h-full" />
       </template>
     </UiTheSlider>
   </div>
 </template>
 
 <script setup lang="ts">
-import { IContentInstance } from '@/utils/types'
-
 interface ArticleSliderProps {
   options: Array<any>
   title: string
@@ -54,8 +46,4 @@ withDefaults(defineProps<ArticleSliderProps>(), {
   options: () => [],
   title: '',
 })
-
-const onReadMoreClick = (slide: IContentInstance) => {
-  console.log('slide: ', slide)
-}
 </script>

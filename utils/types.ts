@@ -40,3 +40,8 @@ export interface IContentResponse {
   data: Array<IContentInstance>
   meta: IRequestMeta
 }
+
+export interface IContentSingleResponse {
+  data: IContentInstance
+  meta: IRequestMeta
+}
