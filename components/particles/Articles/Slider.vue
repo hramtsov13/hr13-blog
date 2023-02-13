@@ -1,3 +1,4 @@
+<!-- eslint-disable tailwindcss/migration-from-tailwind-2 -->
 <template>
   <div class="border-grey-200 bg-base-300 mb-10 w-full rounded-xl p-4">
     <UiTheSlider :options="options">
@@ -21,7 +22,7 @@
               @click="swiper?.slideNext()"
             >
               <Icon
-                class="rotate-180"
+                class="rotate-180 transform"
                 name="material-symbols:arrow-back-ios-new-rounded"
               />
             </UiTheButton>
@@ -29,12 +30,7 @@
         </div>
       </template>
       <template #content="{ slide }">
-        <ParticlesArticlesCard
-          :title="slide.attributes.title"
-          :description="slide.attributes.description"
-          :img="`${config.strapi.url}${slide.attributes.cover?.data.attributes.url}`"
-          class="h-full"
-        />
+        <ParticlesArticlesCard :article="slide" class="h-full" />
       </template>
     </UiTheSlider>
   </div>
@@ -50,6 +46,4 @@ withDefaults(defineProps<ArticleSliderProps>(), {
   options: () => [],
   title: '',
 })
-
-const config = useRuntimeConfig()
 </script>

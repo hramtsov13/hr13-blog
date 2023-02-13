@@ -9,7 +9,7 @@
     "frontend": "Frontend",
     "backend": "Backend",
     "mobile": "Mobile",
-    "other": "Other"
+    "other": "Andere"
   },
   "form": {
     "username": "Benutzername",
@@ -24,5 +24,15 @@
   },
   "allArticles": {
     "title": "Zusammenfassung der besten Artikel"
+  },
+  "articlesCard": {
+    "readMore": "Weiter lesen..."
+  },
+  "articleCategory": {
+    "emptyCategory": {
+      "message1": "Entschuldigung, es gibt noch keine Artikel in der Kategorie <b class=\"uppercase\">{category}</b>",
+      "message2": "Wir arbeiten daran",
+      "backButton": "Zurück zu den Artikeln"
+    }
   }
 }

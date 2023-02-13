@@ -24,5 +24,15 @@
   },
   "allArticles": {
     "title": "Digest of the best articles"
+  },
+  "articlesCard": {
+    "readMore": "Read more..."
+  },
+  "articleCategory": {
+    "emptyCategory": {
+      "message1": "Sorry, there are no articles about <b class=\"uppercase\">{category}</b> yet",
+      "message2": "We work on it",
+      "backButton": "Back to articles"
+    }
   }
 }

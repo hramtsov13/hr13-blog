@@ -7,7 +7,6 @@
     <ParticlesMainLayoutHeader
       @on-login-click="onLoginClick"
       @on-register-click="onRegisterClick"
-      @on-burger-click="onBurgerClick"
     />
 
     <template v-if="isLoginModalVisible">
@@ -24,11 +23,7 @@
     </template>
 
     <div class="pt-18 flex h-screen">
-      <ParticlesMainLayoutSideBar
-        v-model:is-sidebar-expanded="isSidebarOpened"
-        :user="user"
-        :options="SIDEBAR_OPTIONS"
-      />
+      <ParticlesMainLayoutSideBar :user="user" :options="SIDEBAR_OPTIONS" />
 
       <div class="container mx-auto overflow-y-auto p-4">
         <slot />
@@ -52,9 +47,7 @@ const user = useStrapiUser<TUser>()
 
 const isLoginModalVisible = ref(false)
 const isRegisterModalVisible = ref(false)
-const isSidebarOpened = ref(false)
 
 const onLoginClick = () => (isLoginModalVisible.value = true)
 const onRegisterClick = () => (isRegisterModalVisible.value = true)
-const onBurgerClick = () => (isSidebarOpened.value = !isSidebarOpened.value)
 </script>

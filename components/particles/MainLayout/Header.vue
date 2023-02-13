@@ -2,9 +2,14 @@
   <header class="bg-base-300 z-100 fixed top-0 left-0 w-full shadow-md">
     <div class="container mx-auto px-4 py-2">
       <div class="flex items-center justify-between">
-        <UiTheButton @click="onBurgerClick">
-          <Icon class="text-accent" name="pajamas:overview" size="1.5rem" />
-        </UiTheButton>
+        <NuxtLink class="flex cursor-pointer items-center" to="/">
+          <p class="mr-2 font-mono text-xl capitalize">The developer.</p>
+          <Icon
+            name="fluent:brain-circuit-20-regular"
+            size="2rem"
+            class="text-accent"
+          />
+        </NuxtLink>
 
         <div class="flex items-center justify-end">
           <template v-if="!user">
@@ -54,12 +59,7 @@
 
 <script lang="ts" setup>
 import { useDark, useToggle } from '@vueuse/core'
-const emit = defineEmits([
-  'onLoginClick',
-  'onRegisterClick',
-  'onLogoutClick',
-  'onBurgerClick',
-])
+const emit = defineEmits(['onLoginClick', 'onRegisterClick', 'onLogoutClick'])
 
 const isDark = useDark({
   attribute: 'data-theme',
@@ -72,5 +72,4 @@ const { logout } = useStrapiAuth()
 
 const onLoginClick = () => emit('onLoginClick')
 const onRegisterClick = () => emit('onRegisterClick')
-const onBurgerClick = () => emit('onBurgerClick')
 </script>
