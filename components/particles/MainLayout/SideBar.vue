@@ -33,6 +33,7 @@
             class="btn mb-2 flex flex-nowrap items-center justify-start"
             :class="{ 'px-2 justify-center': !isSidebarExpanded }"
             :tabindex="index"
+            active-class="text-accent"
           >
             <Icon
               :name="option.icon ?? 'material-symbols:article-outline'"
@@ -41,7 +42,7 @@
               :class="{ 'mr-0': !isSidebarExpanded }"
             />
             <span
-              class="inline-block transition duration-500"
+              class="inline-block font-mono text-inherit transition duration-500"
               :class="{
                 'invisible h-0 w-0 opacity-0 absolute': !isSidebarExpanded,
               }"

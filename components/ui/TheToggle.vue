@@ -1,7 +1,6 @@
 <template>
   <input
-    :checked="innerValue"
-    :value="innerValue"
+    :checked="modelValue"
     type="checkbox"
     class="toggle"
     @change="onChange"

@@ -16,7 +16,9 @@
     "email": "E-mail",
     "password": "Пароль",
     "name": "Имя",
-    "lastName": "Фамилия"
+    "lastName": "Фамилия",
+    "newPassword": "Новый пароль",
+    "oldPassword": "Старый пароль"
   },
   "sidebar": {
     "visitAccount": "Показать аккаунт",

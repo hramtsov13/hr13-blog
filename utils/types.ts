@@ -7,6 +7,7 @@ export type TUser =
   | ({
       name: string
       surname: string
+      avatar: null | string
     } & StrapiUser)
   | null
 

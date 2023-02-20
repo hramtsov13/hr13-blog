@@ -16,7 +16,9 @@
     "email": "E-mail",
     "password": "Passwort",
     "name": "Name",
-    "lastName": "Nachname"
+    "lastName": "Nachname",
+    "newPassword": "Neues Passwort",
+    "oldPassword": "Altes Passwort"
   },
   "sidebar": {
     "visitAccount": "Konto anzeigen",

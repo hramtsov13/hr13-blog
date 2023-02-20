@@ -69,7 +69,6 @@
 <script lang="ts" setup>
 import { useField, useForm, useIsFormValid } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
-import UiTheInput from '@/components/ui/TheInput.vue'
 
 interface IModalRegister {
   modelValue: boolean

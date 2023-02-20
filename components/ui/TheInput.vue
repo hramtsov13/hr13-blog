@@ -16,6 +16,7 @@
       :value="modelValue"
       :placeholder="placeholder"
       :autocomplete="autocomplete"
+      :disabled="disabled"
       @input="onInput"
       @change="onChange"
     />
@@ -38,6 +39,7 @@ interface ITheInput {
   errorMessage?: string
   autocomplete?: string
   required?: boolean
+  disabled?: boolean
 }
 
 withDefaults(defineProps<ITheInput>(), {
@@ -49,6 +51,7 @@ withDefaults(defineProps<ITheInput>(), {
   type: 'text',
   autocomplete: 'off',
   required: false,
+  disabled: false,
 })
 
 const emits = defineEmits(['update:modelValue', 'input', 'change'])

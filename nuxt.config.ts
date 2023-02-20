@@ -26,10 +26,8 @@ export default {
       },
     ],
     ['nuxt-swiper'],
-
     ['@pinia/nuxt'],
     ['@nuxtjs/strapi'],
-    // ['@nuxtjs/markdownit'],
     [
       '@nuxtjs/google-fonts',
       {
@@ -75,13 +73,6 @@ export default {
     cookieName: 'strapi_jwt',
     entities: ['articles'],
   },
-
-  // markdownit: {
-  //   preset: 'default',
-  //   linkify: true,
-  //   breaks: true,
-  //   use: ['markdown-it-div', 'markdown-it-attrs'],
-  // },
 
   build: { transpile: ['@vee-validate/rules', 'vue-i18n'] },
 }
