@@ -19,7 +19,17 @@
     "lastName": "Last name",
     "newPassword": "New password",
     "oldPassword": "Old password",
-    "confirmPassword": "Confirm password"
+    "confirmPassword": "Confirm password",
+    "buttons": {
+      "save": "save",
+      "update": "update"
+    },
+    "requirements": {
+      "title": "Password requirements",
+      "enoughChars": "Minimum 8 characters",
+      "enoughCapitalLetters": "Minimum 1 capital letter",
+      "passwordMatch": "Passwords correspond"
+    }
   },
   "sidebar": {
     "visitAccount": "Visit my account",
@@ -36,6 +46,17 @@
       "message1": "Sorry, there are no articles about <b class=\"uppercase\">{category}</b> yet",
       "message2": "We work on it",
       "backButton": "Back to articles"
+    }
+  },
+  "account": {
+    "myAccountPage": {
+      "title": "My info"
+    },
+    "passwordPage": {
+      "title": "Password"
+    },
+    "usersPage": {
+      "title": "Users"
     }
   }
 }

@@ -11,6 +11,7 @@
     "mobile": "Mobile",
     "other": "Andere"
   },
+
   "form": {
     "username": "Benutzername",
     "email": "E-mail",
@@ -19,23 +20,49 @@
     "lastName": "Nachname",
     "newPassword": "Neues Passwort",
     "oldPassword": "Altes Passwort",
-    "confirmPassword": "Passwort bestätigen"
+    "confirmPassword": "Passwort bestätigen",
+    "buttons": {
+      "save": "speichern",
+      "update": "erneuern"
+    },
+    "requirements": {
+      "title": "Passwortanforderungen",
+      "enoughChars": "Mindestens 8 Zeichen",
+      "enoughCapitalLetters": "Mindestens 1 Großbuchstabe",
+      "passwordMatch": "Passwörter entsprechen"
+    }
   },
+
   "sidebar": {
     "visitAccount": "Konto anzeigen",
     "all": "Alle Artikel"
   },
+
   "allArticles": {
     "title": "Zusammenfassung der besten Artikel"
   },
+
   "articlesCard": {
     "readMore": "Weiter lesen..."
   },
+
   "articleCategory": {
     "emptyCategory": {
       "message1": "Entschuldigung, es gibt noch keine Artikel in der Kategorie <b class=\"uppercase\">{category}</b>",
       "message2": "Wir arbeiten daran",
       "backButton": "Zurück zu den Artikeln"
+    }
+  },
+
+  "account": {
+    "myAccountPage": {
+      "title": "Mein Konto"
+    },
+    "passwordPage": {
+      "title": "Passwort"
+    },
+    "usersPage": {
+      "title": "Benutzer"
     }
   }
 }

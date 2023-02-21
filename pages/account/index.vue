@@ -1,6 +1,6 @@
 <template>
   <div class="bg-base-300 col-span-6 rounded-lg p-4 shadow-xl">
-    <h2 class="mb-4 text-xl">My info</h2>
+    <h2 class="mb-4 text-xl">{{ $t('account.myAccountPage.title') }}</h2>
     <form @submit.prevent="onUserDataUpdateSubmit">
       <UiTheInput
         v-model="accountForm.username.value"
@@ -39,14 +39,13 @@
       />
 
       <div class="mt-2 flex justify-end">
-        {{ meta }}
         <UiTheButton
           outlined
           type="submit"
           :disabled="!isFormValid || !meta.dirty"
           :loading="isSubmitting"
         >
-          Update Info
+          {{ $t('form.buttons.save') }}
         </UiTheButton>
       </div>
     </form>

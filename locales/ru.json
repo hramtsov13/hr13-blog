@@ -19,7 +19,17 @@
     "lastName": "Фамилия",
     "newPassword": "Новый пароль",
     "oldPassword": "Старый пароль",
-    "confirmPassword": "Повторите пароль"
+    "confirmPassword": "Повторите пароль",
+    "buttons": {
+      "save": "Сохранить",
+      "update": "Обновить"
+    },
+    "requirements": {
+      "title": "Пароль содержит:",
+      "enoughChars": "Минимум 8 символов",
+      "enoughCapitalLetters": "Минимум 1 заглавную букву",
+      "passwordMatch": "Пароли совпадают"
+    }
   },
   "sidebar": {
     "visitAccount": "Показать аккаунт",
@@ -36,6 +46,17 @@
       "message1": "Извините, на данный момент статей в категории <b class=\"uppercase\">{category}</b> нет",
       "message2": "Мы работаем над этим",
       "backButton": "Назад ко всем статьям"
+    }
+  },
+  "account": {
+    "myAccountPage": {
+      "title": "Аккаунт"
+    },
+    "passwordPage": {
+      "title": "Пароль"
+    },
+    "usersPage": {
+      "title": "Пользователи"
     }
   }
 }
