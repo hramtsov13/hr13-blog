@@ -1,4 +1,5 @@
 export const DEFAULT_LOCALE = 'en'
+export const MINIMUM_PASSWORD_LENGTH = 8
 
 export const SIDEBAR_OPTIONS = [
   {

@@ -26,7 +26,16 @@
       <ParticlesMainLayoutSideBar :user="user" :options="SIDEBAR_OPTIONS" />
 
       <div class="container mx-auto overflow-y-auto p-4">
-        <slot />
+        <div
+          v-if="isAccountPage"
+          class="grid grid-cols-12 items-start gap-6 font-mono"
+        >
+          <ParticlesAccountMenu :user="user" />
+          <div class="col-span-9 grid grid-cols-12">
+            <slot />
+          </div>
+        </div>
+        <slot v-else />
       </div>
     </div>
   </div>
@@ -43,10 +52,12 @@ const ParticlesMainLayoutModalRegister = defineAsyncComponent(
   () => import('@/components/particles/MainLayout/ModalRegister.vue')
 )
 
+const route = useRoute()
 const user = useStrapiUser<TUser>()
 
 const isLoginModalVisible = ref(false)
 const isRegisterModalVisible = ref(false)
+const isAccountPage = computed(() => route.path.includes('/account'))
 
 const onLoginClick = () => (isLoginModalVisible.value = true)
 const onRegisterClick = () => (isRegisterModalVisible.value = true)

@@ -25,20 +25,9 @@ export default {
         ],
       },
     ],
-    [
-      'nuxt-swiper',
-      {
-        // Swiper options
-        //----------------------
-        // prefix: 'Swiper',
-        // styleLang: 'css',
-        // modules: ['navigation', 'pagination'], // all modules are imported by default
-      },
-    ],
-
+    ['nuxt-swiper'],
     ['@pinia/nuxt'],
     ['@nuxtjs/strapi'],
-    // ['@nuxtjs/markdownit'],
     [
       '@nuxtjs/google-fonts',
       {
@@ -84,14 +73,6 @@ export default {
     cookieName: 'strapi_jwt',
     entities: ['articles'],
   },
-
-  // markdownit: {
-  //   preset: 'default',
-  //   linkify: true,
-  //   breaks: true,
-  //   injected: true,
-  //   // use: ['markdown-it-div', 'markdown-it-attrs'],
-  // },
 
   build: { transpile: ['@vee-validate/rules', 'vue-i18n'] },
 }
