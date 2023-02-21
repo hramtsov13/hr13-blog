@@ -18,7 +18,8 @@
     "name": "Name",
     "lastName": "Nachname",
     "newPassword": "Neues Passwort",
-    "oldPassword": "Altes Passwort"
+    "oldPassword": "Altes Passwort",
+    "confirmPassword": "Passwort bestätigen"
   },
   "sidebar": {
     "visitAccount": "Konto anzeigen",

@@ -18,7 +18,8 @@
     "name": "Имя",
     "lastName": "Фамилия",
     "newPassword": "Новый пароль",
-    "oldPassword": "Старый пароль"
+    "oldPassword": "Старый пароль",
+    "confirmPassword": "Повторите пароль"
   },
   "sidebar": {
     "visitAccount": "Показать аккаунт",

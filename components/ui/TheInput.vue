@@ -9,7 +9,10 @@
     <input
       :id="name"
       class="input input-bordered w-full"
-      :class="{ 'input-error': errorMessage }"
+      :class="[
+        { 'input-error': errorMessage },
+        { 'text-neutral-100': disabled },
+      ]"
       :type="type"
       :name="name"
       :required="required"

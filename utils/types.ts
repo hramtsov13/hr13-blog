@@ -1,7 +1,4 @@
-import {
-  Strapi4ResponseData,
-  StrapiUser,
-} from '@nuxtjs/strapi/dist/runtime/types'
+import { StrapiUser } from '@nuxtjs/strapi/dist/runtime/types'
 
 export type TUser =
   | ({
