@@ -1,29 +1,29 @@
 <template>
   <div>
-    <form @submit.prevent="onPasswordChangeSubmit">
+    <form>
       <UiTheInput
-        v-model="passwordForm.oldPassword.value"
-        :label="passwordForm.oldPassword.label"
+        v-model="passwordForm.currentPassword.value"
+        :label="passwordForm.currentPassword.label"
         :placeholder="$t('form.oldPassword')"
-        :error-message="passwordForm.oldPassword.errorMessage"
+        :error-message="passwordForm.currentPassword.errorMessage"
         name="old-password"
         type="password"
         required
       />
       <UiTheInput
-        v-model="passwordForm.newPassword.value"
-        :label="passwordForm.newPassword.label"
+        v-model="passwordForm.password.value"
+        :label="passwordForm.password.label"
         :placeholder="$t('form.newPassword')"
-        :error-message="passwordForm.newPassword.errorMessage"
+        :error-message="passwordForm.password.errorMessage"
         name="new-password"
         type="password"
         required
       />
       <UiTheInput
-        v-model="passwordForm.confirmPassword.value"
-        :label="passwordForm.confirmPassword.label"
+        v-model="passwordForm.passwordConfirmation.value"
+        :label="passwordForm.passwordConfirmation.label"
         :placeholder="$t('form.confirmPassword')"
-        :error-message="passwordForm.confirmPassword.errorMessage"
+        :error-message="passwordForm.passwordConfirmation.errorMessage"
         name="confirm-password"
         type="password"
         required
@@ -32,8 +32,8 @@
 
     <ParticlesFormsPasswordRequirements
       v-model:isValid="isPasswordValid"
-      :password="passwordForm.newPassword.value"
-      :password-again="passwordForm.confirmPassword.value"
+      :password="passwordForm.password.value"
+      :password-again="passwordForm.passwordConfirmation.value"
     />
 
     <div class="mt-2 flex justify-end">
@@ -42,6 +42,7 @@
         type="submit"
         :disabled="!isFormValid || !isPasswordValid"
         :loading="isSubmitting"
+        @click="onPasswordChangeSubmit"
       >
         {{ $t('form.buttons.update') }}
       </UiTheButton>
@@ -53,46 +54,55 @@
 import { useField, useForm, useIsFormValid } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
-
 const isPasswordValid = ref(false)
+const error = ref('')
+const { t } = useI18n()
+const config = useRuntimeConfig()
+const token = useStrapiToken()
 
 const { handleSubmit, isSubmitting } = useForm({
   validationSchema: {
-    oldPassword: 'required|min:8',
-    newPassword: 'required|min:8',
-    confirmPassword: 'required|min:8',
+    currentPassword: 'required|min:8',
+    password: 'required|min:8',
+    passwordConfirmation: 'required|min:8',
   },
 })
 
 const passwordForm = reactive({
-  oldPassword: useField('oldPassword', '', {
+  currentPassword: useField('currentPassword', '', {
     label: t('form.oldPassword'),
     initialValue: '',
   }),
-  newPassword: useField('newPassword', '', {
+  password: useField('password', '', {
     label: t('form.newPassword'),
     initialValue: '',
   }),
-  confirmPassword: useField('confirmPassword', '', {
+  passwordConfirmation: useField('passwordConfirmation', '', {
     label: t('form.confirmPassword'),
     initialValue: '',
   }),
 })
 
 const isFormValid = useIsFormValid()
-const error = ref('')
 
 const onPasswordChangeSubmit = handleSubmit(async (formData, { resetForm }) => {
   console.log('formData: ', formData)
   try {
-    // await register({
-    //   email,
-    //   password,
-    //   username,
-    //   name,
-    //   surname,
-    // })
+    // Custom route defined in strapi to update user data (don't mixt it up with userS/me)
+
+    //TODO: change cookie strapi_jwt
+
+    await useAsyncData(() =>
+      $fetch(`${config.strapi.url}/api/auth/change-password`, {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${token.value}`,
+        },
+        body: formData,
+      })
+    )
+
+    resetForm()
   } catch (e: any) {
     error.value = e.error.message
   }

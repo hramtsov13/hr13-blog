@@ -60,6 +60,7 @@ import { TUser } from '@/utils/types'
 const user = useStrapiUser<TUser>()
 const config = useRuntimeConfig()
 const token = useStrapiToken()
+const { setUser } = useStrapiAuth()
 
 const { t } = useI18n()
 
