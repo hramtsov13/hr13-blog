@@ -2,7 +2,7 @@
   <div class="bg-base-300 col-span-3 rounded-lg p-4 shadow-xl">
     <div>
       <div class="flex items-center">
-        <ParticlesAccountUserIcon :user="user" />
+        <ParticlesAccountUserIcon class="mr-4" :user="user" />
         <div>
           <p>{{ user?.name }}</p>
           <p>{{ user?.surname }}</p>
@@ -12,14 +12,20 @@
       <ul class="mt-6">
         <li class="mb-2">
           <NuxtLink to="/account">
-            <UiTheButton class="w-full">
+            <UiTheButton
+              class="w-full"
+              :class="{ 'text-accent': route.path === '/account' }"
+            >
               {{ $t('account.myAccountPage.title') }}
             </UiTheButton>
           </NuxtLink>
         </li>
         <li class="mb-2">
           <NuxtLink to="/account/password">
-            <UiTheButton class="w-full">
+            <UiTheButton
+              class="w-full"
+              :class="{ 'text-accent': route.path === '/account/password' }"
+            >
               {{ $t('account.passwordPage.title') }}
             </UiTheButton>
           </NuxtLink>
@@ -46,4 +52,6 @@ interface IAccountMenuProps {
 withDefaults(defineProps<IAccountMenuProps>(), {
   user: null,
 })
+
+const route = useRoute()
 </script>
