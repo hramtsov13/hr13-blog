@@ -8,10 +8,10 @@
       />
     </div>
     <div
-      class="bg-base-300 container mx-auto max-w-3xl overflow-hidden rounded-xl"
+      class="bg-base-300 container mx-auto mb-4 max-w-3xl overflow-hidden rounded-xl p-4"
     >
-      <section class="bg-accent text-base-100 mb-10 p-4">
-        <h1 class="md:leading-auto mb-6 text-2xl leading-6 md:text-4xl">
+      <section class="mb-10">
+        <h1 class="md:leading-auto mb-4 text-2xl leading-6 md:text-4xl">
           {{ article.attributes.title }}
         </h1>
         <p class="md:leading-auto text-lg leading-6 md:text-xl">
@@ -20,28 +20,130 @@
       </section>
 
       <section
-        class="text-md md:leading-auto strapi-html px-2.5 py-1.5 leading-5 shadow-xl md:px-6 md:py-4 md:text-lg"
+        class="text-md md:leading-auto strapi-html px-2.5 py-1.5 leading-5 md:px-6 md:py-4 md:text-lg"
         v-html="article.attributes.content"
-      ></section>
+      />
+
+      <section class="mb-6 flex flex-col items-end p-2 text-sm">
+        <p>
+          <span>Author: </span>
+          <span>
+            {{ article.attributes.createdBy?.data.attributes.firstname }}
+            {{ article.attributes.createdBy?.data.attributes.lastname }}
+          </span>
+        </p>
+        <p>
+          <span>Published: </span>
+          <span>{{ $d(article.attributes.publishedAt) }}</span>
+        </p>
+      </section>
+    </div>
+
+    <div
+      class="bg-base-300 container mx-auto max-w-3xl overflow-hidden rounded-xl"
+    >
+      <section class="md:px-6 md:py-4 md:text-lg">
+        <h2 class="mb-4">Comments</h2>
+        <div class="mb-4">
+          <div class="mb-2 flex items-center">
+            <ParticlesAccountUserIcon class="mr-4" :user="user" />
+            <p>{{ user?.name }} {{ user?.surname }}</p>
+          </div>
+          <p class="pl-6 text-sm">
+            {{ commentText }}
+          </p>
+          <div class="flex justify-end text-xs">
+            <span class="block">{{
+              $d(new Date('2023-02-09T16:10:12.844Z'))
+            }}</span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="mb-4">
+          <div class="mb-2 flex items-center">
+            <ParticlesAccountUserIcon class="mr-4" :user="user" />
+            <p>{{ user?.name }} {{ user?.surname }}</p>
+          </div>
+          <p class="pl-6 text-sm">
+            {{ commentText }}
+          </p>
+          <div class="flex justify-end text-xs">
+            <span class="block">{{
+              $d(new Date('2023-04-10T16:10:12.844Z'))
+            }}</span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="mt-10">
+          <textarea
+            v-model="textarea"
+            rows="5"
+            class="bg-base-200 mb-4 block w-full p-4 text-sm"
+          />
+          <UiTheButton @click="sendRequest">Leave a comment</UiTheButton>
+          <UiTheButton @click="sendPostRequest">POST</UiTheButton>
+        </div>
+      </section>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
-import { IContentSingleResponse } from '@/utils/types'
+import { IContentSingleResponse, TUser } from '@/utils/types'
 const route = useRoute()
 const searchableArticleId = route.params.articleId as string
 
 const { findOne } = useStrapi4()
 const config = useRuntimeConfig()
+const user = useStrapiUser<TUser>()
+const token = useStrapiToken()
+
+const commentText =
+  'Docker also makes it easier to manage your application dependencies and reduces the risk of conflicts between your application and the host environment. In summary, Kubernetes helps you manage and automate the deployment and scaling of your applications, while Docker helps you package and distribute your applications in containers.'
+const textarea = ref(
+  'Docker also makes it easier to manage your application dependencies and reduces the risk of conflicts between your application and the host environment. In summary, Kubernetes helps you manage and automate the deployment and scaling of your applications, while Docker helps you package and distribute your applications in containers.'
+)
 
 const { data: article } = await findOne<IContentSingleResponse>(
   'articles',
   searchableArticleId,
   {
-    populate: 'cover',
+    populate: '*',
   }
 )
+
+const sendRequest = async () => {
+  await useAsyncData(() =>
+    $fetch(
+      `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
+      {
+        method: 'GET',
+        headers: {
+          authorization: `Bearer ${token.value}`,
+        },
+      }
+    )
+  )
+}
+
+const sendPostRequest = async () => {
+  await useAsyncData(() =>
+    $fetch(
+      `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
+      {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${token.value}`,
+        },
+        body: { content: textarea.value },
+      }
+    )
+  )
+}
 
 definePageMeta({
   layout: 'main-layout',

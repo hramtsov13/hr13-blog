@@ -86,7 +86,6 @@ const passwordForm = reactive({
 const isFormValid = useIsFormValid()
 
 const onPasswordChangeSubmit = handleSubmit(async (formData, { resetForm }) => {
-  console.log('formData: ', formData)
   try {
     // Custom route defined in strapi to update user data (don't mixt it up with userS/me)
 

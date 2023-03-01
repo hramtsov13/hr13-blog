@@ -27,6 +27,7 @@ export interface IContentInstanceAttributes {
   updatedAt: Date
   publishedAt: Date
   cover?: Record<string, any>
+  createdBy?: Record<string, any>
   category: ArticleType
 }
 
