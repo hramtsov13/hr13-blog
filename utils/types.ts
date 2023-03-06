@@ -38,3 +38,11 @@ export interface IArticleInstanceAttributes {
   createdBy?: Strapi4ResponseSingle<Record<any, any>>
   category: ArticleType
 }
+
+export interface IComment {
+  author: TUser
+  content: string
+  createdAt: Date
+  id: number
+  updatedAt: Date
+}

@@ -1,13 +1,13 @@
 <template>
   <Head>
-    <Title> Blog | {{ article?.data.attributes.title }} </Title>
+    <Title> Blog | {{ article.attributes.title }} </Title>
   </Head>
 
   <article class="pb-10 font-mono md:pb-20">
     <div class="h-30vh mb-10 overflow-hidden rounded-md shadow-xl">
       <img
-        :src="`${config.strapi.url}${article?.data.attributes.cover?.data.attributes.url}`"
-        :alt="article?.data.attributes.title"
+        :src="`${config.strapi.url}${article.attributes.cover?.data.attributes.url}`"
+        :alt="article.attributes.title"
         class="h-full w-full object-cover"
       />
     </div>
@@ -16,29 +16,28 @@
     >
       <section class="mb-10">
         <h1 class="md:leading-auto mb-4 text-2xl leading-6 md:text-4xl">
-          {{ article?.data.attributes.title }}
+          {{ article.attributes.title }}
         </h1>
         <p class="md:leading-auto text-lg leading-6 md:text-xl">
-          {{ article?.data.attributes.description }}
+          {{ article.attributes.description }}
         </p>
       </section>
 
       <section
         class="text-md md:leading-auto strapi-html px-2.5 py-1.5 leading-5 md:px-6 md:py-4 md:text-lg"
-        v-html="article?.data.attributes.content"
+        v-html="article.attributes.content"
       />
 
       <section class="mb-6 flex flex-col items-end p-2 text-sm">
         <p>
           <span>Author: </span>
           <span>
-            {{ article?.data.attributes.createdBy?.data.attributes.firstname }}
-            {{ article?.data.attributes.createdBy?.data.attributes.lastname }}
+            {{ article.attributes.createdBy?.data.attributes.firstname }}
+            {{ article.attributes.createdBy?.data.attributes.lastname }}
           </span>
         </p>
         <p>
           <span>Published: </span>
-          <!-- <span>{{ $d(article?.data.attributes.publishedAt) }}</span> -->
           <span>{{ $d(new Date('2023-04-10T16:10:12.844Z')) }}</span>
         </p>
       </section>
@@ -49,39 +48,14 @@
     >
       <section class="md:px-6 md:py-4 md:text-lg">
         <h2 class="mb-4">Comments</h2>
-        <div class="mb-4">
-          <div class="mb-2 flex items-center">
-            <ParticlesAccountUserIcon class="mr-4" :user="user" />
-            <p>{{ user?.name }} {{ user?.surname }}</p>
-          </div>
-          <p class="pl-6 text-sm">
-            {{ commentText }}
-          </p>
-          <div class="flex justify-end text-xs">
-            <span class="block">{{
-              $d(new Date('2023-02-09T16:10:12.844Z'))
-            }}</span>
-          </div>
-        </div>
 
-        <div class="divider"></div>
+        <template v-if="comments && comments.length">
+          <div v-for="(comment, index) in comments" :key="comment.id">
+            <ParticlesArticlesComment class="mb-4" :comment="comment" />
 
-        <div class="mb-4">
-          <div class="mb-2 flex items-center">
-            <ParticlesAccountUserIcon class="mr-4" :user="user" />
-            <p>{{ user?.name }} {{ user?.surname }}</p>
+            <div v-if="index !== comments.length - 1" class="divider"></div>
           </div>
-          <p class="pl-6 text-sm">
-            {{ commentText }}
-          </p>
-          <div class="flex justify-end text-xs">
-            <span class="block">{{
-              $d(new Date('2023-04-10T16:10:12.844Z'))
-            }}</span>
-          </div>
-        </div>
-
-        <div class="divider"></div>
+        </template>
 
         <div class="mt-10">
           <textarea
@@ -89,8 +63,7 @@
             rows="5"
             class="bg-base-200 mb-4 block w-full p-4 text-sm"
           />
-          <UiTheButton @click="sendRequest">Leave a comment</UiTheButton>
-          <UiTheButton @click="sendPostRequest">POST</UiTheButton>
+          <UiTheButton @click="sendNewComment">Leave a comment</UiTheButton>
         </div>
       </section>
     </div>
@@ -98,53 +71,46 @@
 </template>
 
 <script setup lang="ts">
-import { IArticleInstanceAttributes, TUser } from '@/utils/types'
+import { IArticleInstanceAttributes, IComment } from '@/utils/types'
 const route = useRoute()
 const searchableArticleId = route.params.articleId as string
 
 const { findOne } = useStrapi()
 const config = useRuntimeConfig()
-const user = useStrapiUser<TUser>()
 const token = useStrapiToken()
 
-const commentText =
-  'Docker also makes it easier to manage your application dependencies and reduces the risk of conflicts between your application and the host environment. In summary, Kubernetes helps you manage and automate the deployment and scaling of your applications, while Docker helps you package and distribute your applications in containers.'
-const textarea = ref(
-  'Docker also makes it easier to manage your application dependencies and reduces the risk of conflicts between your application and the host environment. In summary, Kubernetes helps you manage and automate the deployment and scaling of your applications, while Docker helps you package and distribute your applications in containers.'
-)
+const textarea = ref('')
 
-const { data: article } = await useLazyAsyncData(() =>
-  findOne<IArticleInstanceAttributes>('article', searchableArticleId, {
+const { data: article } = await findOne<IArticleInstanceAttributes>(
+  'articles',
+  searchableArticleId,
+  {
     populate: '*',
-  })
+  }
 )
 
-const sendRequest = async () => {
-  await useAsyncData(() =>
-    $fetch(
-      `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
-      {
-        method: 'GET',
-        headers: {
-          authorization: `Bearer ${token.value}`,
-        },
-      }
-    )
+const { data: comments } = await useAsyncData(() =>
+  $fetch<IComment[]>(
+    `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
+    {
+      method: 'GET',
+      headers: {
+        authorization: `Bearer ${token.value}`,
+      },
+    }
   )
-}
+)
 
-const sendPostRequest = async () => {
-  await useAsyncData(() =>
-    $fetch(
-      `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
-      {
-        method: 'POST',
-        headers: {
-          authorization: `Bearer ${token.value}`,
-        },
-        body: { content: textarea.value },
-      }
-    )
+const sendNewComment = async () => {
+  await $fetch(
+    `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
+    {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${token.value}`,
+      },
+      body: { content: textarea.value },
+    }
   )
 }
 
