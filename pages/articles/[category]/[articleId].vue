@@ -1,9 +1,13 @@
 <template>
+  <Head>
+    <Title> Blog | {{ article?.data.attributes.title }} </Title>
+  </Head>
+
   <article class="pb-10 font-mono md:pb-20">
     <div class="h-30vh mb-10 overflow-hidden rounded-md shadow-xl">
       <img
-        :src="`${config.strapi.url}${article.attributes.cover?.data.attributes.url}`"
-        :alt="article.attributes.title"
+        :src="`${config.strapi.url}${article?.data.attributes.cover?.data.attributes.url}`"
+        :alt="article?.data.attributes.title"
         class="h-full w-full object-cover"
       />
     </div>
@@ -12,29 +16,30 @@
     >
       <section class="mb-10">
         <h1 class="md:leading-auto mb-4 text-2xl leading-6 md:text-4xl">
-          {{ article.attributes.title }}
+          {{ article?.data.attributes.title }}
         </h1>
         <p class="md:leading-auto text-lg leading-6 md:text-xl">
-          {{ article.attributes.description }}
+          {{ article?.data.attributes.description }}
         </p>
       </section>
 
       <section
         class="text-md md:leading-auto strapi-html px-2.5 py-1.5 leading-5 md:px-6 md:py-4 md:text-lg"
-        v-html="article.attributes.content"
+        v-html="article?.data.attributes.content"
       />
 
       <section class="mb-6 flex flex-col items-end p-2 text-sm">
         <p>
           <span>Author: </span>
           <span>
-            {{ article.attributes.createdBy?.data.attributes.firstname }}
-            {{ article.attributes.createdBy?.data.attributes.lastname }}
+            {{ article?.data.attributes.createdBy?.data.attributes.firstname }}
+            {{ article?.data.attributes.createdBy?.data.attributes.lastname }}
           </span>
         </p>
         <p>
           <span>Published: </span>
-          <span>{{ $d(article.attributes.publishedAt) }}</span>
+          <!-- <span>{{ $d(article?.data.attributes.publishedAt) }}</span> -->
+          <span>{{ $d(new Date('2023-04-10T16:10:12.844Z')) }}</span>
         </p>
       </section>
     </div>
@@ -93,11 +98,11 @@
 </template>
 
 <script setup lang="ts">
-import { IContentSingleResponse, TUser } from '@/utils/types'
+import { IArticleInstanceAttributes, TUser } from '@/utils/types'
 const route = useRoute()
 const searchableArticleId = route.params.articleId as string
 
-const { findOne } = useStrapi4()
+const { findOne } = useStrapi()
 const config = useRuntimeConfig()
 const user = useStrapiUser<TUser>()
 const token = useStrapiToken()
@@ -108,12 +113,10 @@ const textarea = ref(
   'Docker also makes it easier to manage your application dependencies and reduces the risk of conflicts between your application and the host environment. In summary, Kubernetes helps you manage and automate the deployment and scaling of your applications, while Docker helps you package and distribute your applications in containers.'
 )
 
-const { data: article } = await findOne<IContentSingleResponse>(
-  'articles',
-  searchableArticleId,
-  {
+const { data: article } = await useLazyAsyncData(() =>
+  findOne<IArticleInstanceAttributes>('article', searchableArticleId, {
     populate: '*',
-  }
+  })
 )
 
 const sendRequest = async () => {

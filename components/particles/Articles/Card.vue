@@ -31,10 +31,10 @@
 </template>
 
 <script lang="ts" setup>
-import { IContentInstance } from '@/utils/types'
+import { IArticleInstance } from '@/utils/types'
 
 interface IArticleCardProps {
-  article: IContentInstance | null
+  article: IArticleInstance | null
 }
 
 const props = withDefaults(defineProps<IArticleCardProps>(), {
