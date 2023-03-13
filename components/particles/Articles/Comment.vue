@@ -5,8 +5,12 @@
         <ParticlesAccountUserIcon class="mr-4" :user="comment?.author" />
         <p>{{ comment?.author?.name }} {{ comment?.author?.surname }}</p>
       </div>
-      <UiTheButton class="h-6 w-6" icon>
-        <Icon name="mdi:window-close" size="1rem" />
+      <UiTheButton class="h-7 w-7" icon @click="onDelete">
+        <Icon
+          name="ic:baseline-delete-forever"
+          size="1.2rem"
+          class="text-red-500"
+        />
       </UiTheButton>
     </div>
 
@@ -27,7 +31,13 @@ interface IArticleComment {
   comment: IComment | null
 }
 
-withDefaults(defineProps<IArticleComment>(), {
+const props = withDefaults(defineProps<IArticleComment>(), {
   comment: null,
 })
+
+const emit = defineEmits(['onDelete'])
+
+const onDelete = () => {
+  emit('onDelete', props.comment)
+}
 </script>

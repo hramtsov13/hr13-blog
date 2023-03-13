@@ -58,7 +58,11 @@
 
         <template v-if="comments && comments.length">
           <div v-for="(comment, index) in comments" :key="comment.id">
-            <ParticlesArticlesComment class="mb-4" :comment="comment" />
+            <ParticlesArticlesComment
+              class="mb-4"
+              :comment="comment"
+              @on-delete="deleteComment"
+            />
 
             <div v-if="index !== comments.length - 1" class="divider"></div>
           </div>
@@ -100,7 +104,7 @@ import { useField, useForm, useIsFormValid } from 'vee-validate'
 const route = useRoute()
 const searchableArticleId = route.params.articleId as string
 
-const { findOne } = useStrapi()
+const { findOne, delete: _delete } = useStrapi()
 const config = useRuntimeConfig()
 const token = useStrapiToken()
 
@@ -155,9 +159,18 @@ const sendNewComment = handleSubmit(async (formData, { resetForm }) => {
     await refreshComments()
     resetForm()
   } catch (e: any) {
-    // error.value = e.error.message
+    throw new Error(e)
   }
 })
+
+const deleteComment = async (commentToDelete: IComment) => {
+  try {
+    await _delete<IComment>('comments', commentToDelete.id)
+    await refreshComments()
+  } catch (e: any) {
+    throw new Error(e)
+  }
+}
 
 definePageMeta({
   layout: 'main-layout',
