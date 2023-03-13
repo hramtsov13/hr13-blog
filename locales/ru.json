@@ -42,10 +42,25 @@
     "readMore": "Читать далее..."
   },
   "articleCategory": {
+    "meta": {
+      "title": "The Dev. {separator} {category}"
+    },
     "emptyCategory": {
       "message1": "Извините, на данный момент статей в категории <b class=\"uppercase\">{category}</b> нет",
       "message2": "Мы работаем над этим",
       "backButton": "Назад ко всем статьям"
+    }
+  },
+  "articlePage": {
+    "meta": {
+      "title": "The Dev. {separator} {title}"
+    },
+    "published": "Опубликовано",
+    "author": "Автор",
+    "comments": {
+      "title": "Комментарии",
+      "empty": "Комментариев нет, будьте первым",
+      "leaveComment": "Комментировать"
     }
   },
   "account": {

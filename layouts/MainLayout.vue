@@ -1,9 +1,5 @@
 <template>
   <div class="container-fluid h-full overflow-hidden">
-    <Head>
-      <Title> Blog | Main Page </Title>
-    </Head>
-
     <ParticlesMainLayoutHeader
       @on-login-click="onLoginClick"
       @on-register-click="onRegisterClick"

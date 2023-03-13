@@ -1,6 +1,17 @@
 <template>
+  <Head>
+    <Title>
+      {{
+        $t('articleCategory.meta.title', {
+          separator: '|',
+          category: currentCategory.toUpperCase(),
+        })
+      }}
+    </Title>
+  </Head>
+
   <div
-    v-if="!specificCategoryArticles.length"
+    v-if="!specificCategoryArticles || !specificCategoryArticles.length"
     class="flex h-full items-center justify-center text-center font-mono text-2xl"
   >
     <div>
@@ -31,12 +42,12 @@
 </template>
 
 <script setup lang="ts">
-import { IContentResponse } from '@/utils/types'
+import { IArticleInstanceAttributes } from '@/utils/types'
 
-const { find } = useStrapi4()
+const { find } = useStrapi()
 const route = useRoute()
 
-const currentCategory = route.params.category
+const currentCategory = route.params.category as string
 
 const query = {
   category: {
@@ -44,13 +55,11 @@ const query = {
   },
 }
 
-const { data: specificCategoryArticles } = await find<IContentResponse>(
-  'articles',
-  {
-    filters: query,
+const { data: specificCategoryArticles } =
+  await find<IArticleInstanceAttributes>('articles', {
     populate: 'cover',
-  }
-)
+    filters: query,
+  })
 
 definePageMeta({
   layout: 'main-layout',

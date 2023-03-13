@@ -1,4 +1,7 @@
-import { StrapiUser } from '@nuxtjs/strapi/dist/runtime/types'
+import {
+  Strapi4ResponseSingle,
+  StrapiUser,
+} from '@nuxtjs/strapi/dist/runtime/types'
 
 export type TUser =
   | ({
@@ -19,27 +22,27 @@ export interface IRequestMeta {
 
 export type ArticleType = 'frontend' | 'backend' | 'mobile' | 'other'
 
-export interface IContentInstanceAttributes {
+export interface IArticleInstance {
+  readonly id: number
+  attributes: IArticleInstanceAttributes
+}
+
+export interface IArticleInstanceAttributes {
   title: string
   description: string
   content: string
   createdAt: Date
   updatedAt: Date
-  publishedAt: Date
-  cover?: Record<string, any>
+  publishedAt: string
+  cover?: Strapi4ResponseSingle<Record<any, any>>
+  createdBy?: Strapi4ResponseSingle<Record<any, any>>
   category: ArticleType
 }
 
-export interface IContentInstance {
-  readonly id: number
-  attributes: IContentInstanceAttributes
-}
-export interface IContentResponse {
-  data: Array<IContentInstance>
-  meta: IRequestMeta
-}
-
-export interface IContentSingleResponse {
-  data: IContentInstance
-  meta: IRequestMeta
+export interface IComment {
+  author: TUser
+  content: string
+  createdAt: Date
+  id: number
+  updatedAt: Date
 }

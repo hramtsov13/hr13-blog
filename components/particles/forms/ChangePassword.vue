@@ -86,11 +86,8 @@ const passwordForm = reactive({
 const isFormValid = useIsFormValid()
 
 const onPasswordChangeSubmit = handleSubmit(async (formData, { resetForm }) => {
-  console.log('formData: ', formData)
   try {
     // Custom route defined in strapi to update user data (don't mixt it up with userS/me)
-
-    //TODO: change cookie strapi_jwt
 
     await useAsyncData(() =>
       $fetch(`${config.strapi.url}/api/auth/change-password`, {

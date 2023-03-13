@@ -4,7 +4,7 @@
     :class="isActive ? 'bg-green-700 text-white' : 'bg-red-600 text-field'"
     size="2rem"
   >
-    <Icon :name="isActive ? 'ic:sharp-check' : 'system-uicons:cross'" />
+    <Icon :name="isActive ? 'ic:sharp-check' : 'mdi:window-close'" />
   </div>
 </template>
 

@@ -63,7 +63,7 @@
         class="flex cursor-pointer items-center gap-3"
         :class="{ 'justify-center': !isSidebarExpanded }"
       >
-        <Icon name="mdi:account-edit" size="2.5rem" />
+        <ParticlesAccountUserIcon :user="user" />
         <p
           class="transition duration-500"
           :class="{
@@ -84,7 +84,6 @@
 
 <script setup lang="ts">
 import { TUser } from '@/utils/types'
-import { NuxtLinkProps } from '#app'
 
 interface ISidebarProps {
   label?: string

@@ -1,4 +1,8 @@
 <template>
+  <Head>
+    <Title> Blog | Articles Digest </Title>
+  </Head>
+
   <div class="pt-4 font-mono md:pt-6">
     <h1 class="text-md mb-4 font-mono sm:text-xl md:mb-10 md:text-4xl">
       {{ $t('allArticles.title') }}.
@@ -22,12 +26,14 @@
 </template>
 
 <script setup lang="ts">
-import { IContentResponse } from '@/utils/types'
+import { IArticleInstanceAttributes } from '@/utils/types'
 
-const { find } = useStrapi4()
+const { find } = useStrapi()
 
-const { data: articles } = await useAsyncData(() =>
-  find<IContentResponse>('articles', { populate: 'cover' })
+const { data: articles } = await useLazyAsyncData('articles', () =>
+  find<IArticleInstanceAttributes>('articles', {
+    populate: 'cover',
+  })
 )
 
 const frontendArticles = computed(() =>

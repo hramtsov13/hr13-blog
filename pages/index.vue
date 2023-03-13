@@ -1,4 +1,8 @@
 <template>
+  <Head>
+    <Title> Blog | Main Page </Title>
+  </Head>
+
   <div class="font-mono">
     <main>
       <h2 class="mb-10 whitespace-nowrap text-center text-4xl">

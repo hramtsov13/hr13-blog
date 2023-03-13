@@ -1,4 +1,15 @@
 <template>
+  <Head>
+    <Title>
+      {{
+        $t('articlePage.meta.title', {
+          separator: '|',
+          title: article.attributes.title,
+        })
+      }}
+    </Title>
+  </Head>
+
   <article class="pb-10 font-mono md:pb-20">
     <div class="h-30vh mb-10 overflow-hidden rounded-md shadow-xl">
       <img
@@ -8,10 +19,10 @@
       />
     </div>
     <div
-      class="bg-base-300 container mx-auto max-w-3xl overflow-hidden rounded-xl"
+      class="bg-base-300 container mx-auto mb-4 max-w-3xl overflow-hidden rounded-xl p-4"
     >
-      <section class="bg-accent text-base-100 mb-10 p-4">
-        <h1 class="md:leading-auto mb-6 text-2xl leading-6 md:text-4xl">
+      <section class="mb-10">
+        <h1 class="md:leading-auto mb-4 text-2xl leading-6 md:text-4xl">
           {{ article.attributes.title }}
         </h1>
         <p class="md:leading-auto text-lg leading-6 md:text-xl">
@@ -20,28 +31,146 @@
       </section>
 
       <section
-        class="text-md md:leading-auto strapi-html px-2.5 py-1.5 leading-5 shadow-xl md:px-6 md:py-4 md:text-lg"
+        class="text-md md:leading-auto strapi-html px-2.5 py-1.5 leading-5 md:px-6 md:py-4 md:text-lg"
         v-html="article.attributes.content"
-      ></section>
+      />
+
+      <section class="mb-6 flex flex-col items-end p-2 text-sm">
+        <p>
+          <span>{{ $t('articlePage.author') }}: </span>
+          <span>
+            {{ article.attributes.createdBy?.data.attributes.firstname }}
+            {{ article.attributes.createdBy?.data.attributes.lastname }}
+          </span>
+        </p>
+        <p>
+          <span>{{ $t('articlePage.published') }}: </span>
+          <span>{{ $d(article.attributes.createdAt, 'long') }}</span>
+        </p>
+      </section>
+    </div>
+
+    <div
+      class="bg-base-300 container mx-auto max-w-3xl overflow-hidden rounded-xl"
+    >
+      <section class="md:px-6 md:py-4 md:text-lg">
+        <h2 class="mb-4">{{ $t('articlePage.comments.title') }}</h2>
+
+        <template v-if="comments && comments.length">
+          <div v-for="(comment, index) in comments" :key="comment.id">
+            <ParticlesArticlesComment
+              class="mb-4"
+              :comment="comment"
+              @on-delete="deleteComment"
+            />
+
+            <div v-if="index !== comments.length - 1" class="divider"></div>
+          </div>
+        </template>
+        <template v-else>
+          <p class="py-8 text-center text-xl">
+            {{ $t('articlePage.comments.empty') }}
+          </p>
+        </template>
+
+        <form class="mt-4" @submit.prevent="handleSubmit">
+          <UiTheTextarea
+            v-model="commentForm.comment.value"
+            :placeholder="$t('form.leaveComment')"
+            :error-message="commentForm.comment.errorMessage"
+            name="comment-textarea"
+          />
+
+          <div class="flex justify-end">
+            <UiTheButton
+              class="mt-2"
+              type="submit"
+              :disabled="!isFormValid || !meta.dirty"
+              :loading="isSubmitting"
+              @click="sendNewComment"
+              >{{ $t('articlePage.comments.leaveComment') }}</UiTheButton
+            >
+          </div>
+        </form>
+      </section>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
-import { IContentSingleResponse } from '@/utils/types'
+import { IArticleInstanceAttributes, IComment } from '@/utils/types'
+import { useField, useForm, useIsFormValid } from 'vee-validate'
+
 const route = useRoute()
 const searchableArticleId = route.params.articleId as string
 
-const { findOne } = useStrapi4()
+const { findOne, delete: _delete } = useStrapi()
 const config = useRuntimeConfig()
+const token = useStrapiToken()
 
-const { data: article } = await findOne<IContentSingleResponse>(
+const { handleSubmit, isSubmitting, meta } = useForm({
+  validationSchema: {
+    comment: 'min:10|max:200',
+  },
+})
+
+const commentForm = reactive({
+  comment: useField('comment', '', {
+    initialValue: '',
+  }),
+})
+
+const isFormValid = useIsFormValid()
+
+const { data: article } = await findOne<IArticleInstanceAttributes>(
   'articles',
   searchableArticleId,
   {
-    populate: 'cover',
+    populate: '*',
   }
 )
+
+const { data: comments, refresh: refreshComments } = await useAsyncData(
+  'comments',
+  () =>
+    $fetch<IComment[]>(
+      `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
+      {
+        method: 'GET',
+        headers: {
+          authorization: `Bearer ${token.value}`,
+        },
+      }
+    )
+)
+
+const sendNewComment = handleSubmit(async (formData, { resetForm }) => {
+  try {
+    await $fetch(
+      `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
+      {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${token.value}`,
+        },
+        body: { content: formData.comment },
+      }
+    )
+    await refreshComments()
+    resetForm()
+  } catch (e: any) {
+    throw new Error(e)
+  }
+})
+
+const deleteComment = async (commentToDelete: IComment) => {
+  try {
+    await _delete<IComment>('comments', commentToDelete.id)
+    await refreshComments()
+  } catch (e: any) {
+    throw new Error(e)
+  }
+}
 
 definePageMeta({
   layout: 'main-layout',
