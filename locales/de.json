@@ -47,10 +47,26 @@
   },
 
   "articleCategory": {
+    "meta": {
+      "title": "The Dev. {separator} {category}"
+    },
     "emptyCategory": {
       "message1": "Entschuldigung, es gibt noch keine Artikel in der Kategorie <b class=\"uppercase\">{category}</b>",
       "message2": "Wir arbeiten daran",
       "backButton": "Zurück zu den Artikeln"
+    }
+  },
+
+  "articlePage": {
+    "meta": {
+      "title": "The Dev. {separator} {title}"
+    },
+    "published": "Veröffentlicht",
+    "author": "Autor",
+    "comments": {
+      "title": "Kommentare",
+      "empty": "Momentan gibt es keine Kommentare, sei der Erste",
+      "leaveComment": "Kommentieren"
     }
   },
 

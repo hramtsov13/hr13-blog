@@ -1,6 +1,13 @@
 <template>
   <Head>
-    <Title> Blog | {{ article.attributes.title }} </Title>
+    <Title>
+      {{
+        $t('articlePage.meta.title', {
+          separator: '|',
+          title: pageMetaTitle,
+        })
+      }}
+    </Title>
   </Head>
 
   <article class="pb-10 font-mono md:pb-20">
@@ -30,14 +37,14 @@
 
       <section class="mb-6 flex flex-col items-end p-2 text-sm">
         <p>
-          <span>Author: </span>
+          <span>{{ $t('articlePage.author') }}: </span>
           <span>
             {{ article.attributes.createdBy?.data.attributes.firstname }}
             {{ article.attributes.createdBy?.data.attributes.lastname }}
           </span>
         </p>
         <p>
-          <span>Published: </span>
+          <span>{{ $t('articlePage.published') }}: </span>
           <span>{{ $d(new Date('2023-04-10T16:10:12.844Z')) }}</span>
         </p>
       </section>
@@ -47,7 +54,7 @@
       class="bg-base-300 container mx-auto max-w-3xl overflow-hidden rounded-xl"
     >
       <section class="md:px-6 md:py-4 md:text-lg">
-        <h2 class="mb-4">Comments</h2>
+        <h2 class="mb-4">{{ $t('articlePage.comments.title') }}</h2>
 
         <template v-if="comments && comments.length">
           <div v-for="(comment, index) in comments" :key="comment.id">
@@ -56,6 +63,11 @@
             <div v-if="index !== comments.length - 1" class="divider"></div>
           </div>
         </template>
+        <template v-else>
+          <p class="py-8 text-center text-xl">
+            {{ $t('articlePage.comments.empty') }}
+          </p>
+        </template>
 
         <div class="mt-10">
           <textarea
@@ -63,7 +75,9 @@
             rows="5"
             class="bg-base-200 mb-4 block w-full p-4 text-sm"
           />
-          <UiTheButton @click="sendNewComment">Leave a comment</UiTheButton>
+          <UiTheButton @click="sendNewComment">{{
+            $t('articlePage.comments.leaveComment')
+          }}</UiTheButton>
         </div>
       </section>
     </div>
@@ -89,6 +103,10 @@ const { data: article } = await findOne<IArticleInstanceAttributes>(
   }
 )
 
+const pageMetaTitle = computed(() =>
+  article ? article.attributes.title : 'test'
+)
+
 const { data: comments } = await useAsyncData(() =>
   $fetch<IComment[]>(
     `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
@@ -100,6 +118,8 @@ const { data: comments } = await useAsyncData(() =>
     }
   )
 )
+
+// TODO: add validation
 
 const sendNewComment = async () => {
   await $fetch(

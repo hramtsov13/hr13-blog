@@ -1,6 +1,13 @@
 <template>
   <Head>
-    <Title> Blog | {{ currentCategory.toUpperCase() }} </Title>
+    <Title>
+      {{
+        $t('articleCategory.meta.title', {
+          separator: '|',
+          category: currentCategory.toUpperCase(),
+        })
+      }}
+    </Title>
   </Head>
 
   <div

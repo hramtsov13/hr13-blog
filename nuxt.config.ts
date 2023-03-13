@@ -3,6 +3,10 @@
 // import VueI18nVitePlugin from '@intlify/unplugin-vue-i18n/vite'
 
 export default {
+  meta: {
+    title: 'The Dev.',
+  },
+
   modules: [
     ['nuxt-windicss'],
     [

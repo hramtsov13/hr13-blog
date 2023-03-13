@@ -42,10 +42,25 @@
     "readMore": "Read more..."
   },
   "articleCategory": {
+    "meta": {
+      "title": "The Dev. {separator} {category}"
+    },
     "emptyCategory": {
       "message1": "Sorry, there are no articles about <b class=\"uppercase\">{category}</b> yet",
       "message2": "We work on it",
       "backButton": "Back to articles"
+    }
+  },
+  "articlePage": {
+    "meta": {
+      "title": "The Dev. {separator} {title}"
+    },
+    "published": "Published",
+    "author": "Author",
+    "comments": {
+      "title": "Comments",
+      "empty": "No comments yet, be the first one",
+      "leaveComment": "Comment"
     }
   },
   "account": {
