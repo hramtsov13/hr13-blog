@@ -45,7 +45,7 @@
         </p>
         <p>
           <span>{{ $t('articlePage.published') }}: </span>
-          <span>{{ $d(new Date('2023-04-10T16:10:12.844Z')) }}</span>
+          <span>{{ $d(article.attributes.createdAt, 'long') }}</span>
         </p>
       </section>
     </div>

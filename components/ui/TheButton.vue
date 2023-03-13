@@ -2,7 +2,7 @@
   <button
     :disabled="disabled || loading"
     :class="[
-      'btn font-mono',
+      'btn font-mono !min-h-0 !h-unset',
       { 'btn-link text-accent': plain || false },
       { 'btn-circle': icon || false },
       { 'btn-outlined': outlined || false },
