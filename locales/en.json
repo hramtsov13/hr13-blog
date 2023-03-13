@@ -20,6 +20,7 @@
     "newPassword": "New password",
     "oldPassword": "Old password",
     "confirmPassword": "Confirm password",
+    "leaveComment": "Leave a comment",
     "buttons": {
       "save": "save",
       "update": "update"

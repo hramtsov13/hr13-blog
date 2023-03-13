@@ -4,7 +4,7 @@
       {{
         $t('articlePage.meta.title', {
           separator: '|',
-          title: pageMetaTitle,
+          title: article.attributes.title,
         })
       }}
     </Title>
@@ -69,16 +69,25 @@
           </p>
         </template>
 
-        <div class="mt-10">
-          <textarea
-            v-model="textarea"
-            rows="5"
-            class="bg-base-200 mb-4 block w-full p-4 text-sm"
+        <form class="mt-4" @submit.prevent="handleSubmit">
+          <UiTheTextarea
+            v-model="commentForm.comment.value"
+            :placeholder="$t('form.leaveComment')"
+            :error-message="commentForm.comment.errorMessage"
+            name="comment-textarea"
           />
-          <UiTheButton @click="sendNewComment">{{
-            $t('articlePage.comments.leaveComment')
-          }}</UiTheButton>
-        </div>
+
+          <div class="flex justify-end">
+            <UiTheButton
+              class="mt-2"
+              type="submit"
+              :disabled="!isFormValid || !meta.dirty"
+              :loading="isSubmitting"
+              @click="sendNewComment"
+              >{{ $t('articlePage.comments.leaveComment') }}</UiTheButton
+            >
+          </div>
+        </form>
       </section>
     </div>
   </article>
@@ -86,6 +95,8 @@
 
 <script setup lang="ts">
 import { IArticleInstanceAttributes, IComment } from '@/utils/types'
+import { useField, useForm, useIsFormValid } from 'vee-validate'
+
 const route = useRoute()
 const searchableArticleId = route.params.articleId as string
 
@@ -93,7 +104,19 @@ const { findOne } = useStrapi()
 const config = useRuntimeConfig()
 const token = useStrapiToken()
 
-const textarea = ref('')
+const { handleSubmit, isSubmitting, meta } = useForm({
+  validationSchema: {
+    comment: 'min:10|max:200',
+  },
+})
+
+const commentForm = reactive({
+  comment: useField('comment', '', {
+    initialValue: '',
+  }),
+})
+
+const isFormValid = useIsFormValid()
 
 const { data: article } = await findOne<IArticleInstanceAttributes>(
   'articles',
@@ -103,36 +126,38 @@ const { data: article } = await findOne<IArticleInstanceAttributes>(
   }
 )
 
-const pageMetaTitle = computed(() =>
-  article ? article.attributes.title : 'test'
+const { data: comments, refresh: refreshComments } = await useAsyncData(
+  'comments',
+  () =>
+    $fetch<IComment[]>(
+      `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
+      {
+        method: 'GET',
+        headers: {
+          authorization: `Bearer ${token.value}`,
+        },
+      }
+    )
 )
 
-const { data: comments } = await useAsyncData(() =>
-  $fetch<IComment[]>(
-    `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
-    {
-      method: 'GET',
-      headers: {
-        authorization: `Bearer ${token.value}`,
-      },
-    }
-  )
-)
-
-// TODO: add validation
-
-const sendNewComment = async () => {
-  await $fetch(
-    `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
-    {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${token.value}`,
-      },
-      body: { content: textarea.value },
-    }
-  )
-}
+const sendNewComment = handleSubmit(async (formData, { resetForm }) => {
+  try {
+    await $fetch(
+      `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
+      {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${token.value}`,
+        },
+        body: { content: formData.comment },
+      }
+    )
+    await refreshComments()
+    resetForm()
+  } catch (e: any) {
+    // error.value = e.error.message
+  }
+})
 
 definePageMeta({
   layout: 'main-layout',
