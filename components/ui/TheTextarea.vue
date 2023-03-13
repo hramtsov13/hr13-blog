@@ -14,7 +14,7 @@
         { 'textarea-error': errorMessage },
         { 'text-neutral-100': disabled },
       ]"
-      :value="modelValue"
+      :value="modelValueRef"
       :name="name"
       :disabled="disabled"
       :rows="rows"
@@ -28,12 +28,18 @@
       @blur="onBlur"
     />
 
-    <span
-      class="min-h-5 inline-block text-sm text-red-500 opacity-0 transition duration-200"
-      :class="{ 'opacity-100': errorMessage }"
-    >
-      {{ errorMessage }}
-    </span>
+    <div class="mt-1 flex justify-between gap-10 text-sm">
+      <span
+        class="min-h-5 inline-block text-red-500 opacity-0 transition duration-200"
+        :class="{ 'opacity-100': errorMessage }"
+      >
+        {{ errorMessage }}
+      </span>
+
+      <span class="text-neutral-600">
+        {{ modelValueRef.length }} / {{ maxLength }}
+      </span>
+    </div>
   </div>
 </template>
 
@@ -62,33 +68,42 @@ const props = withDefaults(defineProps<TheTextareaProps>(), {
   required: false,
   disabled: false,
   readonly: false,
-  maxLength: 0,
+  maxLength: 200,
   rows: 4,
 })
 
-const emits = defineEmits(['update:modelValue', 'change', 'clear', 'input'])
+const emits = defineEmits(['update:modelValue', 'change', 'input'])
 
 const focused = ref(false)
-// const modelValue = props.modelValue.trim()
+const modelValueRef = ref(props.modelValue)
 
 const onInput = (event: Event) => {
   if (event) {
-    const target = event.target as HTMLInputElement
-    emits('update:modelValue', target.value)
-    emits('input', target.value)
+    const target = event.target as HTMLTextAreaElement
+
+    if (target.value.length <= props.maxLength + 1) {
+      modelValueRef.value = target.value
+
+      emits('update:modelValue', target.value)
+      emits('input', target.value)
+    } else {
+      modelValueRef.value = target.value.substring(0, props.maxLength)
+
+      emits('update:modelValue', modelValueRef.value)
+      emits('input', modelValueRef.value)
+    }
   }
 }
 
 const onChange = (event: Event) => {
   if (event) {
-    const target = event.target as HTMLInputElement
-    emits('change', target.value)
-  }
-}
+    const target = event.target as HTMLTextAreaElement
 
-const onClear = () => {
-  emits('update:modelValue', '')
-  emits('clear')
+    modelValueRef.value = target.value.substring(0, props.maxLength)
+
+    emits('update:modelValue', modelValueRef.value)
+    emits('change', modelValueRef.value)
+  }
 }
 
 const onFocus = () => {
