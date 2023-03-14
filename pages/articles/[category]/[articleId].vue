@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { IArticleInstanceAttributes, IComment, ILike } from '@/utils/types'
+import { IArticleInstanceAttributes, IComment } from '@/utils/types'
 import { useField, useForm, useIsFormValid } from 'vee-validate'
 
 const route = useRoute()
@@ -171,65 +171,6 @@ const deleteComment = async (commentToDelete: IComment) => {
     throw new Error(e)
   }
 }
-
-// const { data: likes, refresh: refreshLikes } = await useAsyncData('likes', () =>
-//   $fetch<ILike[]>(
-//     `${config.strapi.url}/api/articles/${searchableArticleId}/likes`
-//   )
-// )
-
-// const addLike = async () => {
-//   try {
-//     await $fetch<ILike>(
-//       `${config.strapi.url}/api/articles/${searchableArticleId}/likes`,
-//       {
-//         method: 'POST',
-//         headers: {
-//           authorization: `Bearer ${token.value}`,
-//         },
-//       }
-//     )
-//     await refreshDidLikeState()
-//     await refreshLikes()
-//   } catch (e: any) {
-//     throw new Error(e)
-//   }
-// }
-
-// const removeLike = async () => {
-//   try {
-//     if (currentUsersLike.value) {
-//       await _delete<ILike>('likes', currentUsersLike.value[0].id)
-//       await refreshDidLikeState()
-//       await refreshLikes()
-//     }
-//   } catch (e: any) {
-//     throw new Error(e)
-//   }
-// }
-
-// const onLikeHandler = async () => {
-//   if (currentUsersLike.value && currentUsersLike.value.length) {
-//     await removeLike()
-//     return
-//   }
-
-//   await addLike()
-// }
-
-// // Returns like that belongs to current user
-// const { data: currentUsersLike, refresh: refreshDidLikeState } =
-//   await useAsyncData('didLike', () =>
-//     $fetch<ILike[]>(
-//       `${config.strapi.url}/api/articles/${searchableArticleId}/did-like-article`,
-//       {
-//         method: 'GET',
-//         headers: {
-//           authorization: `Bearer ${token.value}`,
-//         },
-//       }
-//     )
-//   )
 
 definePageMeta({
   layout: 'main-layout',

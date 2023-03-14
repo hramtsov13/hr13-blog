@@ -22,6 +22,8 @@ const props = withDefaults(defineProps<ILikeProps>(), {
   articleId: null,
 })
 
+// TODO: Restrict like button for unloggeg users
+
 const { delete: _delete } = useStrapi()
 const config = useRuntimeConfig()
 const token = useStrapiToken()
