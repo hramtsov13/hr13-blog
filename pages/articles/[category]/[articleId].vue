@@ -11,21 +11,22 @@
   </Head>
 
   <article class="pb-10 font-mono md:pb-20">
-    <div class="h-30vh mb-10 overflow-hidden rounded-md shadow-xl">
+    <div class="sm:h-30vh mb-6 overflow-hidden rounded-md shadow-xl sm:mb-10">
       <img
         :src="`${config.strapi.url}${article.attributes.cover?.data.attributes.url}`"
         :alt="article.attributes.title"
-        class="h-full w-full object-cover"
+        class="h-full w-full object-contain sm:object-cover"
       />
     </div>
-    <div
-      class="bg-base-300 container mx-auto mb-4 max-w-3xl overflow-hidden rounded-xl p-4"
-    >
-      <section class="mb-8 px-2.5 md:px-6">
-        <h1 class="md:leading-auto mb-2 text-2xl leading-6 md:text-4xl">
+
+    <UiTheCard class="px-2 py-4 sm:py-8 sm:px-4">
+      <section class="mb-4 px-2.5 md:mb-8 md:px-6">
+        <h1
+          class="md:leading-auto mb-2 text-lg leading-5 md:mb-4 md:text-4xl md:leading-8"
+        >
           {{ article.attributes.title }}
         </h1>
-        <p class="md:leading-auto text-lg leading-6 md:text-xl">
+        <p class="md:leading-auto text-0.8rem leading-4 md:text-xl">
           {{ article.attributes.description }}
         </p>
       </section>
@@ -35,26 +36,28 @@
         v-html="article.attributes.content"
       />
 
-      <section class="mb-6 flex flex-col items-end p-2 text-sm">
-        <p>
-          <span>{{ $t('articlePage.author') }}: </span>
-          <span class="capitalize">
-            {{ article.attributes.createdBy?.data.attributes.firstname }}
-            {{ article.attributes.createdBy?.data.attributes.lastname }}
-          </span>
-        </p>
-        <p>
-          <span>{{ $t('articlePage.published') }}: </span>
-          <span>{{ $d(article.attributes.createdAt, 'long') }}</span>
-        </p>
-      </section>
-    </div>
+      <section class="grid-cols-auto xs:grid-cols-2 grid gap-4 p-2 text-sm">
+        <ParticlesArticlesLike :article-id="searchableArticleId" />
 
-    <div
-      class="bg-base-300 container mx-auto max-w-3xl overflow-hidden rounded-xl"
-    >
-      <section class="md:px-6 md:py-4 md:text-lg">
-        <h2 class="mb-4">{{ $t('articlePage.comments.title') }}</h2>
+        <div class="flex flex-col items-end">
+          <p>
+            <span>{{ $t('articlePage.author') }}: </span>
+            <span class="capitalize">
+              {{ article.attributes.createdBy?.data.attributes.firstname }}
+              {{ article.attributes.createdBy?.data.attributes.lastname }}
+            </span>
+          </p>
+          <p>
+            <span>{{ $t('articlePage.published') }}: </span>
+            <span>{{ $d(article.attributes.createdAt, 'long') }}</span>
+          </p>
+        </div>
+      </section>
+    </UiTheCard>
+
+    <UiTheCard class="px-4 py-3 text-sm md:px-6 md:py-4 md:text-lg">
+      <section>
+        <h2 class="mb-4 text-lg">{{ $t('articlePage.comments.title') }}</h2>
 
         <template v-if="comments && comments.length">
           <div v-for="(comment, index) in comments" :key="comment.id">
@@ -69,7 +72,7 @@
           </div>
         </template>
         <template v-else>
-          <p class="py-8 text-center text-xl">
+          <p class="py-4 text-center text-lg md:py-8 md:text-xl">
             {{ $t('articlePage.comments.empty') }}
           </p>
         </template>
@@ -94,12 +97,12 @@
           </div>
         </form>
       </section>
-    </div>
+    </UiTheCard>
   </article>
 </template>
 
 <script setup lang="ts">
-import { IArticleInstanceAttributes, IComment } from '@/utils/types'
+import { IArticleInstanceAttributes, IComment, ILike } from '@/utils/types'
 import { useField, useForm, useIsFormValid } from 'vee-validate'
 
 const route = useRoute()
@@ -137,13 +140,7 @@ const { data: comments, refresh: refreshComments } = await useAsyncData(
   'comments',
   () =>
     $fetch<IComment[]>(
-      `${config.strapi.url}/api/articles/${searchableArticleId}/comments`,
-      {
-        method: 'GET',
-        headers: {
-          authorization: `Bearer ${token.value}`,
-        },
-      }
+      `${config.strapi.url}/api/articles/${searchableArticleId}/comments`
     )
 )
 
@@ -159,8 +156,8 @@ const sendNewComment = handleSubmit(async (formData, { resetForm }) => {
         body: { content: formData.comment },
       }
     )
-    resetForm()
     await refreshComments()
+    resetForm()
   } catch (e: any) {
     throw new Error(e)
   }
@@ -174,6 +171,65 @@ const deleteComment = async (commentToDelete: IComment) => {
     throw new Error(e)
   }
 }
+
+// const { data: likes, refresh: refreshLikes } = await useAsyncData('likes', () =>
+//   $fetch<ILike[]>(
+//     `${config.strapi.url}/api/articles/${searchableArticleId}/likes`
+//   )
+// )
+
+// const addLike = async () => {
+//   try {
+//     await $fetch<ILike>(
+//       `${config.strapi.url}/api/articles/${searchableArticleId}/likes`,
+//       {
+//         method: 'POST',
+//         headers: {
+//           authorization: `Bearer ${token.value}`,
+//         },
+//       }
+//     )
+//     await refreshDidLikeState()
+//     await refreshLikes()
+//   } catch (e: any) {
+//     throw new Error(e)
+//   }
+// }
+
+// const removeLike = async () => {
+//   try {
+//     if (currentUsersLike.value) {
+//       await _delete<ILike>('likes', currentUsersLike.value[0].id)
+//       await refreshDidLikeState()
+//       await refreshLikes()
+//     }
+//   } catch (e: any) {
+//     throw new Error(e)
+//   }
+// }
+
+// const onLikeHandler = async () => {
+//   if (currentUsersLike.value && currentUsersLike.value.length) {
+//     await removeLike()
+//     return
+//   }
+
+//   await addLike()
+// }
+
+// // Returns like that belongs to current user
+// const { data: currentUsersLike, refresh: refreshDidLikeState } =
+//   await useAsyncData('didLike', () =>
+//     $fetch<ILike[]>(
+//       `${config.strapi.url}/api/articles/${searchableArticleId}/did-like-article`,
+//       {
+//         method: 'GET',
+//         headers: {
+//           authorization: `Bearer ${token.value}`,
+//         },
+//       }
+//     )
+//   )
 
 definePageMeta({
   layout: 'main-layout',
@@ -190,8 +246,9 @@ definePageMeta({
     }
   }
 
-  ul {
-    @apply mx-4 list-disc mb-4;
+  ul,
+  ol {
+    @apply mx-4 list-disc mb-4 pl-0 md:pl-4;
 
     li {
       @apply mb-2;
