@@ -3,9 +3,17 @@
     <div class="mb-5 flex items-start justify-between">
       <div class="flex items-center">
         <ParticlesAccountUserIcon class="mr-4" :user="comment?.author" />
-        <p>{{ comment?.author?.name }} {{ comment?.author?.surname }}</p>
+        <p class="capitalize">
+          {{ comment?.author?.name }} {{ comment?.author?.surname }}
+        </p>
       </div>
-      <UiTheButton class="h-7 w-7" icon @click="onDelete">
+
+      <UiTheButton
+        v-if="isCommentAuthorEqualsUser"
+        class="h-7 w-7"
+        icon
+        @click="onDelete"
+      >
         <Icon
           name="ic:baseline-delete-forever"
           size="1.2rem"
@@ -25,17 +33,23 @@
 </template>
 
 <script lang="ts" setup>
-import { IComment } from '@/utils/types'
+import { IComment, TUser } from '@/utils/types'
 
 interface IArticleComment {
   comment: IComment | null
+  user?: Partial<TUser>
 }
 
 const props = withDefaults(defineProps<IArticleComment>(), {
   comment: null,
+  user: null,
 })
 
 const emit = defineEmits(['onDelete'])
+
+const isCommentAuthorEqualsUser = computed(
+  () => props.user?.id === props.comment?.author?.id
+)
 
 const onDelete = () => {
   emit('onDelete', props.comment)

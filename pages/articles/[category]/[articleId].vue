@@ -21,8 +21,8 @@
     <div
       class="bg-base-300 container mx-auto mb-4 max-w-3xl overflow-hidden rounded-xl p-4"
     >
-      <section class="mb-10">
-        <h1 class="md:leading-auto mb-4 text-2xl leading-6 md:text-4xl">
+      <section class="mb-8 px-2.5 md:px-6">
+        <h1 class="md:leading-auto mb-2 text-2xl leading-6 md:text-4xl">
           {{ article.attributes.title }}
         </h1>
         <p class="md:leading-auto text-lg leading-6 md:text-xl">
@@ -38,7 +38,7 @@
       <section class="mb-6 flex flex-col items-end p-2 text-sm">
         <p>
           <span>{{ $t('articlePage.author') }}: </span>
-          <span>
+          <span class="capitalize">
             {{ article.attributes.createdBy?.data.attributes.firstname }}
             {{ article.attributes.createdBy?.data.attributes.lastname }}
           </span>
@@ -60,6 +60,7 @@
           <div v-for="(comment, index) in comments" :key="comment.id">
             <ParticlesArticlesComment
               class="mb-4"
+              :user="user"
               :comment="comment"
               @on-delete="deleteComment"
             />
@@ -73,7 +74,7 @@
           </p>
         </template>
 
-        <form class="mt-4" @submit.prevent="handleSubmit">
+        <form v-if="user" class="mt-4" @submit.prevent="handleSubmit">
           <UiTheTextarea
             v-model="commentForm.comment.value"
             :placeholder="$t('form.leaveComment')"
@@ -107,6 +108,8 @@ const searchableArticleId = route.params.articleId as string
 const { findOne, delete: _delete } = useStrapi()
 const config = useRuntimeConfig()
 const token = useStrapiToken()
+
+const user = useStrapiUser()
 
 const { handleSubmit, isSubmitting, meta } = useForm({
   validationSchema: {
@@ -156,8 +159,8 @@ const sendNewComment = handleSubmit(async (formData, { resetForm }) => {
         body: { content: formData.comment },
       }
     )
-    await refreshComments()
     resetForm()
+    await refreshComments()
   } catch (e: any) {
     throw new Error(e)
   }
