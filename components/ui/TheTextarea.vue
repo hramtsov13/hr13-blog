@@ -113,4 +113,9 @@ const onFocus = () => {
 const onBlur = () => {
   focused.value = false
 }
+
+watch(
+  () => props.modelValue,
+  (newVal) => (modelValueRef.value = newVal)
+)
 </script>
