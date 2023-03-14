@@ -46,3 +46,9 @@ export interface IComment {
   id: number
   updatedAt: Date
 }
+export interface ILike {
+  author: TUser
+  createdAt: Date
+  id: number
+  updatedAt: Date
+}

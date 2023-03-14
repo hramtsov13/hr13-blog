@@ -41,7 +41,7 @@ export default {
           },
         },
         display: 'swap',
-        subsets: ['latin'],
+        subsets: ['latin', 'cyrillic'],
         prefetch: true,
         preconnect: false,
         preload: false,
