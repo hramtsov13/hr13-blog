@@ -1,6 +1,7 @@
 <template>
   <div class="flex items-center">
     <p class="mr-2 text-lg">{{ likes?.length }}</p>
+
     <UiTheButton icon @click="onLikeHandler">
       <Icon
         :name="currentUsersLike?.length ? 'ph:heart-fill' : 'ph:heart-light'"
@@ -12,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { ILike } from '@/utils/types'
+import { ILike, TUser } from '@/utils/types'
 
 interface ILikeProps {
   articleId: string | null
@@ -22,11 +23,12 @@ const props = withDefaults(defineProps<ILikeProps>(), {
   articleId: null,
 })
 
-// TODO: Restrict like button for unloggeg users
+// TODO: DEFINE PAGE LEAVE HOOK AND DESTROY COMPONENT
 
 const { delete: _delete } = useStrapi()
 const config = useRuntimeConfig()
 const token = useStrapiToken()
+const user = useStrapiUser<TUser>()
 
 const { data: likes, refresh: refreshLikes } = await useAsyncData('likes', () =>
   $fetch<ILike[]>(`${config.strapi.url}/api/articles/${props.articleId}/likes`)
@@ -76,6 +78,10 @@ const removeLike = async () => {
 }
 
 const onLikeHandler = async () => {
+  if (!user.value) {
+    return
+  }
+
   if (currentUsersLike.value && currentUsersLike.value.length) {
     await removeLike()
     return
@@ -83,4 +89,12 @@ const onLikeHandler = async () => {
 
   await addLike()
 }
+
+// To handle correct like display on user's login/logout
+watch(
+  () => user.value,
+  (newVal) => {
+    newVal ? refreshDidLikeState() : (currentUsersLike.value = [])
+  }
+)
 </script>

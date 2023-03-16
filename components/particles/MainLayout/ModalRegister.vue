@@ -52,8 +52,9 @@
         autocomplete="new-password"
         required
       />
-      <div class="mt-6 flex justify-end">
+      <div class="my-6 flex justify-end">
         <UiTheButton
+          class="w-full"
           outlined
           type="submit"
           :disabled="!isFormValid"
@@ -63,6 +64,14 @@
         </UiTheButton>
       </div>
     </form>
+
+    <p class="text-center text-sm">
+      <span>{{ $t('form.loginQuestion') }}</span>
+
+      <UiTheButton class="ml-2 h-auto" plain @click="onLoginClick">
+        {{ t('service.login') }}
+      </UiTheButton>
+    </p>
   </UiTheModal>
 </template>
 
@@ -77,7 +86,7 @@ interface IModalRegister {
 withDefaults(defineProps<IModalRegister>(), {
   modelValue: true,
 })
-const emits = defineEmits(['update:model-value'])
+const emits = defineEmits(['update:model-value', 'on-login-click'])
 
 const { t } = useI18n()
 const { register } = useStrapiAuth()
@@ -119,6 +128,10 @@ const isFormValid = ref(useIsFormValid())
 const error = ref('')
 
 const closeModal = () => emits('update:model-value', false)
+const onLoginClick = () => {
+  emits('on-login-click')
+  closeModal()
+}
 
 const onSubmit = handleSubmit(
   async ({ email, password, username, name, surname }, { resetForm }) => {
