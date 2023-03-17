@@ -90,6 +90,14 @@ const onLikeHandler = async () => {
   await addLike()
 }
 
+onBeforeUnmount(() => {
+  console.log('onBeforeUnmount')
+  likes.value = []
+  currentUsersLike.value = []
+  console.log('currentUsersLike.value: ', currentUsersLike.value)
+  console.log('likes.value: ', likes.value)
+})
+
 // To handle correct like display on user's login/logout
 watch(
   () => user.value,
