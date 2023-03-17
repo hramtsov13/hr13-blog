@@ -21,8 +21,9 @@
         :error-message="loginForm.password.errorMessage"
       />
 
-      <div class="mt-6 flex justify-end">
+      <div class="my-6 flex justify-end">
         <UiTheButton
+          class="w-full"
           outlined
           type="submit"
           :disabled="!isFormValid"
@@ -32,6 +33,22 @@
         </UiTheButton>
       </div>
     </form>
+
+    <p class="mb-1 text-center text-sm">
+      <span>{{ $t('form.registerQuestion') }}</span>
+
+      <UiTheButton class="ml-2 h-auto" plain @click="onRegisterClick">
+        {{ t('service.register') }}
+      </UiTheButton>
+    </p>
+
+    <div class="flex justify-center">
+      <NuxtLink to="/forgot-password">
+        <UiTheButton class="h-auto" plain>
+          {{ $t('form.passForgot') }}
+        </UiTheButton>
+      </NuxtLink>
+    </div>
   </UiTheModal>
 </template>
 
@@ -46,10 +63,11 @@ interface IModalLogin {
 withDefaults(defineProps<IModalLogin>(), {
   modelValue: true,
 })
-const emits = defineEmits(['update:model-value'])
+const emits = defineEmits(['update:model-value', 'on-register-click'])
 
 const { t } = useI18n()
 const { login } = useStrapiAuth()
+const route = useRoute()
 
 const { handleSubmit, isSubmitting } = useForm({
   validationSchema: {
@@ -73,6 +91,11 @@ const isFormValid = ref(useIsFormValid())
 const error = ref('')
 
 const closeModal = () => emits('update:model-value', false)
+const onRegisterClick = () => {
+  closeModal()
+  emits('on-register-click')
+}
+
 const onSubmit = handleSubmit(async ({ email, password }, { resetForm }) => {
   try {
     const loggedIndUser = await login({
@@ -90,4 +113,11 @@ const onSubmit = handleSubmit(async ({ email, password }, { resetForm }) => {
     loginForm.password.value = ''
   }
 })
+
+watch(
+  () => route.path,
+  (newRoute) => {
+    if (newRoute) closeModal()
+  }
+)
 </script>

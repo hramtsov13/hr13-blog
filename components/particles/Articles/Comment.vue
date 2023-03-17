@@ -26,7 +26,10 @@
       {{ comment?.content }}
     </p>
 
-    <div v-if="comment && comment.createdAt" class="flex justify-end text-xs">
+    <div
+      v-if="comment && comment.createdAt"
+      class="mt-2 flex justify-end text-xs"
+    >
       <span class="block">{{ $d(comment.createdAt, 'long') }}</span>
     </div>
   </div>

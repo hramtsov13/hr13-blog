@@ -9,12 +9,14 @@
       <ParticlesMainLayoutModalLogin
         v-model="isLoginModalVisible"
         :title="$t('service.login')"
+        @on-register-click="isRegisterModalVisible = !isRegisterModalVisible"
       />
     </template>
     <template v-if="isRegisterModalVisible">
       <ParticlesMainLayoutModalRegister
         v-model="isRegisterModalVisible"
         :title="$t('service.register')"
+        @on-login-click="isLoginModalVisible = !isLoginModalVisible"
       />
     </template>
 
@@ -28,7 +30,10 @@
         >
           <ParticlesAccountMenu :user="user" />
           <div class="col-span-9 grid grid-cols-12">
-            <slot />
+            <slot
+              @on-login-click="onLoginClick"
+              @on-register-click="onRegisterClick"
+            />
           </div>
         </div>
         <slot v-else />

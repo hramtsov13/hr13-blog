@@ -3,7 +3,10 @@
     :disabled="disabled || loading"
     :class="[
       'btn font-mono !min-h-0 !h-unset',
-      { 'btn-link text-accent': plain || false },
+      {
+        'btn-link text-accent p-0 border-none bg-transparent hover:bg-transparent hover:border-none hover:duration-0 hover:transform-none':
+          plain || false,
+      },
       { 'btn-circle': icon || false },
       { 'btn-outlined': outlined || false },
       { loading: loading || false },
