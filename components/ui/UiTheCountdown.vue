@@ -19,19 +19,20 @@ const props = withDefaults(defineProps<TheCountdownProps>(), {
 
 const emits = defineEmits(['on-interval-end'])
 
+const SECOND_IN_MS = 1000
 const timer = ref(props.countdown)
+let timeNow = new Date().getTime()
+const countDownToTime = props.endTime ?? timeNow + timer.value * SECOND_IN_MS
 
-const startTimer = () => {
-  const timeNow = new Date().getTime()
-  const countDownToTime = props.endTime ?? timeNow + timer.value * 1000
-
-  if (countDownToTime > timeNow) timer.value--
-}
-
-setInterval(() => {
-  if (timer.value > 0) startTimer()
-  else emits('on-interval-end')
-}, 1000)
+const interval = setInterval(() => {
+  if (countDownToTime > timeNow) {
+    timeNow = new Date().getTime()
+    timer.value--
+  } else {
+    clearInterval(interval)
+    emits('on-interval-end')
+  }
+}, SECOND_IN_MS)
 
 onBeforeRouteLeave(() => {
   timer.value = 0
