@@ -1,25 +1,6 @@
 <template>
-  <UiTheCard class="p-4">
+  <UiTheCard class="max-w-xl p-4">
     <form>
-      <div class="mb-4 flex items-center justify-between gap-2.5">
-        <h2 class="text-xl">{{ $t('account.passwordPage.title') }}</h2>
-
-        <NuxtLink to="/forgot-password">
-          <UiTheButton class="!m-0 h-auto !p-0 !text-xs" plain>
-            {{ $t('form.passForgot') }}
-          </UiTheButton>
-        </NuxtLink>
-      </div>
-
-      <UiTheInput
-        v-model="passwordForm.currentPassword.value"
-        :label="passwordForm.currentPassword.label"
-        :placeholder="$t('form.oldPassword')"
-        :error-message="passwordForm.currentPassword.errorMessage"
-        name="old-password"
-        type="password"
-        required
-      />
       <UiTheInput
         v-model="passwordForm.password.value"
         :label="passwordForm.password.label"
@@ -64,25 +45,21 @@
 import { useField, useForm, useIsFormValid } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 
+const emits = defineEmits(['on-success'])
+
 const isPasswordValid = ref(false)
 const error = ref('')
 const { t } = useI18n()
-const config = useRuntimeConfig()
-const token = useStrapiToken()
+const { resetPassword } = useStrapiAuth()
 
 const { handleSubmit, isSubmitting } = useForm({
   validationSchema: {
-    currentPassword: 'required|min:8',
     password: 'required|min:8',
     passwordConfirmation: 'required|min:8',
   },
 })
 
 const passwordForm = reactive({
-  currentPassword: useField('currentPassword', '', {
-    label: t('form.oldPassword'),
-    initialValue: '',
-  }),
   password: useField('password', '', {
     label: t('form.newPassword'),
     initialValue: '',
@@ -95,23 +72,17 @@ const passwordForm = reactive({
 
 const isFormValid = useIsFormValid()
 
-const onPasswordChangeSubmit = handleSubmit(async (formData, { resetForm }) => {
-  try {
-    // Custom route defined in strapi to update user data (don't mixt it up with userS/me)
+const onPasswordChangeSubmit = handleSubmit(
+  async ({ password, passwordConfirmation }, { resetForm }) => {
+    try {
+      // await resetPassword({ code: '123', password, passwordConfirmation })
 
-    await useAsyncData(() =>
-      $fetch(`${config.strapi.url}/api/auth/change-password`, {
-        method: 'POST',
-        headers: {
-          authorization: `Bearer ${token.value}`,
-        },
-        body: formData,
-      })
-    )
+      resetForm()
 
-    resetForm()
-  } catch (e: any) {
-    error.value = e.error.message
+      emits('on-success')
+    } catch (e: any) {
+      error.value = e.error.message
+    }
   }
-})
+)
 </script>

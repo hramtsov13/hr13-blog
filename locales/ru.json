@@ -9,7 +9,11 @@
     "frontend": "Frontend",
     "backend": "Backend",
     "mobile": "Мобильная разработка",
-    "other": "Другое"
+    "other": "Другое",
+    "success": "Успешно",
+    "in": "Через",
+    "redirectMsg": "секунд вы будете перенаправлены на",
+    "mainPage": "Главную страницу"
   },
   "form": {
     "username": "Никнейм",
@@ -22,13 +26,20 @@
     "confirmPassword": "Повторите пароль",
     "buttons": {
       "save": "Сохранить",
-      "update": "Обновить"
+      "update": "Обновить",
+      "send": "Отправить"
     },
     "requirements": {
       "title": "Пароль содержит:",
       "enoughChars": "Минимум 8 символов",
       "enoughCapitalLetters": "Минимум 1 заглавную букву",
       "passwordMatch": "Пароли совпадают"
+    },
+    "passForgot": "Забыли пароль?",
+    "registerQuestion": "Все ещё нет аккаунта?",
+    "loginQuestion": "Уже зарегистрированы?",
+    "passReset": {
+      "emailTitle": "Введите свой e-mail и мы отправим ссылку на восстановление"
     }
   },
   "sidebar": {
@@ -73,5 +84,8 @@
     "usersPage": {
       "title": "Пользователи"
     }
+  },
+  "resetPasswordPage": {
+    "passChanged": "Пароль был изменён"
   }
 }

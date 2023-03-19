@@ -2,7 +2,7 @@
   <button
     :disabled="disabled || loading"
     :class="[
-      'btn font-mono !min-h-0 !h-unset',
+      'btn font-mono !min-h-0 !h-auto py-2.5 px-2 md:py-4 md:px-2 whitespace-nowrap ',
       {
         'btn-link text-accent p-0 border-none bg-transparent hover:bg-transparent hover:border-none hover:duration-0 hover:transform-none':
           plain || false,

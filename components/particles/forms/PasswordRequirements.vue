@@ -1,21 +1,23 @@
 <template>
-  <h2 class="mt-4">
+  <h2 class="md:text-1rem mt-4 text-sm">
     {{ $t('form.requirements.title') }}
   </h2>
 
-  <div class="mt-4 flex">
+  <div class="mt-4 flex items-center">
     <ParticlesFormsPasswordCheckIcon :is-active="enoughChars" />
-    <span>{{ $t('form.requirements.enoughChars') }}</span>
+    <span class="text-sm">{{ $t('form.requirements.enoughChars') }}</span>
   </div>
 
-  <div class="mt-3 flex">
+  <div class="mt-3 flex items-center">
     <ParticlesFormsPasswordCheckIcon :is-active="enoughCapitalLetters" />
-    <span>{{ $t('form.requirements.enoughCapitalLetters') }}</span>
+    <span class="text-sm">{{
+      $t('form.requirements.enoughCapitalLetters')
+    }}</span>
   </div>
 
-  <div class="mt-3 flex">
+  <div class="mt-3 flex items-center">
     <ParticlesFormsPasswordCheckIcon :is-active="passwordsMatch" />
-    <span>{{ $t('form.requirements.passwordMatch') }}</span>
+    <span class="text-sm">{{ $t('form.requirements.passwordMatch') }}</span>
   </div>
 </template>
 
