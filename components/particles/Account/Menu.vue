@@ -1,5 +1,5 @@
 <template>
-  <UiTheCard class="p-4">
+  <UiTheCard class="mb-0 p-4">
     <div class="flex items-center">
       <ParticlesAccountUserIcon class="mr-4" :user="user" />
       <div>
@@ -8,31 +8,15 @@
       </div>
     </div>
 
-    <ul class="mt-6">
-      <li class="mb-2">
-        <NuxtLink to="/account">
+    <ul class="mt-6 flex overflow-x-auto sm:block">
+      <li v-for="link in links" :key="link.path" class="mr-2 sm:mb-2">
+        <NuxtLink :to="link.path">
           <UiTheButton
             class="w-full"
-            :class="{ 'text-accent': route.path === '/account' }"
+            :class="{ 'text-accent': route.path === link.path }"
+            :disabled="link.disabled"
           >
-            {{ $t('account.myAccountPage.title') }}
-          </UiTheButton>
-        </NuxtLink>
-      </li>
-      <li class="mb-2">
-        <NuxtLink to="/account/password">
-          <UiTheButton
-            class="w-full"
-            :class="{ 'text-accent': route.path === '/account/password' }"
-          >
-            {{ $t('account.passwordPage.title') }}
-          </UiTheButton>
-        </NuxtLink>
-      </li>
-      <li class="mb-2">
-        <NuxtLink>
-          <UiTheButton class="w-full" disabled>
-            {{ $t('account.usersPage.title') }}
+            {{ $t(link.title) }}
           </UiTheButton>
         </NuxtLink>
       </li>
@@ -52,4 +36,22 @@ withDefaults(defineProps<IAccountMenuProps>(), {
 })
 
 const route = useRoute()
+
+const links = [
+  {
+    path: '/account',
+    title: 'account.myAccountPage.title',
+    disabled: false,
+  },
+  {
+    path: '/account/password',
+    title: 'account.passwordPage.title',
+    disabled: false,
+  },
+  {
+    path: '',
+    title: 'account.usersPage.title',
+    disabled: true,
+  },
+]
 </script>

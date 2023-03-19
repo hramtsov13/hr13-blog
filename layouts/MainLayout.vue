@@ -29,10 +29,12 @@
           class="grid grid-cols-12 items-start gap-6 font-mono"
         >
           <ParticlesAccountMenu
-            class="col-span-full sm:col-span-5 md:col-span-4 lg:col-span-2"
+            class="col-span-full sm:col-span-5 md:col-span-4 lg:col-span-3 xl:col-span-2"
             :user="user"
           />
-          <div class="col-span-full sm:col-span-7 md:col-span-8 lg:col-span-4">
+          <div
+            class="col-span-full sm:col-span-7 md:col-span-8 lg:col-span-5 xl:col-span-4"
+          >
             <slot
               @on-login-click="onLoginClick"
               @on-register-click="onRegisterClick"
