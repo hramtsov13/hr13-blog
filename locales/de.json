@@ -9,7 +9,10 @@
     "frontend": "Frontend",
     "backend": "Backend",
     "mobile": "Mobile",
-    "other": "Andere"
+    "other": "Andere",
+    "mainPage": "Hauptseite",
+    "in": "in",
+    "redirectMsg": "Sekunden werden Sie auf die Hauptseite weitergeleitet"
   },
 
   "form": {
@@ -23,40 +26,42 @@
     "confirmPassword": "Passwort bestätigen",
     "buttons": {
       "save": "speichern",
-      "update": "erneuern"
+      "update": "erneuern",
+      "send": "senden"
     },
     "requirements": {
       "title": "Passwortanforderungen",
       "enoughChars": "Mindestens 8 Zeichen",
       "enoughCapitalLetters": "Mindestens 1 Großbuchstabe",
       "passwordMatch": "Passwörter entsprechen"
+    },
+    "passForgot": "Passwort vergessen?",
+    "registerQuestion": "Sie haben noch kein Konto?",
+    "loginQuestion": "Haben Sie sich schon registriert?",
+    "passReset": {
+      "emailTitle": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts"
     }
   },
-
   "sidebar": {
     "visitAccount": "Konto anzeigen",
     "all": "Alle Artikel"
   },
-
   "allArticles": {
     "title": "Zusammenfassung der besten Artikel"
   },
-
   "articlesCard": {
     "readMore": "Weiter lesen..."
   },
-
   "articleCategory": {
     "meta": {
       "title": "The Dev. {separator} {category}"
     },
     "emptyCategory": {
-      "message1": "Entschuldigung, es gibt noch keine Artikel in der Kategorie <b class=\"uppercase\">{category}</b>",
+      "message1": "Entschuldigung, es gibt noch keine Artikel in der Kategorie <b class=\"uppercase\">{category}</b>",
       "message2": "Wir arbeiten daran",
       "backButton": "Zurück zu den Artikeln"
     }
   },
-
   "articlePage": {
     "meta": {
       "title": "The Dev. {separator} {title}"
@@ -69,7 +74,6 @@
       "leaveComment": "Kommentieren"
     }
   },
-
   "account": {
     "myAccountPage": {
       "title": "Mein Konto"
@@ -80,5 +84,8 @@
     "usersPage": {
       "title": "Benutzer"
     }
+  },
+  "resetPasswordPage": {
+    "passChanged": "Passwort wurde geändert"
   }
 }

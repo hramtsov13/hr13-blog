@@ -40,7 +40,7 @@
     "registerQuestion": "Don't have an account?",
     "loginQuestion": "Already have an account?",
     "passReset": {
-      "emailTitle": "Enter your e-mail and we will send a link to reset your password"
+      "emailTitle": "Enter your e-mail and we will send a link to reset your password"
     }
   },
   "sidebar": {
@@ -58,7 +58,7 @@
       "title": "The Dev. {separator} {category}"
     },
     "emptyCategory": {
-      "message1": "Sorry, there are no articles about <b class=\"uppercase\">{category}</b> yet",
+      "message1": "Sorry, there are no articles about <b class=\"uppercase\">{category}</b> yet",
       "message2": "We work on it",
       "backButton": "Back to articles"
     }
