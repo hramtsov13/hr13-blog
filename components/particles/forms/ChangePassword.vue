@@ -1,6 +1,16 @@
 <template>
-  <div>
+  <UiTheCard class="p-4">
     <form>
+      <div class="mb-4 flex items-center justify-between gap-2.5">
+        <h2 class="text-xl">{{ $t('account.passwordPage.title') }}</h2>
+
+        <NuxtLink to="/forgot-password">
+          <UiTheButton class="!m-0 h-auto !p-0 !text-xs" plain>
+            {{ $t('form.passForgot') }}
+          </UiTheButton>
+        </NuxtLink>
+      </div>
+
       <UiTheInput
         v-model="passwordForm.currentPassword.value"
         :label="passwordForm.currentPassword.label"
@@ -47,7 +57,7 @@
         {{ $t('form.buttons.update') }}
       </UiTheButton>
     </div>
-  </div>
+  </UiTheCard>
 </template>
 
 <script setup lang="ts">

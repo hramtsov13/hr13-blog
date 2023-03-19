@@ -1,6 +1,7 @@
 <template>
-  <div class="bg-base-300 col-span-6 rounded-lg p-4 shadow-xl">
+  <UiTheCard class="col-span-full p-4">
     <h2 class="mb-4 text-xl">{{ $t('account.myAccountPage.title') }}</h2>
+
     <form @submit.prevent="onUserDataUpdateSubmit">
       <UiTheInput
         v-model="accountForm.username.value"
@@ -10,6 +11,7 @@
         disabled
         :error-message="accountForm.username.errorMessage"
       />
+
       <UiTheInput
         v-model="accountForm.name.value"
         :label="accountForm.name.label"
@@ -49,7 +51,7 @@
         </UiTheButton>
       </div>
     </form>
-  </div>
+  </UiTheCard>
 </template>
 
 <script setup lang="ts">

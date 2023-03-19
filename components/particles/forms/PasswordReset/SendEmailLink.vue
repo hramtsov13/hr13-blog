@@ -1,7 +1,7 @@
 <template>
-  <UiTheCard class="max-w-xl p-4">
+  <UiTheCard class="max-w-lg p-4">
     <form @submit="onPasswordChangeSubmit">
-      <h2 class="text-md mb-2 font-mono md:mb-4 md:text-xl">
+      <h2 class="text-md mb-2 font-mono md:mb-4 md:text-lg">
         {{ $t('form.passReset.emailTitle') }}
       </h2>
 
