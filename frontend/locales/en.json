@@ -1,0 +1,92 @@
+{
+  "service": {
+    "login": "Login",
+    "register": "Sign Up",
+    "noValue": "Please, set the value",
+    "title": "The Developer",
+    "language": "Language",
+    "darkMode": "Dark mode",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Mobile",
+    "other": "Other",
+    "success": "Success",
+    "mainPage": "Main page",
+    "in": "in",
+    "redirectMsg": "seconds you will be redirected to the "
+  },
+  "form": {
+    "username": "Username",
+    "email": "E-mail",
+    "password": "Password",
+    "name": "Name",
+    "lastName": "Last name",
+    "newPassword": "New password",
+    "oldPassword": "Old password",
+    "confirmPassword": "Confirm password",
+    "leaveComment": "Leave a comment",
+    "buttons": {
+      "save": "save",
+      "update": "update",
+      "send": "send"
+    },
+    "requirements": {
+      "title": "Password requirements",
+      "enoughChars": "Minimum 8 characters",
+      "enoughCapitalLetters": "Minimum 1 capital letter",
+      "passwordMatch": "Passwords correspond"
+    },
+    "passForgot": "Forgot password?",
+    "registerQuestion": "Don't have an account?",
+    "loginQuestion": "Already have an account?",
+    "passReset": {
+      "emailTitle": "Enter your e-mail and we will send a link to reset your password"
+    }
+  },
+  "sidebar": {
+    "visitAccount": "Visit my account",
+    "all": "All articles"
+  },
+  "allArticles": {
+    "title": "Digest of the best articles"
+  },
+  "articlesCard": {
+    "readMore": "Read more..."
+  },
+  "articleCategory": {
+    "meta": {
+      "title": "The Dev. {separator} {category}"
+    },
+    "emptyCategory": {
+      "message1": "Sorry, there are no articles about <b class=\"uppercase\">{category}</b> yet",
+      "message2": "We work on it",
+      "backButton": "Back to articles"
+    }
+  },
+  "articlePage": {
+    "meta": {
+      "title": "The Dev. {separator} {title}"
+    },
+    "published": "Published",
+    "author": "Author",
+    "comments": {
+      "title": "Comments",
+      "empty": "No comments yet, be the first one",
+      "leaveComment": "Comment"
+    }
+  },
+  "account": {
+    "myAccountPage": {
+      "title": "My info"
+    },
+    "passwordPage": {
+      "title": "Password"
+    },
+    "usersPage": {
+      "title": "Users"
+    }
+  },
+  "resetPasswordPage": {
+    "passChanged": "Password has been changed"
+  }
+}
