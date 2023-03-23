@@ -97,8 +97,6 @@ const isFormValid = useIsFormValid()
 
 const onPasswordChangeSubmit = handleSubmit(async (formData, { resetForm }) => {
   try {
-    // Custom route defined in strapi to update user data (don't mixt it up with userS/me)
-
     await useAsyncData(() =>
       $fetch(`${config.strapi.url}/api/auth/change-password`, {
         method: 'POST',

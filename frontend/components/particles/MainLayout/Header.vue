@@ -25,7 +25,12 @@
               {{ $t('service.register') }}
             </UiTheButton>
           </template>
-          <UiTheButton v-else class="text-accent mx-2" icon @click="logout">
+          <UiTheButton
+            v-else
+            class="text-accent !h-3rem mx-2 !p-2"
+            icon
+            @click="logout"
+          >
             <Icon name="ion:log-out-outline" size="1.5rem" />
           </UiTheButton>
 
