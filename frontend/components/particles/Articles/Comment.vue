@@ -10,7 +10,7 @@
 
       <UiTheButton
         v-if="isCommentAuthorEqualsUser"
-        class="h-7 w-7"
+        class="d-flex w-9 items-center justify-center !p-2"
         icon
         @click="onDelete"
       >
