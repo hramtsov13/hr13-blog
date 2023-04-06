@@ -60,5 +60,8 @@
     "**/*.{js,ts,vue}": [
       "yarn lint:fix"
     ]
+  },
+  "engines": {
+    "node": ">=14.0.0 <18.x.x"
   }
 }
