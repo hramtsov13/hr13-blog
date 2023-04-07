@@ -2,10 +2,10 @@
   <div class="flex items-center">
     <p class="mr-2 text-lg">{{ likes?.length }}</p>
 
-    <UiTheButton icon @click="onLikeHandler">
+    <UiTheButton icon class="w-10 !p-2" @click="onLikeHandler">
       <Icon
         :name="currentUsersLike?.length ? 'ph:heart-fill' : 'ph:heart-light'"
-        size="1.6rem"
+        size="1.5rem"
         class="text-red-500"
       />
     </UiTheButton>
@@ -22,8 +22,6 @@ interface ILikeProps {
 const props = withDefaults(defineProps<ILikeProps>(), {
   articleId: null,
 })
-
-// TODO: DEFINE PAGE LEAVE HOOK AND DESTROY COMPONENT
 
 const { delete: _delete } = useStrapi()
 const config = useRuntimeConfig()

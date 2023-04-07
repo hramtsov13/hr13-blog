@@ -10,14 +10,14 @@
 
           <div>
             <UiTheButton
+              class="text-accent mr-4 w-12"
               :disabled="slidesLength < 4 || swiper?.isBeginning"
-              class="text-accent mr-4"
               @click="swiper?.slidePrev()"
             >
               <Icon name="material-symbols:arrow-back-ios-new-rounded" />
             </UiTheButton>
             <UiTheButton
-              class="text-accent"
+              class="text-accent w-12"
               :disabled="slidesLength < 4 || swiper?.isEnd"
               @click="swiper?.slideNext()"
             >

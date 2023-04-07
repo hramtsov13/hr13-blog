@@ -10,6 +10,7 @@
       >
         <UiTheButton
           v-if="!isSidebarExpanded"
+          class="w-12"
           @click="isSidebarExpanded = !isSidebarExpanded"
         >
           <Icon
@@ -18,7 +19,11 @@
             size="1.5rem"
           />
         </UiTheButton>
-        <UiTheButton v-else @click="isSidebarExpanded = !isSidebarExpanded">
+        <UiTheButton
+          v-else
+          class="w-12"
+          @click="isSidebarExpanded = !isSidebarExpanded"
+        >
           <Icon
             class="text-accent swap-on"
             name="mdi:window-close"

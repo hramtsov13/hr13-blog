@@ -20,7 +20,7 @@
     "strapi-plugin-sitemap": "^2.0.9"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Mikhail Khramtsov"
   },
   "strapi": {
     "uuid": "f950b28d-e008-43fe-b15d-73886e4be3aa"
