@@ -7,6 +7,11 @@ export default {
     title: 'The Dev.',
   },
 
+  server: {
+    host: 'local.blog.hr13',
+    port: 3000,
+  },
+
   modules: [
     ['nuxt-windicss'],
     [
