@@ -6,5 +6,8 @@ node_modules
 *.output
 *.env
 *.env.*
+.strapi-updater.json
+build
+.vscode
 
 *.DS_Store
