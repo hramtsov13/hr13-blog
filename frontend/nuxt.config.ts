@@ -79,7 +79,7 @@ export default {
   },
 
   strapi: {
-    url: process.env.VUE_APP_API_ENDPOINT || 'http://localhost:1337',
+    url: process.env.STRAPI_URL,
     prefix: '/api',
     version: 'v4',
     cookie: {},
