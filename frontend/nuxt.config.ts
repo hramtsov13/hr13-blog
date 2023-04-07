@@ -7,6 +7,11 @@ export default {
     title: 'The Dev.',
   },
 
+  server: {
+    host: 'local.blog.hr13',
+    port: 3000,
+  },
+
   modules: [
     ['nuxt-windicss'],
     [
@@ -69,8 +74,12 @@ export default {
     // ],
   },
 
+  router: {
+    base: 'blog.hr13.ru',
+  },
+
   strapi: {
-    url: process.env.STRAPI_URL || 'http://localhost:1337',
+    url: process.env.VUE_APP_API_ENDPOINT || 'http://localhost:1337',
     prefix: '/api',
     version: 'v4',
     cookie: {},
