@@ -4,5 +4,5 @@ module.exports = ({ env }) => ({
   app: {
     keys: env.array("APP_KEYS"),
   },
-  url: "https://blog.hr13.ru",
+  url: "https://api.blog.hr13.ru",
 });
