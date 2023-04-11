@@ -52,3 +52,9 @@ export interface ILike {
   id: number
   updatedAt: Date
 }
+
+export interface ISidebarOption {
+  title: string
+  path: string
+  icon: string
+}

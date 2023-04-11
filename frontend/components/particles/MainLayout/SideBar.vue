@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="max-w-75 sm:max-w-75 bg-base-300 relative w-full pb-10 shadow-xl transition-all duration-200"
+    class="max-w-75 sm:max-w-75 bg-base-300 relative hidden w-full pb-10 shadow-xl transition-all duration-200 md:block"
     :class="{ '!max-w-20': !isSidebarExpanded }"
   >
     <nav class="h-full overflow-y-scroll px-2 py-4 sm:px-4 sm:py-8">
@@ -9,25 +9,15 @@
         :class="{ '!justify-center': !isSidebarExpanded }"
       >
         <UiTheButton
-          v-if="!isSidebarExpanded"
-          class="w-12"
+          class="rounded-md !p-1.5"
           @click="isSidebarExpanded = !isSidebarExpanded"
         >
           <Icon
             class="text-accent"
-            name="quill:hamburger-sidebar"
-            size="1.5rem"
-          />
-        </UiTheButton>
-        <UiTheButton
-          v-else
-          class="w-12"
-          @click="isSidebarExpanded = !isSidebarExpanded"
-        >
-          <Icon
-            class="text-accent swap-on"
-            name="mdi:window-close"
-            size="1.5rem"
+            :name="
+              isSidebarExpanded ? 'mdi:window-close' : 'quill:hamburger-sidebar'
+            "
+            size="1.8rem"
           />
         </UiTheButton>
       </div>
@@ -36,7 +26,7 @@
           <NuxtLink
             :to="option.path"
             class="btn mb-2 flex flex-nowrap items-center justify-start"
-            :class="{ 'px-2 justify-center': !isSidebarExpanded }"
+            :class="{ 'justify-center px-2': !isSidebarExpanded }"
             :tabindex="index"
             active-class="text-accent"
           >
@@ -49,7 +39,7 @@
             <span
               class="inline-block font-mono text-inherit transition duration-500"
               :class="{
-                'invisible h-0 w-0 opacity-0 absolute': !isSidebarExpanded,
+                'invisible absolute h-0 w-0 opacity-0': !isSidebarExpanded,
               }"
             >
               {{ $t(option.title) }}
@@ -72,7 +62,7 @@
         <p
           class="transition duration-500"
           :class="{
-            'invisible h-0 w-0 opacity-0 absolute': !isSidebarExpanded,
+            'invisible absolute h-0 w-0 opacity-0': !isSidebarExpanded,
           }"
         >
           <span class="block font-mono font-medium capitalize leading-4">
@@ -89,18 +79,12 @@
 
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-import { TUser } from '@/utils/types'
+import { TUser, ISidebarOption } from '@/utils/types'
 
 interface ISidebarProps {
   label?: string
   user: TUser
   options: Array<ISidebarOption>
-}
-
-interface ISidebarOption {
-  title: string
-  path: string
-  icon: string
 }
 
 withDefaults(defineProps<ISidebarProps>(), {

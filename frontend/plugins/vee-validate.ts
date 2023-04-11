@@ -4,9 +4,9 @@ import { localize, setLocale } from '@vee-validate/i18n'
 import { DEFAULT_LOCALE } from '@/utils/constants'
 
 // TODO: async locale imports based on existing locales
-import en from '@vee-validate/i18n/dist/locale/en.json'
-import ru from '@vee-validate/i18n/dist/locale/en.json'
-import de from '@vee-validate/i18n/dist/locale/en.json'
+// import en from '@vee-validate/i18n/dist/locale/en.json'
+// import ru from '@vee-validate/i18n/dist/locale/en.json'
+// import de from '@vee-validate/i18n/dist/locale/en.json'
 
 export default defineNuxtPlugin(() => {
   Object.keys(rules)
@@ -19,9 +19,9 @@ export default defineNuxtPlugin(() => {
   ;(async function init() {
     configure({
       generateMessage: localize({
-        en,
-        ru,
-        de,
+        [DEFAULT_LOCALE]: await import(
+          `@vee-validate/i18n/dist/locale/${DEFAULT_LOCALE}.json`
+        ),
       }),
     })
     setLocale(DEFAULT_LOCALE)
