@@ -2,9 +2,9 @@
   <button
     :disabled="disabled || loading"
     :class="[
-      'btn font-mono !min-h-0 !h-auto py-2.5 px-2 md:py-4 md:px-2 whitespace-nowrap ',
+      'btn !h-auto !min-h-0 whitespace-nowrap px-2 py-2.5 font-mono md:px-2 md:py-4 ',
       {
-        'btn-link text-accent p-0 border-none bg-transparent hover:bg-transparent hover:border-none hover:duration-0 hover:transform-none':
+        'btn-link text-accent border-none bg-transparent p-0 hover:transform-none hover:border-none hover:bg-transparent hover:duration-0':
           plain || false,
       },
       { 'btn-circle': icon || false },

@@ -30,7 +30,7 @@ import { IArticleInstanceAttributes } from '@/utils/types'
 
 const { find } = useStrapi()
 
-const { data: articles } = await useLazyAsyncData('articles', () =>
+const { data: articles } = await useAsyncData('articles', () =>
   find<IArticleInstanceAttributes>('articles', {
     populate: 'cover',
   })

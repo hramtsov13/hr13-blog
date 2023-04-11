@@ -11,11 +11,11 @@ export default defineConfig({
       md: '768px',
       lg: '1024px',
       xl: '1280px',
-      '2xl': '1536px',
+      '2xl': '1440px',
+      '4xl': '1680px',
     },
     colors: {
       ...colors,
-      green1: '#42d392',
       white: '#ffffff',
       blue: '#075985',
       yellow: '#ffd859',
@@ -47,6 +47,6 @@ export default defineConfig({
     }),
   ],
   daisyui: {
-    themes: ['valentine', 'dracula'],
+    themes: ['winter', 'dracula'],
   },
 })
