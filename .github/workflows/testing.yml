@@ -7,6 +7,10 @@ jobs:
       - name: Get the code from the repo
         uses: actions/checkout@v3
       - name: Install dependencies
-        run: yarn install
+        run: |
+          cd frontend
+          yarn install
       - name: Test app
-        run: yarn test
+        run: |
+          cd frontend 
+          yarn test
