@@ -4,8 +4,8 @@ node_modules
 *.nitro
 *.cache
 *.output
-*.env
 *.env.*
+backend/.env
 .strapi-updater.json
 build
 .vscode

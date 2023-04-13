@@ -81,7 +81,7 @@
     </div>
 
     <div
-      class="from-base-200 via-base-200 to-base-100 top-100% invisible absolute left-0 h-[calc(100vh-50px)] w-full transform translate-x-full overflow-y-auto bg-gradient-to-br p-4 opacity-0 transition duration-150"
+      class="from-base-200 via-base-200 to-base-100 top-100% invisible absolute left-0 h-[calc(100vh-50px)] w-full translate-x-full overflow-y-auto bg-gradient-to-br p-4 opacity-0 transition duration-150"
       :class="{ '!visible !translate-x-0 !opacity-100': isMobileMenuOpened }"
     >
       <div class="mx-auto max-w-lg">
@@ -145,7 +145,7 @@
           </li>
         </ul>
 
-        <UiTheCard class="px-4 py-4">
+        <UiTheCard class="p-4">
           <div class="mb-4 flex items-center justify-between">
             <p>{{ $t('service.darkMode') }}</p>
             <UiTheToggle @change="toggleDark()" />

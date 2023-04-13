@@ -1,36 +1,64 @@
-## Setup
+# Project Title
 
-Make sure to install the dependencies:
+This is an SSR Nuxt 3 / Strapi 4 blog application that allows users to watch the articles grouped by categories, create accounts, change profile related info, leave comments and likes; and admins to create/delete/update new articles and manage its markup.
 
-```bash
-# yarn / # npm
-yarn install
-```
+## Run Locally
 
-## Development Server
-
-Start the frontend development server on http://localhost:3000
+Clone the project, this is monorepo so you have to install dependencies for Backend and Frontend
 
 ```bash
-yarn dev
+  git clone git@github.com:hramtsov13/hr13-blog.git
 ```
 
-Start the backend development server on http://localhost:1337
+Install dependencies in the Backend directory
 
 ```bash
-yarn develop
+  cd backend
+  yarn install
+  yarn develop
 ```
 
-## Production
-
-Build the application for production:
+Install dependencies in the Frontend directory
 
 ```bash
-yarn build
+  cd frontend
+  yarn install
+  yarn dev
 ```
 
-Locally preview production build:
+After that the Frontend should be available on
 
 ```bash
-yarn preview
+  localhost:3000
 ```
+
+Backend
+
+```bash
+  https://api.blog.hr13.ru/admin
+```
+
+## Tech Stack
+
+**Client:** Nuxt 3, Typescript, i18n, Vee-validate, Pinia, Vitest, Windicss and Daysyui (tailwind library of components), Husky
+
+**Server:** Strapi 4 - Headless CMS
+
+## Main features
+
+- Login/Register
+- Personal account - change password/update user info
+- Comments - add/delete
+- Likes - add/delete
+- Light/Dark mode
+- Adaptive (UI in progress)
+
+## Roadmap
+
+- Fix UI issues
+
+- Add CI/CD via docker and github actions (in progress)
+
+- Allow users to create articles
+
+- Landing page on "/" with latest articles
