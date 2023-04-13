@@ -46,6 +46,10 @@
     "visitAccount": "Konto anzeigen",
     "all": "Alle Artikel"
   },
+  "main": {
+    "message1": "Hallo, bald kommt die Haupt-Landingpage...",
+    "message2": "Verwenden Sie nun die Seitenleiste, um durch die Website zu navigieren"
+  },
   "allArticles": {
     "title": "Zusammenfassung der besten Artikel"
   },

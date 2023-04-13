@@ -47,6 +47,10 @@
     "visitAccount": "Visit my account",
     "all": "All articles"
   },
+  "main": {
+    "message1": "Hello, here will be the main landing page soon...",
+    "message2": "Now, use the sidebar to navigate through the website"
+  },
   "allArticles": {
     "title": "Digest of the best articles"
   },

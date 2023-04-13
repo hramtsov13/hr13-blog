@@ -26,6 +26,7 @@
     "vue/script-setup-no-uses-vars": "off",
     "vue/multi-word-component-names": "off",
     "vue/no-v-html": "off",
-    "tailwindcss/no-custom-classname": "off"
+    "tailwindcss/no-custom-classname": "off",
+    "vue/no-multiple-template-root": "off"
   }
 }
