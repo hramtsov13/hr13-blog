@@ -53,6 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get build project
+        run: echo ${{ secrets.TEST_SECRET }}
         uses: actions/download-artifact@v3
         with:
           name: build-files
