@@ -20,6 +20,7 @@ jobs:
           npx nuxi prepare && yarn test
   build:
     runs-on: ubuntu-latest
+    needs: ["test"]
     steps:
       - name: Get the code from the repo
         uses: actions/checkout@v3
