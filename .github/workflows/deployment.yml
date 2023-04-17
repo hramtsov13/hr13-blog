@@ -25,7 +25,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16]
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Get the code from the repo
@@ -55,4 +55,4 @@ jobs:
       - name: Get build project
         uses: actions/download-artifact@v3
         with:
-          name: ./frontend/.output
+          name: build-files
