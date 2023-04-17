@@ -50,7 +50,6 @@ const emits = defineEmits(['on-success'])
 const isPasswordValid = ref(false)
 const error = ref('')
 const { t } = useI18n()
-const { resetPassword } = useStrapiAuth()
 
 const { handleSubmit, isSubmitting } = useForm({
   validationSchema: {
@@ -72,17 +71,13 @@ const passwordForm = reactive({
 
 const isFormValid = useIsFormValid()
 
-const onPasswordChangeSubmit = handleSubmit(
-  async ({ password, passwordConfirmation }, { resetForm }) => {
-    try {
-      // await resetPassword({ code: '123', password, passwordConfirmation })
+const onPasswordChangeSubmit = handleSubmit(async (_, { resetForm }) => {
+  try {
+    resetForm()
 
-      resetForm()
-
-      emits('on-success')
-    } catch (e: any) {
-      error.value = e.error.message
-    }
+    emits('on-success')
+  } catch (e: any) {
+    error.value = e.error.message
   }
-)
+})
 </script>

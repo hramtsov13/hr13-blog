@@ -78,7 +78,6 @@
 </template>
 
 <script setup lang="ts">
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { TUser, ISidebarOption } from '@/utils/types'
 
 interface ISidebarProps {
@@ -91,15 +90,6 @@ withDefaults(defineProps<ISidebarProps>(), {
   label: '',
   user: null,
   options: () => [],
-})
-
-const breakpoints = useBreakpoints(breakpointsTailwind)
-
-// TODO: add sidebar sizes
-const size = computed(() => {
-  // if (breakpoints.between('sm', 'lg').value) return 2
-  // else if (breakpoints.greaterOrEqual('lg').value) return 3
-  // return 1
 })
 
 const isSidebarExpanded = ref(false)

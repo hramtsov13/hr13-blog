@@ -95,7 +95,7 @@ const accountForm = reactive({
 const isFormValid = useIsFormValid()
 const error = ref('')
 
-const onUserDataUpdateSubmit = handleSubmit(async (formData, { resetForm }) => {
+const onUserDataUpdateSubmit = handleSubmit(async (formData) => {
   try {
     // Custom route defined in strapi to update user data (don't mixt it up with userS/me)
 
