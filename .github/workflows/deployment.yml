@@ -24,7 +24,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        node-version: [14, 16]
+        node-version: [16]
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -47,6 +47,12 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-files
-          path: build
-      - name: Deploy
-        run: echo Deploying...
+          path: .output
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get build project
+        uses: actions/download-artifact@v3
+        with:
+          name: .output
