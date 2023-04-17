@@ -20,7 +20,7 @@
     "plugin:prettier/recommended"
   ],
 
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "vitest"],
 
   "rules": {
     "vue/script-setup-no-uses-vars": "off",

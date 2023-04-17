@@ -13,14 +13,12 @@ interface TheToggleProps {
   value?: string
 }
 
-const props = withDefaults(defineProps<TheToggleProps>(), {
+withDefaults(defineProps<TheToggleProps>(), {
   modelValue: false,
   value: '',
 })
 
 const emit = defineEmits(['update:modelValue', 'change'])
-
-const innerValue = ref(props.modelValue)
 
 const onChange = (event: InputEvent) => {
   emit('update:modelValue', (event.target as HTMLInputElement).checked)

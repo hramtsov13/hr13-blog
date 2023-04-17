@@ -17,4 +17,4 @@ jobs:
       - name: Test app
         run: |
           cd frontend 
-          yarn test
+          npx nuxi prepare && yarn test

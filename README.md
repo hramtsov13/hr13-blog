@@ -1,4 +1,4 @@
-# Project Title
+# The Developer Blog
 
 This is an SSR Nuxt 3 / Strapi 4 blog application that allows users to watch the articles grouped by categories, create accounts, change profile related info, leave comments and likes; and admins to create/delete/update new articles and manage its markup.
 
