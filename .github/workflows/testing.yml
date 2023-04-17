@@ -16,5 +16,6 @@ jobs:
           yarn install
       - name: Test app
         run: |
+          ls -a
           cd frontend 
           yarn test
