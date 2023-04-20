@@ -54,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: front-build
-          path: ./frontend/.output
+          path: ./frontend/${{ github.sha }}.tar.gz
