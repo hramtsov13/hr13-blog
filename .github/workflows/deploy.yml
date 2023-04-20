@@ -87,3 +87,42 @@ jobs:
             mkdir -p "projects/blog/front/releases/${GITHUB_SHA}"
             tar xzf projects/blog/front/artifacts/${GITHUB_SHA}.tar.gz -C "projects/blog/front/releases/${GITHUB_SHA}"
             rm -rf projects/blog/front/artifacts/${GITHUB_SHA}.tar.gz
+  activate-release:
+    name: "Activate release"
+    needs: [prepare-release-on-server]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Activate release
+        uses: appleboy/ssh-action@master
+        env:
+          RELEASE_PATH: projects/blog/front/releases/${{ github.sha }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          port: ${{ secrets.VPS_PORT }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          envs: GITHUB_SHA
+          script: |
+            mkdir -p "projects/blog/front/releases/${GITHUB_SHA}"
+            tar xzf projects/blog/front/artifacts/${GITHUB_SHA}.tar.gz -C "projects/blog/front/releases/${GITHUB_SHA}"
+            rm -rf projects/blog/front/artifacts/${GITHUB_SHA}.tar.gz
+  clean-up:
+    name: "Clean up old versions"
+    needs: [activate-release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: clean up old releases
+        uses: appleboy/ssh-action@master
+        env:
+          RELEASE_PATH: projects/blog/front/releases/${{ github.sha }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          port: ${{ secrets.VPS_PORT }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          script: |
+            cd projects/blog/front/releases && ls -t -1 | tail -n +4 | xargs rm -rf
+            cd projects/blog/front/artifacts && rm -rf *
+        - uses: geekyeggo/delete-artifact@v1
+          with: 
+            name: front-build
