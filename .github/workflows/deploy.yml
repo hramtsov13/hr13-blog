@@ -16,10 +16,10 @@ jobs:
     steps:
       - name: Get the code from the repo
         uses: actions/checkout@v3
-      - name: Set node version - ${{ env.NODE_VERSION }}
+      - name: Set node version - "${{ env.NODE_VERSION }}"
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: "${{ env.NODE_VERSION }}"
           cache: "yarn"
       - name: Install dependencies
         run: |
@@ -34,7 +34,7 @@ jobs:
     needs: ["test-app"]
     strategy:
       matrix:
-        node-version: ${{ env.NODE_VERSION }}
+        node-version: "${{ env.NODE_VERSION }}"
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -53,7 +53,7 @@ jobs:
         run: |
           cd frontend
           yarn build
-          tar -czf ${{ github.sha }}.tar.gz .output
+          tar -czf "${{ github.sha }}".tar.gz .output
       - name: Store frontend artifact
         uses: actions/upload-artifact@v3
         with:
