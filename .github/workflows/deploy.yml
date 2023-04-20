@@ -55,3 +55,35 @@ jobs:
         with:
           name: front-build
           path: ./frontend/${{ github.sha }}.tar.gz
+
+  prepare-release-on-server:
+    needs: [build-app]
+    name: "Prepare release on server"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: front-build
+      - name: Upload front artifacts
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          port: ${{ secrets.VPS_PORT }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          source: ${{ github.sha }}.tar.gz
+          target: projects/blog/front/artifacts
+      - name: Extract archive
+        uses: appleboy/ssh-action@master
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          port: ${{ secrets.VPS_PORT }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          envs: GITHUB_SHA
+          script: |
+            mkdir -p "projects/blog/front/releases/${GITHUB_SHA}"
+            tar xzf projects/blog/front/artifacts/${GITHUB_SHA}.tar.gz -C "projects/blog/front/releases/${GITHUB_SHA}"
+            rm -rf projects/blog/front/artifacts/${GITHUB_SHA}.tar.gz
