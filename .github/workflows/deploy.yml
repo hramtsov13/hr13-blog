@@ -111,7 +111,7 @@ jobs:
     needs: [activate-release]
     runs-on: ubuntu-latest
     steps:
-      - name: clean up old releases
+      - name: Clean up old releases
         uses: appleboy/ssh-action@master
         env:
           RELEASE_PATH: projects/blog/front/releases/${{ github.sha }}
@@ -123,6 +123,6 @@ jobs:
           script: |
             cd projects/blog/front/releases && ls -t -1 | tail -n +4 | xargs rm -rf
             cd projects/blog/front/artifacts && rm -rf *
-        - uses: geekyeggo/delete-artifact@v1
-          with: 
-            name: front-build
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: front-build
