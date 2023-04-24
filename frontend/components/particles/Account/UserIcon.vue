@@ -1,7 +1,9 @@
 <template>
   <div class="avatar online placeholder">
-    <div class="bg-neutral-focus text-neutral-content w-14 rounded-full">
-      <span class="text-xl uppercase">{{ userInitials }}</span>
+    <div
+      class="bg-neutral-focus text-neutral-content w-12 rounded-full xl:w-14"
+    >
+      <span class="text-md uppercase xl:text-xl">{{ userInitials }}</span>
     </div>
   </div>
 </template>

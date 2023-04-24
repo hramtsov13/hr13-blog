@@ -1,0 +1,62 @@
+name: Deploy Nuxt app
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code from the repo
+        uses: actions/checkout@v3
+      - name: Set node version (16)
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "yarn"
+      - name: Install dependencies
+        run: |
+          cd frontend
+          yarn install
+      - name: Test app
+        run: |
+          cd frontend 
+          npx nuxi prepare && yarn test
+  build:
+    needs: ["test"]
+    continue-on-error: true
+    strategy:
+      matrix:
+        node-version: [16]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Get the code from the repo
+        uses: actions/checkout@v3
+      - name: Set node version
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+      - name: Install dependencies
+        run: |
+          cd frontend
+          yarn install
+      - name: Build app
+        run: |
+          cd frontend
+          yarn build
+      - name: Upload artefact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-files
+          path: ./frontend/.output
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get build project
+        run: echo ${{ secrets.TEST_SECRET }}
+        uses: actions/download-artifact@v3
+        with:
+          name: build-files

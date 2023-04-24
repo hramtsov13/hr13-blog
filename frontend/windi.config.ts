@@ -47,6 +47,6 @@ export default defineConfig({
     }),
   ],
   daisyui: {
-    themes: ['winter', 'dracula'],
+    themes: ['light', 'dracula'],
   },
 })

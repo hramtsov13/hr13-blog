@@ -13,7 +13,11 @@ export default {
   },
 
   modules: [
-    ['nuxt-windicss'],
+    'nuxt-windicss',
+    'nuxt-swiper',
+    '@pinia/nuxt',
+    '@nuxtjs/strapi',
+    'nuxt-icon',
     [
       '@intlify/nuxt3',
       {
@@ -34,9 +38,6 @@ export default {
         ],
       },
     ],
-    ['nuxt-swiper'],
-    ['@pinia/nuxt'],
-    ['@nuxtjs/strapi'],
     [
       '@nuxtjs/google-fonts',
       {
@@ -54,12 +55,10 @@ export default {
         base64: false,
       },
     ],
-    ['nuxt-icon'],
   ],
 
   plugins: [
     { src: '@/plugins/vee-validate.ts', mode: 'client' },
-
     '@/plugins/i18n.ts',
   ],
 

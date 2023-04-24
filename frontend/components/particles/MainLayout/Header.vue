@@ -4,14 +4,7 @@
   >
     <div class="flex h-full items-center justify-between gap-5">
       <NuxtLink class="flex cursor-pointer items-center" to="/">
-        <p class="text-md mr-2 font-mono capitalize md:text-xl">
-          The developer.
-        </p>
-        <Icon
-          name="fluent:brain-circuit-20-regular"
-          size="2rem"
-          class="text-accent"
-        />
+        <img class="h-6.5 sm:h-8" src="@/assets/logo/logo.svg" alt="" />
       </NuxtLink>
 
       <div class="md:hidden">
@@ -92,6 +85,7 @@
           <NuxtLink
             to="/account"
             class="flex cursor-pointer items-center gap-3"
+            @click="isMobileMenuOpened = !isMobileMenuOpened"
           >
             <ParticlesAccountUserIcon :user="user" />
             <p class="transition duration-500">
@@ -109,7 +103,7 @@
             <Icon name="ion:log-out-outline" size="1.5rem" />
           </UiTheButton>
         </UiTheCard>
-        <template v-else>
+        <div v-else class="mb-2">
           <UiTheButton class="text-accent mr-2.5" plain @click="onLoginClick">
             {{ $t('service.login') }}
           </UiTheButton>
@@ -121,7 +115,7 @@
           >
             {{ $t('service.register') }}
           </UiTheButton>
-        </template>
+        </div>
 
         <ul class="mb-4">
           <li v-for="(option, index) in options" :key="option.title">
@@ -130,6 +124,7 @@
               class="btn mb-2 flex flex-nowrap items-center justify-start"
               :tabindex="index"
               active-class="text-accent"
+              @click="isMobileMenuOpened = !isMobileMenuOpened"
             >
               <Icon
                 :name="option.icon ?? 'material-symbols:article-outline'"
@@ -175,15 +170,22 @@ withDefaults(defineProps<IHeaderProps>(), {
 const emit = defineEmits(['onLoginClick', 'onRegisterClick', 'onLogoutClick'])
 
 const isDark = useDark({
+  selector: 'body',
   attribute: 'data-theme',
   valueDark: 'dracula',
-  valueLight: 'valentine',
+  valueLight: 'light',
 })
 const toggleDark = useToggle(isDark)
 const user = useStrapiUser()
 const { logout } = useStrapiAuth()
 const isMobileMenuOpened = ref(false)
 
-const onLoginClick = () => emit('onLoginClick')
-const onRegisterClick = () => emit('onRegisterClick')
+const onLoginClick = () => {
+  emit('onLoginClick')
+  isMobileMenuOpened.value = !isMobileMenuOpened.value
+}
+const onRegisterClick = () => {
+  emit('onRegisterClick')
+  isMobileMenuOpened.value = !isMobileMenuOpened.value
+}
 </script>

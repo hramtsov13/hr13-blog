@@ -1,0 +1,139 @@
+name: Automated Deployment
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test-app:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Get the code from the repo
+        uses: actions/checkout@v3
+      - name: Set node version - 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "yarn"
+      - name: Install dependencies
+        run: |
+          cd frontend
+          yarn install
+      - name: Test app
+        run: |
+          cd frontend 
+          npx nuxi prepare && yarn test
+
+  build-app:
+    needs: ["test-app"]
+    strategy:
+      matrix:
+        node-version: [16]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Get the code from the repo
+        uses: actions/checkout@v3
+      - name: Set node version
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+      - name: Install dependencies
+        run: |
+          cd frontend
+          yarn install
+      - name: Build app
+        run: |
+          cd frontend
+          yarn build
+  activate-release:
+    name: "Activate release"
+    needs: [build-app]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Activate release
+        uses: appleboy/ssh-action@master
+        env:
+          RELEASE_PATH: projects/blog/front/releases/${{ github.sha }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          port: ${{ secrets.VPS_PORT }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          envs: GITHUB_SHA
+          script: |
+            cd hr13-blog && git pull && cd frontend && yarn build && pm2 restart front --update-env
+            cd hr13-blog/backend/ && yarn build && pm2 restart back --update-env
+
+  # prepare-release-on-server:
+  #   needs: [build-app]
+  #   name: "Prepare release on server"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/download-artifact@v3
+  #       with:
+  #         name: front-build
+  #     - name: Upload front artifacts
+  #       uses: appleboy/scp-action@master
+  #       with:
+  #         host: ${{ secrets.VPS_HOST }}
+  #         username: ${{ secrets.VPS_USERNAME }}
+  #         port: ${{ secrets.VPS_PORT }}
+  #         password: ${{ secrets.VPS_PASSWORD }}
+  #         source: ${{ github.sha }}.tar.gz
+  #         target: projects/blog/front/artifacts
+  #     - name: Extract archive
+  #       uses: appleboy/ssh-action@master
+  #       env:
+  #         GITHUB_SHA: ${{ github.sha }}
+  #       with:
+  #         host: ${{ secrets.VPS_HOST }}
+  #         username: ${{ secrets.VPS_USERNAME }}
+  #         port: ${{ secrets.VPS_PORT }}
+  #         password: ${{ secrets.VPS_PASSWORD }}
+  #         envs: GITHUB_SHA
+  #         script: |
+  #           mkdir -p "projects/blog/front/releases/${GITHUB_SHA}"
+  #           tar xzf projects/blog/front/artifacts/${GITHUB_SHA}.tar.gz -C "projects/blog/front/releases/${GITHUB_SHA}"
+  #           rm -rf projects/blog/front/artifacts/${GITHUB_SHA}.tar.gz
+  # activate-release:
+  #   name: "Activate release"
+  #   needs: [prepare-release-on-server]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Activate release
+  #       uses: appleboy/ssh-action@master
+  #       env:
+  #         RELEASE_PATH: projects/blog/front/releases/${{ github.sha }}
+  #       with:
+  #         host: ${{ secrets.VPS_HOST }}
+  #         username: ${{ secrets.VPS_USERNAME }}
+  #         port: ${{ secrets.VPS_PORT }}
+  #         password: ${{ secrets.VPS_PASSWORD }}
+  #         envs: GITHUB_SHA
+  #         script: |
+  #           mkdir -p "projects/blog/front/releases/${GITHUB_SHA}"
+  #           tar xzf projects/blog/front/artifacts/${GITHUB_SHA}.tar.gz -C "projects/blog/front/releases/${GITHUB_SHA}"
+  #           rm -rf projects/blog/front/artifacts/${GITHUB_SHA}.tar.gz
+  # clean-up:
+  #   name: "Clean up old versions"
+  #   needs: [activate-release]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Clean up old releases
+  #       uses: appleboy/ssh-action@master
+  #       env:
+  #         RELEASE_PATH: projects/blog/front/releases/${{ github.sha }}
+  #       with:
+  #         host: ${{ secrets.VPS_HOST }}
+  #         username: ${{ secrets.VPS_USERNAME }}
+  #         port: ${{ secrets.VPS_PORT }}
+  #         password: ${{ secrets.VPS_PASSWORD }}
+  #         script: |
+  #           cd projects/blog/front/releases && ls -t -1 | tail -n +4 | xargs rm -rf
+  #           cd projects/blog/front/artifacts && rm -rf *
+  #     - uses: geekyeggo/delete-artifact@v1
+  #       with:
+  #         name: front-build

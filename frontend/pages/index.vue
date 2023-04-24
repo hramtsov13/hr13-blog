@@ -1,25 +1,66 @@
 <template>
   <Head>
-    <Title> Blog | Main Page </Title>
+    <Title>
+      {{
+        $t('articleCategory.meta.title', {
+          separator: '|',
+          category: 'Articles Digest',
+        })
+      }}
+    </Title>
   </Head>
 
-  <div class="flex h-full items-center justify-center font-mono">
-    <main>
-      <h1 class="mb-10 whitespace-nowrap text-center text-4xl">
-        {{ $t('service.title') }}
-      </h1>
+  <div class="py-4 font-mono md:pt-6">
+    <h1 class="text-md mb-4 font-mono sm:text-xl md:mb-10 md:text-4xl">
+      {{ $t('allArticles.title') }}.
+    </h1>
 
-      <article>
-        <div class="text-center">
-          <p>{{ $t('main.message1') }}</p>
-          <p>{{ $t('main.message2') }}</p>
-        </div>
-      </article>
-    </main>
+    <ParticlesArticlesSlider
+      :options="frontendArticles"
+      :title="$t('service.frontend')"
+    />
+
+    <ParticlesArticlesSlider
+      :options="backendArticles"
+      :title="$t('service.backend')"
+    />
+
+    <ParticlesArticlesSlider
+      :options="otherArticles"
+      :title="$t('service.other')"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import { IArticleInstanceAttributes } from '@/utils/types'
+
+const { find } = useStrapi()
+
+const { data: articles } = await useAsyncData('articles', () =>
+  find<IArticleInstanceAttributes>('articles', {
+    populate: 'cover',
+  })
+)
+
+const frontendArticles = computed(() =>
+  articles.value?.data.filter(
+    (article) => article.attributes.category === 'frontend'
+  )
+)
+
+const otherArticles = computed(() =>
+  articles.value?.data.filter(
+    (article) => article.attributes.category === 'other'
+  )
+)
+
+const backendArticles = computed(() =>
+  articles.value?.data.filter(
+    (article) => article.attributes.category === 'backend'
+  )
+)
+
 definePageMeta({
   layout: 'main-layout',
 })

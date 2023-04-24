@@ -4,7 +4,7 @@
     :class="[
       'btn !h-auto !min-h-0 whitespace-nowrap px-2 py-2.5 font-mono md:px-2 md:py-4 ',
       {
-        'btn-link text-accent hover:duration-0 border-none bg-transparent p-0 hover:transform-none hover:border-none hover:bg-transparent':
+        'btn-link text-accent border-none bg-transparent p-0 hover:transform-none hover:border-none hover:bg-transparent hover:duration-0':
           plain || false,
       },
       { 'btn-circle': icon || false },

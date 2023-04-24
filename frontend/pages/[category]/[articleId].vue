@@ -19,7 +19,7 @@
       />
     </div>
 
-    <UiTheCard class="px-2 py-4 sm:py-8 sm:px-4">
+    <UiTheCard class="px-2 py-4 sm:px-4 sm:py-8">
       <section class="mb-4 px-2.5 md:mb-8 md:px-6">
         <h1
           class="md:leading-auto mb-2 text-lg leading-5 md:mb-4 md:text-4xl md:leading-8"
