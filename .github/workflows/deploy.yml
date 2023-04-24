@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feat/gh-actions
 jobs:
   test-app:
     runs-on: ubuntu-latest
