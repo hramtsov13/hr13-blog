@@ -45,7 +45,7 @@ const config = useRuntimeConfig()
 
 const articleLink = computed(() => {
   if (props.article) {
-    return `/articles/${props.article.attributes.category}/${props.article.id}`
+    return `/${props.article.attributes.category}/${props.article.id}`
   }
 
   return '/'

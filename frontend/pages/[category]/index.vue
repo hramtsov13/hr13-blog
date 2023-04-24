@@ -23,7 +23,7 @@
         "
       ></p>
       <p>{{ $t('articleCategory.emptyCategory.message2') }}</p>
-      <NuxtLink class="mt-6 block" to="/articles">
+      <NuxtLink class="mt-6 block" to="/">
         <UiTheButton>
           {{ $t('articleCategory.emptyCategory.backButton') }}
         </UiTheButton>
@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div v-else class="grid grid-cols-12 gap-4">
+  <div v-else class="grid grid-cols-12 gap-4 pb-4">
     <ParticlesArticlesCard
       v-for="article in specificCategoryArticles"
       :key="article.id"
