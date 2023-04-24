@@ -1,8 +1,0 @@
-name: Print pull request context
-on: workflow_dispatch
-jobs:
-  print:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print context
-        run: echo "${{ github }}"
