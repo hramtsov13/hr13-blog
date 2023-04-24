@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="max-w-75 sm:max-w-75 bg-base-300 relative hidden w-full pb-10 shadow-xl transition-all duration-200 md:block"
+    class="max-w-50 lg:max-w-75 bg-base-300 relative hidden w-full pb-10 shadow-xl transition-all duration-200 md:block"
     :class="{ '!max-w-20': !isSidebarExpanded }"
   >
     <nav class="h-full overflow-y-scroll px-2 py-4 sm:px-4 sm:py-8">
@@ -37,7 +37,7 @@
               :class="{ 'mr-0': !isSidebarExpanded }"
             />
             <span
-              class="inline-block font-mono text-inherit transition duration-500"
+              class="xl:text-md inline-block text-left font-mono text-sm text-inherit transition duration-500"
               :class="{
                 'invisible absolute h-0 w-0 opacity-0': !isSidebarExpanded,
               }"
@@ -65,7 +65,9 @@
             'invisible absolute h-0 w-0 opacity-0': !isSidebarExpanded,
           }"
         >
-          <span class="block font-mono font-medium capitalize leading-4">
+          <span
+            class="md:text-md lg:text-md block font-mono text-sm font-medium capitalize leading-4"
+          >
             {{ user.name }} {{ user.surname }}
           </span>
           <span class="text-accent block font-mono text-[0.7rem] underline">
