@@ -20,19 +20,19 @@
     </div>
 
     <UiTheCard class="px-2 py-4 sm:px-4 sm:py-8">
-      <section class="mb-4 px-2.5 md:mb-8 md:px-6">
+      <section class="mb-6 px-2.5 md:mb-8 md:px-6">
         <h1
-          class="md:leading-auto mb-2 text-lg leading-5 md:mb-4 md:text-4xl md:leading-8"
+          class="md:leading-auto mb-4 text-2xl leading-5 md:mb-4 md:text-4xl md:leading-8"
         >
           {{ article.attributes.title }}
         </h1>
-        <p class="md:leading-auto text-0.8rem leading-4 md:text-xl">
+        <p class="md:leading-auto text-lg leading-5 md:text-xl">
           {{ article.attributes.description }}
         </p>
       </section>
 
       <section
-        class="text-md md:leading-auto strapi-html px-2.5 py-1.5 leading-5 md:px-6 md:py-4 md:text-lg"
+        class="md:leading-auto strapi-html px-2.5 py-1.5 text-lg leading-5 md:px-6 md:py-4 md:text-lg"
         v-html="article.attributes.content"
       />
 
@@ -72,7 +72,7 @@
           </div>
         </template>
         <template v-else>
-          <p class="py-4 text-center text-lg md:py-8 md:text-xl">
+          <p class="py-2 text-center text-sm md:py-8 md:text-lg">
             {{ $t('articlePage.comments.empty') }}
           </p>
         </template>

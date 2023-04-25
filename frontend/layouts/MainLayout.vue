@@ -45,6 +45,59 @@
             </div>
           </div>
           <slot v-else />
+
+          <notifications position="top right" max="5">
+            <template #body="props">
+              <div
+                :class="[
+                  'alert alert-info my-2 flex-col items-start justify-start gap-0 text-left shadow-md',
+                  { 'alert-error': props.item.type === 'error' },
+                  { 'alert-warning': props.item.type === 'warn' },
+                  { 'alert-success': props.item.type === 'success' },
+                ]"
+              >
+                <p class="text-sm font-bold capitalize">
+                  <span v-if="props.item.title">
+                    {{ props.item.title }}
+                  </span>
+                  <span v-else-if="!props.item.title && props.item.type">{{
+                    props.item.type
+                  }}</span>
+                  <span v-else> Info </span>
+                </p>
+
+                <div v-if="props.item.text">
+                  <Icon
+                    :name="
+                      props.item.type === 'error'
+                        ? 'ion:ios-close-circle-outline'
+                        : props.item.type === 'warn'
+                        ? 'uiw:warning-o'
+                        : props.item.type === 'success'
+                        ? 'clarity:success-standard-line'
+                        : 'material-symbols:info-outline'
+                    "
+                    size="1.4rem"
+                  />
+                  <div>
+                    <p class="text-sm leading-4">
+                      {{ props.item.text }}
+                    </p>
+                    <div v-if="props.item.data">
+                      <p
+                        v-for="(item, index) in props.item.data"
+                        :key="index"
+                        class="text-xs"
+                      >
+                        {{ item }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <p v-else>Something went wrong</p>
+              </div>
+            </template>
+          </notifications>
         </div>
       </div>
     </div>

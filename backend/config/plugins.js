@@ -7,9 +7,9 @@ module.exports = ({ env }) => {
           apiKey: env("SENDGRID_API_KEY"),
         },
         settings: {
-          defaultFrom: "juliasedefdjian@strapi.io",
-          defaultReplyTo: "juliasedefdjian@strapi.io",
-          testAddress: "juliasedefdjian@strapi.io",
+          defaultFrom: "support@blog.hr13.ru",
+          defaultReplyTo: "support@blog.hr13.ru",
+          testAddress: "misha1301e@mail.ru",
         },
       },
     },

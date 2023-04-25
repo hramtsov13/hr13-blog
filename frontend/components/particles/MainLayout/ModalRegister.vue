@@ -78,6 +78,7 @@
 <script lang="ts" setup>
 import { useField, useForm, useIsFormValid } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import { useNotification } from '@kyvg/vue3-notification'
 
 interface IModalRegister {
   modelValue: boolean
@@ -90,6 +91,7 @@ const emits = defineEmits(['update:model-value', 'on-login-click'])
 
 const { t } = useI18n()
 const { register } = useStrapiAuth()
+const { notify } = useNotification()
 
 const { handleSubmit, isSubmitting } = useForm({
   validationSchema: {
@@ -145,18 +147,30 @@ const onSubmit = handleSubmit(
       })
 
       if (newUser !== null) {
-        console.log('newUser: ', newUser)
-
         error.value = ''
-        // localStorage.setItem('userData', JSON.stringify(newUser))
         resetForm()
+        notify({
+          text: 'We have sent you an e-mail',
+          type: 'success',
+          duration: 3000,
+          id: Date.now(),
+          closeOnClick: true,
+        })
         closeModal()
       }
     } catch (e: any) {
       error.value = e.error.message
       registerForm.password.value = ''
-      console.log('e.error.message: ', e.error.message)
-      console.log('error.value: ', error.value)
+      notify({
+        text: 'Something went wrong, try again',
+        type: 'error',
+        duration: 3000,
+        id: Date.now(),
+        closeOnClick: true,
+        data: {
+          text: e.error.message,
+        },
+      })
     }
   }
 )

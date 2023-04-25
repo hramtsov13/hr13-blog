@@ -158,6 +158,8 @@
 <script lang="ts" setup>
 import { ISidebarOption, TUser } from '@/utils/types'
 import { useDark, useToggle } from '@vueuse/core'
+import { useNotification } from '@kyvg/vue3-notification'
+
 interface IHeaderProps {
   options: Array<ISidebarOption>
   user: TUser
@@ -168,6 +170,8 @@ withDefaults(defineProps<IHeaderProps>(), {
   user: null,
 })
 const emit = defineEmits(['onLoginClick', 'onRegisterClick', 'onLogoutClick'])
+
+const { notify } = useNotification()
 
 const isDark = useDark({
   selector: 'body',
@@ -182,10 +186,17 @@ const isMobileMenuOpened = ref(false)
 
 const onLoginClick = () => {
   emit('onLoginClick')
-  isMobileMenuOpened.value = !isMobileMenuOpened.value
+  // isMobileMenuOpened.value = !isMobileMenuOpened.value
 }
 const onRegisterClick = () => {
   emit('onRegisterClick')
-  isMobileMenuOpened.value = !isMobileMenuOpened.value
+  // isMobileMenuOpened.value = !isMobileMenuOpened.value
 }
 </script>
+
+<style lang="scss">
+.vue-notification-group {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+</style>
