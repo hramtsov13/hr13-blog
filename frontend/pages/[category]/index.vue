@@ -10,7 +10,7 @@
     </Title>
   </Head>
 
-  <div
+  <!-- <div
     v-if="!specificCategoryArticles || !specificCategoryArticles.length"
     class="flex h-full items-center justify-center text-center font-mono text-2xl"
   >
@@ -29,9 +29,9 @@
         </UiTheButton>
       </NuxtLink>
     </div>
-  </div>
+  </div> -->
 
-  <div v-else class="grid grid-cols-12 gap-4 pb-4">
+  <div class="grid grid-cols-12 gap-4 pb-4">
     <ParticlesArticlesCard
       v-for="article in specificCategoryArticles"
       :key="article.id"

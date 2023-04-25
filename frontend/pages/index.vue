@@ -34,14 +34,26 @@
 
 <script setup lang="ts">
 import { IArticleInstanceAttributes } from '@/utils/types'
+import { useNotification } from '@kyvg/vue3-notification'
 
 const { find } = useStrapi()
+const { notify } = useNotification()
 
 const { data: articles } = await useAsyncData('articles', () =>
   find<IArticleInstanceAttributes>('articles', {
     populate: 'cover',
   })
 )
+
+if (articles.value === null) {
+  notify({
+    text: 'Something went wrong, try later',
+    type: 'error',
+    duration: 7000,
+    id: Date.now(),
+    closeOnClick: true,
+  })
+}
 
 const frontendArticles = computed(() =>
   articles.value?.data.filter(

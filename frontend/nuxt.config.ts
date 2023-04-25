@@ -60,6 +60,7 @@ export default {
   plugins: [
     { src: '@/plugins/vee-validate.ts', mode: 'client' },
     '@/plugins/i18n.ts',
+    { src: '@/plugins/notifications', ssr: false },
   ],
 
   vite: {

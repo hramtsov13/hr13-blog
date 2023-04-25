@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@intlify/nuxt3": "^0.2.4",
+    "@kyvg/vue3-notification": "^2.9.0",
     "@pinia/nuxt": "^0.4.3",
     "@vee-validate/i18n": "^4.7.3",
     "@vee-validate/rules": "^4.7.3",
