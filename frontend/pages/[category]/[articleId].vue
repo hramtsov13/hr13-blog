@@ -104,9 +104,11 @@
 <script setup lang="ts">
 import { IArticleInstanceAttributes, IComment } from '@/utils/types'
 import { useField, useForm, useIsFormValid } from 'vee-validate'
+import { useNotification } from '@kyvg/vue3-notification'
 
 const route = useRoute()
 const searchableArticleId = route.params.articleId as string
+const { notify } = useNotification()
 
 const { findOne, delete: _delete } = useStrapi()
 const config = useRuntimeConfig()
@@ -158,7 +160,20 @@ const sendNewComment = handleSubmit(async (formData, { resetForm }) => {
     )
     await refreshComments()
     resetForm()
+
+    notify({
+      text: 'Your comment has been posted!',
+      type: 'success',
+      duration: 3000,
+      id: Date.now(),
+    })
   } catch (e: any) {
+    notify({
+      text: 'Something went wrong, try again later',
+      type: 'error',
+      duration: 3000,
+      id: Date.now(),
+    })
     throw new Error(e)
   }
 })
@@ -167,7 +182,20 @@ const deleteComment = async (commentToDelete: IComment) => {
   try {
     await _delete<IComment>('comments', commentToDelete.id)
     await refreshComments()
+
+    notify({
+      text: 'Your comment has been deleted!',
+      type: 'success',
+      duration: 3000,
+      id: Date.now(),
+    })
   } catch (e: any) {
+    notify({
+      text: 'Something went wrong, try again later',
+      type: 'error',
+      duration: 3000,
+      id: Date.now(),
+    })
     throw new Error(e)
   }
 }

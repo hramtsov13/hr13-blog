@@ -58,10 +58,12 @@
 import { useField, useForm, useIsFormValid } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
 import { TUser } from '@/utils/types'
+import { useNotification } from '@kyvg/vue3-notification'
 
 const user = useStrapiUser<TUser>()
 const config = useRuntimeConfig()
 const token = useStrapiToken()
+const { notify } = useNotification()
 
 const { t } = useI18n()
 
@@ -99,18 +101,29 @@ const onUserDataUpdateSubmit = handleSubmit(async (formData) => {
   try {
     // Custom route defined in strapi to update user data (don't mixt it up with userS/me)
 
-    await useAsyncData(() =>
-      $fetch(`${config.strapi.url}/api/user/me`, {
-        method: 'PUT',
-        headers: {
-          authorization: `Bearer ${token.value}`,
-        },
-        body: formData,
-      })
-    )
+    await $fetch(`${config.strapi.url}/api/user/me`, {
+      method: 'PUT',
+      headers: {
+        authorization: `Bearer ${token.value}`,
+      },
+      body: formData,
+    })
 
     user.value = useStrapiUser<TUser>().value
+
+    notify({
+      text: 'Profile has been successfully updated',
+      type: 'success',
+      duration: 3000,
+      id: Date.now(),
+    })
   } catch (e: any) {
+    notify({
+      text: 'Something went wrong, try again later',
+      type: 'error',
+      duration: 3000,
+      id: Date.now(),
+    })
     error.value = e.error.message
   }
 })

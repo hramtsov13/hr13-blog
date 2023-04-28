@@ -55,8 +55,6 @@ jobs:
     steps:
       - name: Activate release
         uses: appleboy/ssh-action@master
-        env:
-          RELEASE_PATH: projects/blog/front/releases/${{ github.sha }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
@@ -65,8 +63,8 @@ jobs:
           envs: GITHUB_SHA
           script: |
             cd hr13-blog && git pull && cd frontend && yarn && yarn build && pm2 restart front --update-env
-            cd ../ && cd backend && yarn build && pm2 restart back --update-env
 
+  # cd ../ && cd backend && yarn build && pm2 restart back --update-env
   # prepare-release-on-server:
   #   needs: [build-app]
   #   name: "Prepare release on server"
