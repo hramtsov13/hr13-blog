@@ -63,12 +63,13 @@
 <script setup lang="ts">
 import { useField, useForm, useIsFormValid } from 'vee-validate'
 import { useI18n } from 'vue-i18n'
+import { useNotification } from '@kyvg/vue3-notification'
 
 const isPasswordValid = ref(false)
-const error = ref('')
 const { t } = useI18n()
 const config = useRuntimeConfig()
 const token = useStrapiToken()
+const { notify } = useNotification()
 
 const { handleSubmit, isSubmitting } = useForm({
   validationSchema: {
@@ -97,19 +98,30 @@ const isFormValid = useIsFormValid()
 
 const onPasswordChangeSubmit = handleSubmit(async (formData, { resetForm }) => {
   try {
-    await useAsyncData(() =>
-      $fetch(`${config.strapi.url}/api/auth/change-password`, {
-        method: 'POST',
-        headers: {
-          authorization: `Bearer ${token.value}`,
-        },
-        body: formData,
-      })
-    )
+    await $fetch(`${config.strapi.url}/api/auth/change-password`, {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${token.value}`,
+      },
+      body: formData,
+    })
+
+    notify({
+      text: 'Password has been successfully updated',
+      type: 'success',
+      duration: 3000,
+      id: Date.now(),
+    })
 
     resetForm()
+    return
   } catch (e: any) {
-    error.value = e.error.message
+    notify({
+      text: 'Something went wrong, try again later',
+      type: 'error',
+      duration: 3000,
+      id: Date.now(),
+    })
   }
 })
 </script>

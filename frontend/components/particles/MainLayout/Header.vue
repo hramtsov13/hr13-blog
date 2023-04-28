@@ -43,7 +43,7 @@
           v-else
           class="text-accent !h-3rem mx-2 !p-2"
           icon
-          @click="logout"
+          @click="onLogoutClick"
         >
           <Icon name="ion:log-out-outline" size="1.5rem" />
         </UiTheButton>
@@ -98,7 +98,7 @@
           <UiTheButton
             class="text-accent !h-3rem mx-2 !p-2"
             plain
-            @click="logout"
+            @click="onLogoutClick"
           >
             <Icon name="ion:log-out-outline" size="1.5rem" />
           </UiTheButton>
@@ -186,11 +186,18 @@ const isMobileMenuOpened = ref(false)
 
 const onLoginClick = () => {
   emit('onLoginClick')
-  // isMobileMenuOpened.value = !isMobileMenuOpened.value
 }
 const onRegisterClick = () => {
   emit('onRegisterClick')
-  // isMobileMenuOpened.value = !isMobileMenuOpened.value
+}
+const onLogoutClick = () => {
+  logout()
+  notify({
+    text: 'You have logged out',
+    type: 'success',
+    duration: 3000,
+    id: Date.now(),
+  })
 }
 </script>
 

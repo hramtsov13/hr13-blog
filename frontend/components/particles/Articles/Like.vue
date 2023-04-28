@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import { ILike, TUser } from '@/utils/types'
+import { useNotification } from '@kyvg/vue3-notification'
 
 interface ILikeProps {
   articleId: string | null
@@ -27,6 +28,7 @@ const { delete: _delete } = useStrapi()
 const config = useRuntimeConfig()
 const token = useStrapiToken()
 const user = useStrapiUser<TUser>()
+const { notify } = useNotification()
 
 const { data: likes, refresh: refreshLikes } = await useAsyncData('likes', () =>
   $fetch<ILike[]>(`${config.strapi.url}/api/articles/${props.articleId}/likes`)
@@ -56,9 +58,23 @@ const addLike = async () => {
         },
       }
     )
+
     await refreshDidLikeState()
     await refreshLikes()
+
+    notify({
+      text: 'You have liked the article!',
+      type: 'success',
+      duration: 3000,
+      id: Date.now(),
+    })
   } catch (e: any) {
+    notify({
+      text: 'Something went wrong, try again later',
+      type: 'error',
+      duration: 3000,
+      id: Date.now(),
+    })
     throw new Error(e)
   }
 }
@@ -69,8 +85,21 @@ const removeLike = async () => {
       await _delete<ILike>('likes', currentUsersLike.value[0].id)
       await refreshDidLikeState()
       await refreshLikes()
+
+      notify({
+        text: 'You have removed your like!',
+        type: 'success',
+        duration: 3000,
+        id: Date.now(),
+      })
     }
   } catch (e: any) {
+    notify({
+      text: 'Something went wrong, try again later',
+      type: 'error',
+      duration: 3000,
+      id: Date.now(),
+    })
     throw new Error(e)
   }
 }
