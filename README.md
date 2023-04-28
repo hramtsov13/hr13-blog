@@ -55,10 +55,4 @@ Backend
 
 ## Roadmap
 
-- Fix UI issues
-
-- Add CI/CD via docker and github actions (in progress)
-
 - Allow users to create articles
-
-- Landing page on "/" with latest articles
